@@ -1,0 +1,354 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="python" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>fbd_interpreter.explainers.core &mdash; fbd_interpreter 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> fbd_interpreter
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference/index.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes/index.html">Release notes</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">fbd_interpreter</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>fbd_interpreter.explainers.core</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for fbd_interpreter.explainers.core</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="kn">from</span> <span class="nn">fbd_interpreter.explainers.dl.explain_dl</span> <span class="kn">import</span> <span class="n">ExplainDL</span>
+<span class="kn">from</span> <span class="nn">fbd_interpreter.explainers.ml.explain_ml</span> <span class="kn">import</span> <span class="n">ExplainML</span>
+<span class="kn">from</span> <span class="nn">fbd_interpreter.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">fbd_interpreter.resource.data_loader</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">load_json_resource</span><span class="p">,</span>
+    <span class="n">load_pickle_resource</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">fbd_interpreter.utils</span> <span class="kn">import</span> <span class="n">check_and_load_data</span><span class="p">,</span> <span class="n">optimize</span>
+
+
+<div class="viewcode-block" id="interpret_ml"><a class="viewcode-back" href="../../../api_reference/generated/fbd_interpreter.explainers.core.interpret_ml.html#fbd_interpreter.explainers.core.interpret_ml">[docs]</a><span class="k">def</span> <span class="nf">interpret_ml</span><span class="p">(</span>
+    <span class="n">config_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+    <span class="n">interpret_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mix&quot;</span><span class="p">,</span>
+    <span class="n">use_ale</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">use_pdp_ice</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">use_shap</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Interpret locally, globally or both any ML model using PDP, ICE, ALE &amp; SHAP.</span>
+<span class="sd">    Note that to speed up computations, we apply the function `optimize` to reduce the pandas</span>
+<span class="sd">    dataframes memory usage, by downcasting the columns automatically to the smallest possible</span>
+<span class="sd">    datatype without losing any information.</span>
+<span class="sd">    Outputs are saved in the given output path from the config file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    config_values: Dict[str, str]</span>
+<span class="sd">        configuration as dictionnary from the config file located in</span>
+<span class="sd">        config/config_{type_env}.cfg</span>
+<span class="sd">    interpret_type : str, optional</span>
+<span class="sd">        Type of interpretability global, local or mix(both). (the default is &quot;mix&quot;, which implies</span>
+<span class="sd">        global and local interpretability)</span>
+<span class="sd">    use_ale : bool, optional</span>
+<span class="sd">        If True, computes ALE: Accumulated Local Effects.</span>
+<span class="sd">        Can only be used for numerical features. (the default is True)</span>
+<span class="sd">    use_pdp_ice : bool, optional</span>
+<span class="sd">        If True, computes PDP &amp; ICE: Partial Dependency &amp; Individual Expectation plots.</span>
+<span class="sd">        (the default is True)</span>
+<span class="sd">    use_shap : bool, optional</span>
+<span class="sd">        If True, computes SHAP plots. (the default is True)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading ML model&quot;</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">load_pickle_resource</span><span class="p">(</span><span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;model_path&quot;</span><span class="p">])</span>
+    <span class="n">tree_based_model</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;tree_based_model&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;True&quot;</span> <span class="k">else</span> <span class="kc">False</span>
+
+    <span class="n">exp</span> <span class="o">=</span> <span class="n">ExplainML</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+        <span class="n">task_name</span><span class="o">=</span><span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;task_name&quot;</span><span class="p">],</span>
+        <span class="n">tree_based_model</span><span class="o">=</span><span class="n">tree_based_model</span><span class="p">,</span>
+        <span class="n">features_name</span><span class="o">=</span><span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;features_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">),</span>
+        <span class="n">features_to_interpret</span><span class="o">=</span><span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;features_to_interpret&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">),</span>
+        <span class="n">target_col</span><span class="o">=</span><span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;target_col&quot;</span><span class="p">],</span>
+        <span class="n">out_path</span><span class="o">=</span><span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;out_path&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">interpret_type</span> <span class="o">==</span> <span class="s2">&quot;global&quot;</span> <span class="ow">or</span> <span class="n">interpret_type</span> <span class="o">==</span> <span class="s2">&quot;mix&quot;</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Interpretability type : global&quot;</span><span class="p">)</span>
+        <span class="n">train_data_path</span> <span class="o">=</span> <span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;train_data_path&quot;</span><span class="p">]</span>
+        <span class="n">train_data_format</span> <span class="o">=</span> <span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;train_data_format&quot;</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading train data&quot;</span><span class="p">)</span>
+        <span class="n">train_data</span> <span class="o">=</span> <span class="n">check_and_load_data</span><span class="p">(</span>
+            <span class="n">data_path</span><span class="o">=</span><span class="n">train_data_path</span><span class="p">,</span> <span class="n">data_format</span><span class="o">=</span><span class="n">train_data_format</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="s2">&quot;train&quot;</span>
+        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Reducing train dataframe memory usage to speed up computations&quot;</span><span class="p">)</span>
+        <span class="n">train_data</span> <span class="o">=</span> <span class="n">optimize</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">use_pdp_ice</span><span class="p">:</span>
+            <span class="n">exp</span><span class="o">.</span><span class="n">global_pdp_ice</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">use_ale</span><span class="p">:</span>
+            <span class="n">exp</span><span class="o">.</span><span class="n">global_ale</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">use_shap</span><span class="p">:</span>
+            <span class="n">exp</span><span class="o">.</span><span class="n">global_shap</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">interpret_type</span> <span class="o">==</span> <span class="s2">&quot;local&quot;</span> <span class="ow">or</span> <span class="n">interpret_type</span> <span class="o">==</span> <span class="s2">&quot;mix&quot;</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Interpretability type : local&quot;</span><span class="p">)</span>
+        <span class="n">test_data_path</span> <span class="o">=</span> <span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;test_data_path&quot;</span><span class="p">]</span>
+        <span class="n">test_data_format</span> <span class="o">=</span> <span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;test_data_format&quot;</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading test data&quot;</span><span class="p">)</span>
+        <span class="n">test_data</span> <span class="o">=</span> <span class="n">check_and_load_data</span><span class="p">(</span>
+            <span class="n">data_path</span><span class="o">=</span><span class="n">test_data_path</span><span class="p">,</span> <span class="n">data_format</span><span class="o">=</span><span class="n">test_data_format</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="s2">&quot;test&quot;</span>
+        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Reducing test dataframe memory usage to speed up computations&quot;</span><span class="p">)</span>
+        <span class="n">test_data</span> <span class="o">=</span> <span class="n">optimize</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+        <span class="n">exp</span><span class="o">.</span><span class="n">local_shap</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span>  <span class="c1"># Not supported</span></div>
+
+
+<div class="viewcode-block" id="interpret_dl"><a class="viewcode-back" href="../../../api_reference/generated/fbd_interpreter.explainers.core.interpret_dl.html#fbd_interpreter.explainers.core.interpret_dl">[docs]</a><span class="k">def</span> <span class="nf">interpret_dl</span><span class="p">(</span><span class="n">config_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Interpret locally any DL model based on user configuration from the file located in</span>
+<span class="sd">    config/config_{type_env}.cfg</span>
+<span class="sd">    Outputs are saved in the given output path from the config file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    config_values: Dict[str, str]</span>
+<span class="sd">        configuration as dictionary from the config file located in</span>
+<span class="sd">        config/config_{type_env}.cfg</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">data_type</span> <span class="o">=</span> <span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;data_type&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">data_type</span> <span class="o">!=</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span>
+        <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">disable_v2_behavior</span><span class="p">()</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading DL model&quot;</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;model_path&quot;</span><span class="p">],</span> <span class="nb">compile</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+    <span class="n">exp</span> <span class="o">=</span> <span class="n">ExplainDL</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">out_path</span><span class="o">=</span><span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;out_path&quot;</span><span class="p">])</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data type : </span><span class="si">{</span><span class="n">data_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span>
+        <span class="n">exp</span><span class="o">.</span><span class="n">explain_image</span><span class="p">(</span>
+            <span class="n">image_dir</span><span class="o">=</span><span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;images_folder_path&quot;</span><span class="p">],</span>
+            <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;img_height&quot;</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;img_width&quot;</span><span class="p">])),</span>
+            <span class="n">color_mode</span><span class="o">=</span><span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;color_mode&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">test_data_path</span> <span class="o">=</span> <span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;test_data_path&quot;</span><span class="p">]</span>
+        <span class="n">test_data_format</span> <span class="o">=</span> <span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;test_data_format&quot;</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading test data&quot;</span><span class="p">)</span>
+        <span class="n">test_data</span> <span class="o">=</span> <span class="n">check_and_load_data</span><span class="p">(</span>
+            <span class="n">data_path</span><span class="o">=</span><span class="n">test_data_path</span><span class="p">,</span> <span class="n">data_format</span><span class="o">=</span><span class="n">test_data_format</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="s2">&quot;test&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s2">&quot;tabular&quot;</span><span class="p">:</span>
+            <span class="n">exp</span><span class="o">.</span><span class="n">explain_tabular</span><span class="p">(</span>
+                <span class="n">test_data</span><span class="o">=</span><span class="n">test_data</span><span class="p">,</span>
+                <span class="n">features_name</span><span class="o">=</span><span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;features_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">),</span>
+                <span class="n">task_name</span><span class="o">=</span><span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;task_name&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span>
+            <span class="c1"># Load word2idx from json file</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading word to index json file&quot;</span><span class="p">)</span>
+            <span class="n">word2idx</span> <span class="o">=</span> <span class="n">load_json_resource</span><span class="p">(</span>
+                <span class="n">resource_file_name</span><span class="o">=</span><span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;word2index_path&quot;</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">exp</span><span class="o">.</span><span class="n">explain_text</span><span class="p">(</span>
+                <span class="n">test_data</span><span class="o">=</span><span class="n">test_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+                <span class="n">target_col</span><span class="o">=</span><span class="n">config_values</span><span class="p">[</span><span class="s2">&quot;target_col&quot;</span><span class="p">],</span>
+                <span class="n">word2idx</span><span class="o">=</span><span class="n">word2idx</span><span class="p">,</span>
+            <span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, DES Team.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

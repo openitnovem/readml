@@ -1,0 +1,6 @@
+﻿fbd\_interpreter.main.interpret
+===============================
+
+.. currentmodule:: fbd_interpreter.main
+
+.. autodata:: interpret

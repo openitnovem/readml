@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="python" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>fbd_interpreter.explainers.ml.explain_ml &mdash; fbd_interpreter 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> fbd_interpreter
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api_reference/index.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../release_notes/index.html">Release notes</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">fbd_interpreter</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>fbd_interpreter.explainers.ml.explain_ml</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for fbd_interpreter.explainers.ml.explain_ml</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">shap</span>
+
+<span class="kn">from</span> <span class="nn">fbd_interpreter.explainers.ml.shap_kernel_explainer</span> <span class="kn">import</span> <span class="n">ShapKernelExplainer</span>
+<span class="kn">from</span> <span class="nn">fbd_interpreter.explainers.ml.shap_tree_explainer</span> <span class="kn">import</span> <span class="n">ShapTreeExplainer</span>
+<span class="kn">from</span> <span class="nn">fbd_interpreter.icecream</span> <span class="kn">import</span> <span class="n">icecream</span>
+<span class="kn">from</span> <span class="nn">fbd_interpreter.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">fbd_interpreter.resource.output_builders</span> <span class="kn">import</span> <span class="n">initialize_dir</span>
+<span class="kn">from</span> <span class="nn">fbd_interpreter.utils</span> <span class="kn">import</span> <span class="n">configuration</span>
+<span class="kn">from</span> <span class="nn">fbd_interpreter.visualization.plots</span> <span class="kn">import</span> <span class="n">interpretation_plots_to_html_report</span>
+
+<span class="c1"># Get html sections path</span>
+<span class="n">html_sections</span> <span class="o">=</span> <span class="n">configuration</span><span class="p">[</span><span class="s2">&quot;PARAMS&quot;</span><span class="p">][</span><span class="s2">&quot;html_sections&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="ExplainML"><a class="viewcode-back" href="../../../../api_reference/generated/fbd_interpreter.explainers.ml.explain_ml.ExplainML.html#fbd_interpreter.explainers.ml.explain_ml.ExplainML">[docs]</a><span class="k">class</span> <span class="nc">ExplainML</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class that contains different interpretability techniques to explain the model</span>
+<span class="sd">    training (global interpretation) and its predictions (local interpretation).</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : scikit-learn model or Pyspark model</span>
+<span class="sd">        Model to compute predictions using provided data,</span>
+<span class="sd">        Any scikit-learn model, `model.predict(data)` must work</span>
+<span class="sd">        Note that you can also use a pyspark model if you are only using SHAP</span>
+<span class="sd">        interpretation</span>
+<span class="sd">    task_name : str</span>
+<span class="sd">        Task name: choose from supported_tasks in config/config_{type_env}.cfg</span>
+<span class="sd">    tree_based_model : bool</span>
+<span class="sd">        If True, we use Tree SHAP algorithms to explain the output of ensemble tree</span>
+<span class="sd">        models</span>
+<span class="sd">    features_name : List[str]</span>
+<span class="sd">        List of features names used to train the model</span>
+<span class="sd">    features_to_interpret : List[str]</span>
+<span class="sd">        List of features to interpret using pdp, ice and ale</span>
+<span class="sd">    target_col : str</span>
+<span class="sd">        name of target column</span>
+<span class="sd">    out_path : str</span>
+<span class="sd">        Output path used to save interpretability plots</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ExplainML.__init__"><a class="viewcode-back" href="../../../../api_reference/generated/fbd_interpreter.explainers.ml.explain_ml.ExplainML.html#fbd_interpreter.explainers.ml.explain_ml.ExplainML.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">task_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">tree_based_model</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">features_name</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">features_to_interpret</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">target_col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">out_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">features_name</span> <span class="o">=</span> <span class="n">features_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">features_to_interpret</span> <span class="o">=</span> <span class="n">features_to_interpret</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_col</span> <span class="o">=</span> <span class="n">target_col</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">task_name</span> <span class="o">=</span> <span class="n">task_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree_based_model</span> <span class="o">=</span> <span class="n">tree_based_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_path</span> <span class="o">=</span> <span class="n">out_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_path_global</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="s2">&quot;global_interpretation&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_path_local</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="s2">&quot;local_interpretation&quot;</span><span class="p">)</span>
+        <span class="c1"># Check if output_dir tree exists if not it will be created</span>
+        <span class="n">initialize_dir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_path</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">global_pdp_ice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute and save Partial Dependency and Individual Conditional Expectation plots</span>
+<span class="sd">        using icecream module for global interpretation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        train_data : pd.DataFrame</span>
+<span class="sd">            Dataframe of model inputs, used to explain the model</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">classif</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task_name</span> <span class="o">==</span> <span class="s2">&quot;classification&quot;</span> <span class="k">else</span> <span class="kc">False</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Computing PDP &amp; ice&quot;</span><span class="p">)</span>
+        <span class="n">pdp_plots</span> <span class="o">=</span> <span class="n">icecream</span><span class="o">.</span><span class="n">IceCream</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">train_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">target_col</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">feature_names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">features_to_interpret</span><span class="p">,</span>
+            <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+            <span class="n">targets</span><span class="o">=</span><span class="n">train_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target_col</span><span class="p">],</span>
+            <span class="n">use_classif_proba</span><span class="o">=</span><span class="n">classif</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">figs_pdp</span> <span class="o">=</span> <span class="n">pdp_plots</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;pdp&quot;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">figs_ice</span> <span class="o">=</span> <span class="n">pdp_plots</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;ice&quot;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving PD plots in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_path_global</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">interpretation_plots_to_html_report</span><span class="p">(</span>
+            <span class="n">dic_figs</span><span class="o">=</span><span class="n">figs_pdp</span><span class="p">,</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_path_global</span><span class="p">,</span> <span class="s2">&quot;partial_dependency_plots.html&quot;</span><span class="p">),</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Partial dependency plots &quot;</span><span class="p">,</span>
+            <span class="n">plot_type</span><span class="o">=</span><span class="s2">&quot;PDP&quot;</span><span class="p">,</span>
+            <span class="n">html_sections</span><span class="o">=</span><span class="n">html_sections</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving ICE plots in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_path_global</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">interpretation_plots_to_html_report</span><span class="p">(</span>
+            <span class="n">dic_figs</span><span class="o">=</span><span class="n">figs_ice</span><span class="p">,</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">out_path_global</span><span class="p">,</span> <span class="s2">&quot;individual_conditional_expectation_plots.html&quot;</span>
+            <span class="p">),</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Individual Conditional Expectation (ICE) plots &quot;</span><span class="p">,</span>
+            <span class="n">plot_type</span><span class="o">=</span><span class="s2">&quot;ICE&quot;</span><span class="p">,</span>
+            <span class="n">html_sections</span><span class="o">=</span><span class="n">html_sections</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">global_ale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute and save Accumulated Local Effect plots using icecream module for global</span>
+<span class="sd">        interpretation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        train_data : pd.DataFrame</span>
+<span class="sd">            Dataframe of model inputs, used to explain the model</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">classif</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task_name</span> <span class="o">==</span> <span class="s2">&quot;classification&quot;</span> <span class="k">else</span> <span class="kc">False</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Computing ALE&quot;</span><span class="p">)</span>
+        <span class="n">ale_plots</span> <span class="o">=</span> <span class="n">icecream</span><span class="o">.</span><span class="n">IceCream</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">train_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">features_name</span><span class="p">],</span>
+            <span class="n">feature_names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">features_to_interpret</span><span class="p">,</span>
+            <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+            <span class="n">targets</span><span class="o">=</span><span class="n">train_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target_col</span><span class="p">],</span>
+            <span class="n">use_classif_proba</span><span class="o">=</span><span class="n">classif</span><span class="p">,</span>
+            <span class="n">use_ale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">figs_ale</span> <span class="o">=</span> <span class="n">ale_plots</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;ale&quot;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving ALE plots in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_path_global</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">interpretation_plots_to_html_report</span><span class="p">(</span>
+            <span class="n">dic_figs</span><span class="o">=</span><span class="n">figs_ale</span><span class="p">,</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">out_path_global</span><span class="p">,</span> <span class="s2">&quot;accumulated_local_effects_plots.html&quot;</span>
+            <span class="p">),</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Accumulated Local Effects (ALE) plots &quot;</span><span class="p">,</span>
+            <span class="n">plot_type</span><span class="o">=</span><span class="s2">&quot;ALE&quot;</span><span class="p">,</span>
+            <span class="n">html_sections</span><span class="o">=</span><span class="n">html_sections</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">global_shap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute and save SHAP summary plots for global interpretation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        train_data : pd.DataFrame</span>
+<span class="sd">            Dataframe of model inputs, used to explain the model</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">classif</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task_name</span> <span class="o">==</span> <span class="s2">&quot;classification&quot;</span> <span class="k">else</span> <span class="kc">False</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Computing SHAP&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree_based_model</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;You are using a tree based model, if it&#39;s not the case, &quot;</span>
+                <span class="s2">&quot;please set tree_based_model to False in &quot;</span>
+                <span class="s2">&quot;config/config_</span><span class="si">{type_env}</span><span class="s2">.cfg&quot;</span>
+            <span class="p">)</span>
+
+            <span class="n">shap_exp</span> <span class="o">=</span> <span class="n">ShapTreeExplainer</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">features_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">features_name</span><span class="p">,</span> <span class="n">classif</span><span class="o">=</span><span class="n">classif</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree_based_model</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;You are using a non tree based model, if it&#39;s not the case, &quot;</span>
+                <span class="s2">&quot;please set tree_based_model to True in &quot;</span>
+                <span class="s2">&quot;config/config_</span><span class="si">{type_env}</span><span class="s2">.cfg&quot;</span>
+            <span class="p">)</span>
+            <span class="n">shap_exp</span> <span class="o">=</span> <span class="n">ShapKernelExplainer</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">features_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">features_name</span><span class="p">,</span> <span class="n">classif</span><span class="o">=</span><span class="n">classif</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="s2">&quot;Please set tree_based_model to True or False in &quot;</span>
+                <span class="s2">&quot;config/config_</span><span class="si">{type_env}</span><span class="s2">.cfg&quot;</span>
+            <span class="p">)</span>
+        <span class="n">shap_fig_1</span><span class="p">,</span> <span class="n">shap_fig_2</span> <span class="o">=</span> <span class="n">shap_exp</span><span class="o">.</span><span class="n">global_explainer</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
+        <span class="n">dict_figs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Summary bar plot&quot;</span><span class="p">:</span> <span class="n">shap_fig_1</span><span class="p">,</span>
+            <span class="s2">&quot;Summary bee-swarm plot&quot;</span><span class="p">:</span> <span class="n">shap_fig_2</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving SHAP plots in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_path_global</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">interpretation_plots_to_html_report</span><span class="p">(</span>
+            <span class="n">dic_figs</span><span class="o">=</span><span class="n">dict_figs</span><span class="p">,</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">out_path_global</span><span class="p">,</span> <span class="s2">&quot;shap_feature_importance_plots.html&quot;</span>
+            <span class="p">),</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">&quot;SHAP feature importance plots&quot;</span><span class="p">,</span>
+            <span class="n">plot_type</span><span class="o">=</span><span class="s2">&quot;SHAP&quot;</span><span class="p">,</span>
+            <span class="n">html_sections</span><span class="o">=</span><span class="n">html_sections</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">local_shap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute and save SHAP force plots for all observations in a test_data for local</span>
+<span class="sd">        interpretation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        test_data : pd.DataFrame</span>
+<span class="sd">            Dataframe of model inputs, used to explain the model predictions</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">classif</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task_name</span> <span class="o">==</span> <span class="s2">&quot;classification&quot;</span> <span class="k">else</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree_based_model</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;You are using a tree based model, if it&#39;s not the case, please set &quot;</span>
+                <span class="s2">&quot;tree_based_model to False in &quot;</span>
+                <span class="s2">&quot;config/config_</span><span class="si">{type_env}</span><span class="s2">.cfg&quot;</span>
+            <span class="p">)</span>
+
+            <span class="n">shap_exp</span> <span class="o">=</span> <span class="n">ShapTreeExplainer</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">features_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">features_name</span><span class="p">,</span> <span class="n">classif</span><span class="o">=</span><span class="n">classif</span>
+            <span class="p">)</span>
+
+        <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree_based_model</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;You are using a non tree based model, if it&#39;s not the case, please set&quot;</span>
+                <span class="s2">&quot; tree_based_model to True in &quot;</span>
+                <span class="s2">&quot;config/config_</span><span class="si">{type_env}</span><span class="s2">.cfg&quot;</span>
+            <span class="p">)</span>
+            <span class="n">shap_exp</span> <span class="o">=</span> <span class="n">ShapKernelExplainer</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">features_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">features_name</span><span class="p">,</span> <span class="n">classif</span><span class="o">=</span><span class="n">classif</span>
+            <span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="s2">&quot;Please set tree_based_model to True or False in &quot;</span>
+                <span class="s2">&quot;config/config_</span><span class="si">{type_env}</span><span class="s2">.cfg&quot;</span>
+            <span class="p">)</span>
+        <span class="n">list_figs</span> <span class="o">=</span> <span class="n">shap_exp</span><span class="o">.</span><span class="n">local_explainer</span><span class="p">(</span><span class="n">test_data</span><span class="o">=</span><span class="n">test_data</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_data</span><span class="p">)):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Saving SHAP individual plots for </span><span class="si">{</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">th observation in &quot;</span>
+                <span class="s2">&quot;</span><span class="si">{self.out_path_local}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="n">shap</span><span class="o">.</span><span class="n">save_html</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">out_path_local</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;shap_local_explanation_</span><span class="si">{</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">th_obs.html&quot;</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">list_figs</span><span class="p">[</span><span class="n">j</span><span class="p">],</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">None</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, DES Team.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

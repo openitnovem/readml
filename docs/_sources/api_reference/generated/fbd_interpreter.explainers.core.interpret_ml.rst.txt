@@ -1,0 +1,6 @@
+﻿fbd\_interpreter.explainers.core.interpret\_ml
+==============================================
+
+.. currentmodule:: fbd_interpreter.explainers.core
+
+.. autofunction:: interpret_ml

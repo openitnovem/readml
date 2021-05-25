@@ -1,0 +1,36 @@
+*.pyc
+*__pycache__*
+*.swp
+doc/_build/
+*~
+Notes
+tmp/
+dist/
+fbd_interpreter.egg-info/
+build/
+.ipynb_checkpoints/
+*.ipynb
+.DS_Store
+meta_build.json
+sonar-project.properties
+.idea/
+fbd_interpreter/data_factory/
+fbd_interpreter/dev/
+outputs/global_interpretation/
+outputs/local_interpretation/
+outputs/logs.log
+outputs/logs.txt
+outputs/tests/dummy_figure.html
+outputs_ml/
+outputs_dl/
+# test coverage
+htmlcov/
+.coverage
+coverage.xml
+fbd_interpreter/main.prof
+
+
+# doc
+doc/build/
+doc/source/api_reference/generated
+/build_and_publish.sh

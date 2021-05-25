@@ -1,0 +1,6 @@
+﻿fbd\_interpreter.explainers.core.interpret\_dl
+==============================================
+
+.. currentmodule:: fbd_interpreter.explainers.core
+
+.. autofunction:: interpret_dl

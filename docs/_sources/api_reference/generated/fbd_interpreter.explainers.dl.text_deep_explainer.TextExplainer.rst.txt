@@ -1,0 +1,23 @@
+﻿fbd\_interpreter.explainers.dl.text\_deep\_explainer.TextExplainer
+==================================================================
+
+.. currentmodule:: fbd_interpreter.explainers.dl.text_deep_explainer
+
+.. autoclass:: TextExplainer
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~TextExplainer.__init__
+      ~TextExplainer.local_explainer
+   
+   
+
+   
+   
+   

@@ -1,0 +1,25 @@
+﻿fbd\_interpreter.explainers.dl.grad\_cam.GradCAM
+================================================
+
+.. currentmodule:: fbd_interpreter.explainers.dl.grad_cam
+
+.. autoclass:: GradCAM
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~GradCAM.__init__
+      ~GradCAM.compute_heatmap
+      ~GradCAM.find_target_layer
+      ~GradCAM.overlay_heatmap
+   
+   
+
+   
+   
+   

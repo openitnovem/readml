@@ -1,0 +1,401 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="python" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Installation &mdash; fbd_interpreter 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Features" href="../features/index.html" />
+    <link rel="prev" title="User Guide" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> fbd_interpreter
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python-version-support">Python version support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quickstart">Quickstart</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#usage-via-command-line-interface-cli">Usage via command line interface [CLI]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-as-external-module-python-package">Usage as external module [Python package]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-without-filling-in-the-config-file-python-package">Usage without filling in the config file [Python package]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-of-a-particular-explainer">Usage of a particular explainer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deployment">Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/index.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/index.html">Release notes</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fbd_interpreter</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">User Guide</a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/user_guide/install.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<span id="install"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>Before creating a virtual environment, make sure <strong>Python3.6</strong> is installed. If not, install it with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python3</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<p>Create a virtual environment</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="n">interpret</span><span class="o">-</span><span class="n">env</span>
+</pre></div>
+</div>
+<p>Source the virtual environment with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">.</span><span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+</pre></div>
+</div>
+<p>Install Python dependencies with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">/</span><span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>Install project modules with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>This command runs the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> script to make the package <strong>fbd_interpreter</strong> available in the environment.</p>
+</div>
+<div class="section" id="python-version-support">
+<h1>Python version support<a class="headerlink" href="#python-version-support" title="Permalink to this headline">¶</a></h1>
+<p>Officially Python 3.6 and above.</p>
+</div>
+<div class="section" id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<p>Note that for the <strong>first two usages</strong>, you will need to update required configuration variables located in <code class="docutils literal notranslate"><span class="pre">fbd_interpreter/config/config_local.cfg</span></code></p>
+<div class="section" id="usage-via-command-line-interface-cli">
+<h2>Usage via command line interface [CLI]<a class="headerlink" href="#usage-via-command-line-interface-cli" title="Permalink to this headline">¶</a></h2>
+<p>The most straightforward way is to use the <strong>interpret</strong> click command , that wraps around most of the functionality in the module.
+The command parameters allow you to choose the interpretability method. These parameters are not used for DL models since there is only one method for each data type.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to update required configuration variables located in <code class="docutils literal notranslate"><span class="pre">fbd_interpreter/config/config_local.cfg</span></code></p>
+</div>
+<p>A basic usage example is shown below</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">fbd_interpreter</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>Supported parameters are (not used for DL):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">fbd_interpreter</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">help</span>
+
+<span class="n">Usage</span><span class="p">:</span> <span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span>
+
+<span class="n">Options</span><span class="p">:</span>
+  <span class="o">--</span><span class="n">interpret</span><span class="o">-</span><span class="nb">type</span>   <span class="n">Interpretability</span> <span class="nb">type</span><span class="p">:</span> <span class="n">Choose</span> <span class="k">global</span><span class="p">,</span> <span class="n">local</span> <span class="ow">or</span> <span class="n">mix</span><span class="o">.</span> <span class="n">Not</span>
+                     <span class="n">needed</span> <span class="k">for</span> <span class="n">DL</span>  <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="n">mix</span><span class="p">]</span>
+
+  <span class="o">--</span><span class="n">use</span><span class="o">-</span><span class="n">ale</span>          <span class="n">Computes</span> <span class="ow">and</span> <span class="n">plots</span> <span class="n">ALE</span><span class="o">.</span> <span class="n">Not</span> <span class="n">needed</span> <span class="k">for</span> <span class="n">DL</span>  <span class="p">[</span><span class="n">default</span><span class="p">:</span>
+                     <span class="kc">True</span><span class="p">]</span>
+
+  <span class="o">--</span><span class="n">use</span><span class="o">-</span><span class="n">pdp</span><span class="o">-</span><span class="n">ice</span>      <span class="n">Computes</span> <span class="ow">and</span> <span class="n">plots</span> <span class="n">PDP</span> <span class="o">&amp;</span> <span class="n">ICE</span><span class="o">.</span> <span class="n">Not</span> <span class="n">needed</span> <span class="k">for</span> <span class="n">DL</span>
+                     <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="kc">True</span><span class="p">]</span>
+
+  <span class="o">--</span><span class="n">use</span><span class="o">-</span><span class="n">shap</span>         <span class="n">Computes</span> <span class="ow">and</span> <span class="n">plots</span> <span class="n">shapely</span> <span class="n">values</span> <span class="k">for</span> <span class="k">global</span> <span class="o">&amp;</span> <span class="n">local</span>
+                     <span class="n">explanation</span><span class="o">.</span> <span class="n">Not</span> <span class="n">needed</span> <span class="k">for</span> <span class="n">DL</span>  <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="kc">True</span><span class="p">]</span>
+
+  <span class="o">--</span><span class="n">help</span>             <span class="n">Show</span> <span class="n">this</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="usage-as-external-module-python-package">
+<h2>Usage as external module [Python package]<a class="headerlink" href="#usage-as-external-module-python-package" title="Permalink to this headline">¶</a></h2>
+<p>One way of using the package is to run the <code class="docutils literal notranslate"><span class="pre">interpret</span></code> function which takes care of explaining model behaviour.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to update required configuration variables located in <code class="docutils literal notranslate"><span class="pre">fbd_interpreter/config/config_local.cfg</span></code> before.</p>
+</div>
+<p>For instance , using <strong>partial dependency plots</strong> for global interpretability on ML model:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fbd_interpreter.main</span> <span class="kn">import</span> <span class="n">interpret</span>
+<span class="n">interpret</span><span class="p">(</span><span class="n">interpret_type</span><span class="o">=</span><span class="s2">&quot;global&quot;</span><span class="p">,</span> <span class="n">use_pdp_ice</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_ale</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_shap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The function parameters are not used for DL models since there is only one method for each data type.</p>
+</div>
+<div class="section" id="usage-without-filling-in-the-config-file-python-package">
+<h2>Usage without filling in the config file [Python package]<a class="headerlink" href="#usage-without-filling-in-the-config-file-python-package" title="Permalink to this headline">¶</a></h2>
+<p>You can also use the package without filling in the configuration file by using the <code class="docutils literal notranslate"><span class="pre">ExplainML</span></code> class which contains
+many methods to explain globally or locally any ML model, or the <code class="docutils literal notranslate"><span class="pre">ExplainDL</span></code> class to explain locally any DL model
+when applied to tabular, textual or image data.</p>
+<p>For instance , using <strong>accumulated local effect plots</strong> for global interpretability of a tree based classification model:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fbd_interpreter.explainers.ml.explain_ml</span> <span class="kn">import</span> <span class="n">ExplainML</span>
+<span class="n">exp</span> <span class="o">=</span> <span class="n">ExplainML</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">xgb_model</span><span class="p">,</span>
+        <span class="n">task_name</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
+        <span class="n">tree_based_model</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">features_name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;f2&quot;</span><span class="p">,</span> <span class="s2">&quot;f3&quot;</span><span class="p">,</span> <span class="s2">&quot;f4&quot;</span><span class="p">,</span> <span class="s2">&quot;f5&quot;</span><span class="p">],</span>
+        <span class="n">features_to_interpret</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;f2&quot;</span><span class="p">],</span>
+        <span class="n">target_col</span><span class="o">=</span><span class="s2">&quot;target&quot;</span><span class="p">,</span>
+        <span class="n">out_path</span><span class="o">=</span><span class="s2">&quot;outputs_ml/&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="n">exp</span><span class="o">.</span><span class="n">global_ale</span><span class="p">(</span><span class="n">df_train</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here is an other example of using <strong>Guided GRAD-CAM</strong> for local interpretability of a DL model applied to images:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fbd_interpreter.explainers.dl.explain_dl</span> <span class="kn">import</span> <span class="n">ExplainDL</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.applications.vgg16</span> <span class="kn">import</span> <span class="n">VGG16</span>
+<span class="n">exp</span> <span class="o">=</span> <span class="n">ExplainDL</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">VGG16</span><span class="p">(),</span>
+        <span class="n">task_name</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
+        <span class="n">out_path</span><span class="o">=</span><span class="s2">&quot;outputs_dl/&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="n">exp</span><span class="o">.</span><span class="n">explain_image</span><span class="p">(</span><span class="n">image_dir</span><span class="o">=</span> <span class="s2">&quot;fbd_interpreter/data_factory/inputs/data/image_data/&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="usage-of-a-particular-explainer">
+<h2>Usage of a particular explainer<a class="headerlink" href="#usage-of-a-particular-explainer" title="Permalink to this headline">¶</a></h2>
+<p><strong>Example : icecream module for PDP, ICE &amp; ALE plots</strong></p>
+<p><strong>icecream</strong> is a module that aims at explaining how a machine learning model works by drawing Partial Dependency Plots, Individual Conditional Expectation and Accumulated Local Effects.</p>
+<p>For instance , using <strong>partial dependency plots</strong> for global interpretability:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">fbd_interpreter.icecream</span> <span class="kn">import</span> <span class="n">icecream</span>
+<span class="c1"># load data and adapt for binary classification</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">species</span> <span class="o">==</span> <span class="s1">&#39;setosa&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># train a classification model</span>
+<span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_width&#39;</span><span class="p">]</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;lbfgs&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">features</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">])</span>
+<span class="c1"># optionally customize icecream options</span>
+<span class="n">icecream</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">default_number_bins</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="c1"># create partial dependencies and draw plots</span>
+<span class="n">pdp</span> <span class="o">=</span> <span class="n">icecream</span><span class="o">.</span><span class="n">IceCream</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">features</span><span class="p">],</span>
+        <span class="n">feature_names</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
+        <span class="n">bins</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+        <span class="n">targets</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">],</span>
+        <span class="n">use_classif_proba</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">use_ale</span><span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span>
+<span class="n">pdp</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;pdp&#39;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># create 2D partial dependencies and draw plots</span>
+<span class="n">pdp2d</span> <span class="o">=</span> <span class="n">icecream</span><span class="o">.</span><span class="n">IceCream2D</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">features</span><span class="p">],</span>
+        <span class="n">feature_x</span><span class="o">=</span><span class="s1">&#39;petal_length&#39;</span><span class="p">,</span>
+        <span class="n">feature_y</span><span class="o">=</span><span class="s1">&#39;sepal_width&#39;</span><span class="p">,</span>
+        <span class="n">bins_x</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">bins_y</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+        <span class="n">targets</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">],</span>
+        <span class="n">use_classif_proba</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="n">pdp2d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Other explainers located in <code class="docutils literal notranslate"><span class="pre">fbd_interpreter/explainers/</span></code> can also be used directly.</p>
+</div>
+</div>
+</div>
+<div class="section" id="deployment">
+<h1>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h1>
+<p>In order to configure deployment environment, one may create environment variable <code class="docutils literal notranslate"><span class="pre">INTERPRET_ENV</span></code>
+to specify deployment env, two  modes are supported :</p>
+<ul class="simple">
+<li><p>Deploy in dev env</p></li>
+<li><p>Deploy in prod env</p></li>
+</ul>
+<p>By default , <code class="docutils literal notranslate"><span class="pre">INTERPRET_ENV</span> <span class="pre">=</span> <span class="pre">&quot;local&quot;</span></code></p>
+<p>To create new deployment modes :</p>
+<ul>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">INTERPRET_ENV</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export INTERPRET_ENV = $deploy_env
+</pre></div>
+</div>
+</li>
+<li><p>Create new configuration file named <code class="docutils literal notranslate"><span class="pre">config_{deploy_env}.cfg</span></code> based on existing templates</p></li>
+<li><p>Copy configuration file  in <code class="docutils literal notranslate"><span class="pre">config/</span></code> directory</p></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../features/index.html" class="btn btn-neutral float-right" title="Features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="User Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, DES Team.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,354 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="python" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Local interpretability in a nutshell &mdash; fbd_interpreter 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Icecream" href="icecream.html" />
+    <link rel="prev" title="Global interpretability in a nutshell" href="global_explainer.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> fbd_interpreter
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="global_explainer.html">Global interpretability in a nutshell</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Local interpretability in a nutshell</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#shap-force-plots">SHAP force plots</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#shap-force-plots-for-non-treebased-model">SHAP force plots for non TreeBased model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#shap-force-plots-for-treebased-model">SHAP force plots for TreeBased model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#shap-force-plots-for-dl-models-on-tabular-and-text-data">SHAP force plots for DL models on tabular and text data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#grad-cam-for-dl-models-on-image-data">GRAD-CAM for DL models on image data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="icecream.html">Icecream</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/index.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/index.html">Release notes</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fbd_interpreter</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Features</a> &raquo;</li>
+        
+      <li>Local interpretability in a nutshell</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/features/local_explainer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="local-interpretability-in-a-nutshell">
+<h1>Local interpretability in a nutshell<a class="headerlink" href="#local-interpretability-in-a-nutshell" title="Permalink to this headline">¶</a></h1>
+<p>Local interpretability helps to understand why did the model make a certain prediction for an instance.
+To explain the model's prediction on a single instance we will use
+The local interpretability techniques available in this package are:</p>
+<ul class="simple">
+<li><p>SHAP local explanation plots for non TreeBased model (model agnostic)</p></li>
+<li><p>SHAP local explanation plots for TreeBased model (XGBoost, LightGBM, CatBoost, Pyspark &amp; most tree-based models in scikit-learn).</p></li>
+<li><p>SHAP local explanation plots for DL model on text or tabular data (using Deep SHAP)</p></li>
+<li><p>GRAD-CAM for DL models on image data</p></li>
+</ul>
+<div class="section" id="shap-force-plots">
+<h2>SHAP force plots<a class="headerlink" href="#shap-force-plots" title="Permalink to this headline">¶</a></h2>
+<p>SHAP (SHapley Additive exPlanations) by Lundberg and Lee (2016) is a game theoretic approach to explain the output of any machine learning model.
+It connects optimal credit allocation with local explanations using Shapley values from game theory and their related extensions.
+SHAP values interpret the impact of having a certain value for a given feature in comparison to the prediction we'd make if that feature took some baseline value.
+(See the <strong>SHAP feature importance and summary plots</strong> section from <a class="reference internal" href="global_explainer.html"><span class="doc">Global interpretability in a nutshell</span></a> for more details on SHAP)</p>
+<p>SHAP force plot allows to explain a single prediction by showing the contribution of each feature value to the model prediction.
+It visualizes feature attributions such as Shapley values as &quot;forces&quot;. Each feature value is a force that either increases or decreases the prediction.
+The prediction starts from the baseline. The baseline for Shapley values is the average of all predictions.
+In the plot, each Shapley value is an arrow that pushes to increase (positive value) or decrease (negative value) the prediction.
+These forces balance each other out at the actual prediction of the data instance.</p>
+<p>SHAP offers many explainers to compute the Shapley values used in the force plot.
+In this package, we use 3 explainers to interpret the model prediction(s) :</p>
+<ul class="simple">
+<li><p><strong>Kernel SHAP :</strong> uses a specially-weighted local linear regression to estimate SHAP values for any ML model.</p></li>
+<li><p><strong>Tree SHAP :</strong> a variant of SHAP for tree-based machine learning models such as decision trees, random forests and gradient boosted trees. TreeSHAP was introduced as a fast, model-specific alternative to KernelSHAP.</p></li>
+<li><p><strong>Deep SHAP :</strong>  a high-speed approximation algorithm for SHAP values in deep learning models that builds on a connection with <a class="reference external" href="https://arxiv.org/abs/1704.02685">DeepLIFT</a> .</p></li>
+</ul>
+<div class="section" id="shap-force-plots-for-non-treebased-model">
+<h3>SHAP force plots for non TreeBased model<a class="headerlink" href="#shap-force-plots-for-non-treebased-model" title="Permalink to this headline">¶</a></h3>
+<p>For non Tree based models, we use Kernel SHAP, a model agnostic explainer, to compute the shapely values.
+The Kernel SHAP algorithm provides model-agnostic (black box), human interpretable explanations suitable for regression and classification models applied to tabular data.</p>
+<p>Here is an example of using <code class="docutils literal notranslate"><span class="pre">ExplainML</span></code> class form <code class="docutils literal notranslate"><span class="pre">fbd_interpreter.explainers.ml.explain_ml</span></code> to interpret locally all <code class="docutils literal notranslate"><span class="pre">df_test</span></code> instances.
+Since we are using a non Tree based model, we set <strong>tree_based_model</strong> to False, and <code class="docutils literal notranslate"><span class="pre">local_shap</span></code> will use Kernel SHAP to compute SHAP force plots
+(plots will be stored in output path):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fbd_interpreter.explainers.ml.explain_ml</span> <span class="kn">import</span> <span class="n">ExplainML</span>
+<span class="n">exp</span> <span class="o">=</span> <span class="n">ExplainML</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">svm_model</span><span class="p">,</span>
+        <span class="n">task_name</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
+        <span class="n">tree_based_model</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">features_name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;f2&quot;</span><span class="p">,</span> <span class="s2">&quot;f3&quot;</span><span class="p">,</span> <span class="s2">&quot;f4&quot;</span><span class="p">,</span> <span class="s2">&quot;f5&quot;</span><span class="p">],</span>
+        <span class="n">features_to_interpret</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;f2&quot;</span><span class="p">,</span> <span class="s2">&quot;f3&quot;</span><span class="p">,</span> <span class="s2">&quot;f4&quot;</span><span class="p">,</span> <span class="s2">&quot;f5&quot;</span><span class="p">],</span> <span class="c1"># not used for SHAP</span>
+        <span class="n">target_col</span><span class="o">=</span><span class="s2">&quot;target&quot;</span><span class="p">,</span>
+        <span class="n">out_path</span><span class="o">=</span><span class="s2">&quot;outputs_ml/&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="n">exp</span><span class="o">.</span><span class="n">local_shap</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="shap-force-plots-for-treebased-model">
+<h3>SHAP force plots for TreeBased model<a class="headerlink" href="#shap-force-plots-for-treebased-model" title="Permalink to this headline">¶</a></h3>
+<p>For Tree based models, we use Tree SHAP, a model specific explainer, to compute the shapely values.</p>
+<p>Tree SHAP is a variant of SHAP for tree-based machine learning models such as decision trees, random forests and gradient boosted trees.
+TreeSHAP was introduced as a fast, model-specific alternative to KernelSHAP, but sometimes it can produce unintuitive feature attributions (nothing is perfect, right?).</p>
+<p>Fast C++ implementations are supported for XGBoost, LightGBM, CatBoost, scikit-learn and pyspark tree models</p>
+<p>Here is an example of using <code class="docutils literal notranslate"><span class="pre">ExplainML</span></code> class form <code class="docutils literal notranslate"><span class="pre">fbd_interpreter.explainers.ml.explain_ml</span></code> to interpret locally all <code class="docutils literal notranslate"><span class="pre">df_test</span></code> instances.
+Since we are using XGBoost, we have to set <strong>tree_based_model</strong> to True, and <code class="docutils literal notranslate"><span class="pre">local_shap</span></code> will use Tree SHAP to compute SHAP force plots
+(plots will be stored in output path):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fbd_interpreter.explainers.ml.explain_ml</span> <span class="kn">import</span> <span class="n">ExplainML</span>
+<span class="n">exp</span> <span class="o">=</span> <span class="n">ExplainML</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">xgboost</span><span class="p">,</span>
+        <span class="n">task_name</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
+        <span class="n">tree_based_model</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">features_name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;f2&quot;</span><span class="p">,</span> <span class="s2">&quot;f3&quot;</span><span class="p">,</span> <span class="s2">&quot;f4&quot;</span><span class="p">,</span> <span class="s2">&quot;f5&quot;</span><span class="p">],</span>
+        <span class="n">features_to_interpret</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;f2&quot;</span><span class="p">,</span> <span class="s2">&quot;f3&quot;</span><span class="p">,</span> <span class="s2">&quot;f4&quot;</span><span class="p">,</span> <span class="s2">&quot;f5&quot;</span><span class="p">],</span> <span class="c1"># not used for SHAP</span>
+        <span class="n">target_col</span><span class="o">=</span><span class="s2">&quot;target&quot;</span><span class="p">,</span>
+        <span class="n">out_path</span><span class="o">=</span><span class="s2">&quot;outputs_ml/&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="n">exp</span><span class="o">.</span><span class="n">local_shap</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="shap-force-plots-for-dl-models-on-tabular-and-text-data">
+<h3>SHAP force plots for DL models on tabular and text data<a class="headerlink" href="#shap-force-plots-for-dl-models-on-tabular-and-text-data" title="Permalink to this headline">¶</a></h3>
+<p>For Deep Learning models applied to text or tabular data, we use Deep SHAP, a model specific explainer.</p>
+<p>Deep SHAP is a high-speed approximation algorithm for SHAP values in deep learning models that builds on a connection with DeepLIFT.
+The SHAP implementation differs from the original DeepLIFT by using a distribution of background samples instead of a single reference value, and using Shapley equations to linearize components such as max, softmax, products, divisions, etc.
+Note that some of these enhancements have also been since integrated into DeepLIFT.</p>
+<p>TensorFlow models and Keras models using the TensorFlow backend are supported.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To interpret locally a deep learning model applied to text data, you need to provide a word2index mapping (A dictionary where keys are the vocabulary and the values are the indexes)</p>
+</div>
+<p>Here is an example of using <code class="docutils literal notranslate"><span class="pre">ExplainDL</span></code> class form <code class="docutils literal notranslate"><span class="pre">fbd_interpreter.explainers.dl.explain_dl</span></code> to interpret locally the first 10 instances of <code class="docutils literal notranslate"><span class="pre">df_test</span></code>.
+Since we are dealing with text data, we have to provide the word2index mapping. <code class="docutils literal notranslate"><span class="pre">explain_text</span></code>  method will use Deep SHAP to compute SHAP force plots
+(plots will be stored in output path)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fbd_interpreter.explainers.dl.explain_dl</span> <span class="kn">import</span> <span class="n">ExplainDL</span>
+<span class="n">exp</span> <span class="o">=</span> <span class="n">ExplainDL</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">lstm_model</span><span class="p">,</span> <span class="n">out_path</span><span class="o">=</span><span class="s2">&quot;outputs_dl/&quot;</span><span class="p">)</span>
+<span class="n">exp</span><span class="o">.</span><span class="n">explain_text</span><span class="p">(</span>
+    <span class="n">test_data</span><span class="o">=</span><span class="n">test_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+    <span class="n">target_col</span><span class="o">=</span><span class="s2">&quot;target&quot;</span><span class="p">,</span>
+    <span class="n">word2idx</span><span class="o">=</span><span class="n">word2idx_dict</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="grad-cam-for-dl-models-on-image-data">
+<h2>GRAD-CAM for DL models on image data<a class="headerlink" href="#grad-cam-for-dl-models-on-image-data" title="Permalink to this headline">¶</a></h2>
+<img alt="../_images/guided_grad_cam.png" src="../_images/guided_grad_cam.png" />
+<p>WIP</p>
+<p>Given an image and a class of interest (e.g., ‘tiger cat’ or any other type of differentiable output) as input, we forward
+propagate the image through the CNN part of the model and then through task-specific computations to obtain a raw score
+for the category. The gradients are set to zero for all classes except the desired class (tiger cat), which is set to 1.
+This signal is then backpropagated to the rectified convolutional feature maps of interest, which we combine to compute the coarse
+Grad-CAM localization (blue heatmap) which represents where the model has to look to make the particular decision.
+TODO:</p>
+<ol class="arabic simple">
+<li><p>Compute the model output and last convolutional layer output for the image.</p></li>
+<li><p>Find the index of the winning class in the model output.</p></li>
+</ol>
+<p>3) Compute the gradient of the winning class with resepct to the last convolutional layer.
+3) Average this, then weigh it with the last convolutional layer (multiply them).
+4) TODO: Add multiply the heatmap with guided backpropagation
+5) Normalize between 0 and 1 for visualization
+6) Convert to RGB and layer it over the original image.</p>
+<p>Here is an example of using <code class="docutils literal notranslate"><span class="pre">ExplainDL</span></code> class form <code class="docutils literal notranslate"><span class="pre">fbd_interpreter.explainers.dl.explain_dl</span></code> to interpret locally a CNN applied to image data</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fbd_interpreter.explainers.dl.explain_dl</span> <span class="kn">import</span> <span class="n">ExplainDL</span>
+<span class="n">exp</span> <span class="o">=</span> <span class="n">ExplainDL</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">cnn_model</span><span class="p">,</span> <span class="n">out_path</span><span class="o">=</span><span class="s2">&quot;outputs_dl_image/&quot;</span><span class="p">)</span>
+<span class="n">exp</span><span class="o">.</span><span class="n">explain_image</span><span class="p">(</span>
+    <span class="n">image_dir</span><span class="o">=</span> <span class="s2">&quot;inputs/image_data&quot;</span><span class="p">,</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">224</span><span class="p">,</span><span class="mi">224</span><span class="p">),</span>
+    <span class="n">color_mode</span><span class="o">=</span><span class="s2">&quot;rgb&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="icecream.html" class="btn btn-neutral float-right" title="Icecream" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="global_explainer.html" class="btn btn-neutral float-left" title="Global interpretability in a nutshell" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, DES Team.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

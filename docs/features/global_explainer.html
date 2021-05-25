@@ -1,0 +1,552 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="python" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Global interpretability in a nutshell &mdash; fbd_interpreter 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Local interpretability in a nutshell" href="local_explainer.html" />
+    <link rel="prev" title="Features" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> fbd_interpreter
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Features</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Global interpretability in a nutshell</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pdp-ice-plots-from-icecream">PDP &amp; ICE Plots (from icecream)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#accumulated-local-effects-plots-from-icecream">Accumulated Local Effects Plots (from icecream)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">How it works</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#shap-feature-importance-and-summary-plots">SHAP feature importance and summary plots</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#shap-feature-importance">SHAP Feature Importance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#shap-summary-plot">SHAP Summary Plot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="local_explainer.html">Local interpretability in a nutshell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icecream.html">Icecream</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/index.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/index.html">Release notes</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fbd_interpreter</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Features</a> &raquo;</li>
+        
+      <li>Global interpretability in a nutshell</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/features/global_explainer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="global-interpretability-in-a-nutshell">
+<h1>Global interpretability in a nutshell<a class="headerlink" href="#global-interpretability-in-a-nutshell" title="Permalink to this headline">¶</a></h1>
+<p>Global model interpretability helps to understand the distribution of the target outcome based on the features.
+It allows us to know the impact of each feature on the model behaviour.
+The Global interpretability techniques available in this package are:</p>
+<ul class="simple">
+<li><p>Partial Dependecy Plots (from <a class="reference internal" href="icecream.html"><span class="doc">Icecream</span></a> module)</p></li>
+<li><p>Individual Conditional Expectation Plots (from <a class="reference internal" href="icecream.html"><span class="doc">Icecream</span></a> module)</p></li>
+<li><p>Accumulated Local Effects Plots (from <a class="reference internal" href="icecream.html"><span class="doc">Icecream</span></a> module)</p></li>
+<li><p>SHAP feature importance and summary plots (from SHAP)</p></li>
+</ul>
+<div class="section" id="pdp-ice-plots-from-icecream">
+<h2>PDP &amp; ICE Plots (from icecream)<a class="headerlink" href="#pdp-ice-plots-from-icecream" title="Permalink to this headline">¶</a></h2>
+<p>Partial Dependency and Individual Conditional Expectation plots are implemented in the <a class="reference internal" href="icecream.html"><span class="doc">Icecream</span></a> module.</p>
+<div class="section" id="how-it-works">
+<h3>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h3>
+<p>To explain how a feature influence a model using PDP &amp; ICE plots:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>we create fake data based on its values in the dataset</p></li>
+<li><p>we make new predictions on these fake data</p></li>
+<li><p>directly plotting these new predictions creates <strong>ice plots</strong></p></li>
+<li><p>plotting aggregated values of these new predictions creates <strong>pdplots</strong></p></li>
+</ul>
+</div></blockquote>
+<p>Suppose we have this dataset, containing 3 features and 3 examples:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>A</p></th>
+<th class="head"><p>B</p></th>
+<th class="head"><p>C</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A0</p></td>
+<td><p>B0</p></td>
+<td><p>C0</p></td>
+</tr>
+<tr class="row-odd"><td><p>A1</p></td>
+<td><p>B1</p></td>
+<td><p>C1</p></td>
+</tr>
+<tr class="row-even"><td><p>A2</p></td>
+<td><p>B2</p></td>
+<td><p>C2</p></td>
+</tr>
+</tbody>
+</table>
+<p>We want to study the influence of feature <cite>A</cite> on the model. We create, for each possible value of feature <cite>A</cite>, a dataframe identical to the original dataset, except that feature <cite>A</cite> will be replaced by one of its value. Then we make predictions on all these dataframes. Here predictions are called <cite>Y</cite>:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>A</p></th>
+<th class="head"><p>B</p></th>
+<th class="head"><p>C</p></th>
+<th class="head"><p>Y</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A0</p></td>
+<td><p>B0</p></td>
+<td><p>C0</p></td>
+<td><p>Y00</p></td>
+</tr>
+<tr class="row-odd"><td><p>A0</p></td>
+<td><p>B1</p></td>
+<td><p>C1</p></td>
+<td><p>Y01</p></td>
+</tr>
+<tr class="row-even"><td><p>A0</p></td>
+<td><p>B2</p></td>
+<td><p>C2</p></td>
+<td><p>Y02</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>A</p></th>
+<th class="head"><p>B</p></th>
+<th class="head"><p>C</p></th>
+<th class="head"><p>Y</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A1</p></td>
+<td><p>B0</p></td>
+<td><p>C0</p></td>
+<td><p>Y10</p></td>
+</tr>
+<tr class="row-odd"><td><p>A1</p></td>
+<td><p>B1</p></td>
+<td><p>C1</p></td>
+<td><p>Y11</p></td>
+</tr>
+<tr class="row-even"><td><p>A1</p></td>
+<td><p>B2</p></td>
+<td><p>C2</p></td>
+<td><p>Y12</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>A</p></th>
+<th class="head"><p>B</p></th>
+<th class="head"><p>C</p></th>
+<th class="head"><p>Y</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A2</p></td>
+<td><p>B0</p></td>
+<td><p>C0</p></td>
+<td><p>Y20</p></td>
+</tr>
+<tr class="row-odd"><td><p>A2</p></td>
+<td><p>B1</p></td>
+<td><p>C1</p></td>
+<td><p>Y21</p></td>
+</tr>
+<tr class="row-even"><td><p>A2</p></td>
+<td><p>B2</p></td>
+<td><p>C2</p></td>
+<td><p>Y22</p></td>
+</tr>
+</tbody>
+</table>
+<p>These fake predictions allow us to assess the influence of feature <cite>A</cite> with the following methods:</p>
+<ul class="simple">
+<li><p>For <strong>pdplots</strong>: we compute the mean <cite>Y_i</cite> of <cite>Y_ij</cite> for each dataframe, and plot <cite>f(A_i) = Y_i</cite>. This creates 1 line plot.</p></li>
+<li><p>For pure theoretical <strong>ice plots</strong>: we plot <cite>f(A_i) = Y_ij</cite> directly. This creates several line plots, as much as there are value of <cite>j</cite>.</p>
+<ul>
+<li><p><em>Note:</em> this method generates many line plots, which is too heavy for Plotly if the dataset has more than a few tens of rows. As most relevant datasets are much bigger than that, we chose to aggregate/cluster the lines and create specific lighter ice plots that show relevant information.</p></li>
+</ul>
+</li>
+<li><p>For <strong>ice box plots</strong>: we make a box plot of the values <cite>Y_ij</cite> for each value <cite>A_i</cite>.</p></li>
+</ul>
+<p>This package integrates discretization functions for usage on features that take a high number of different values (such as continuous features), to make computations not too expensive and results easy to interpret. For example discretizing feature <cite>A</cite> in <cite>N</cite> bins would require creating only <cite>N</cite> new dataframes.</p>
+<p>This method allows better assessment of feature effect than simple predictions aggregations. For example in the case of correlated features, the plots will show which feature is actually used by the model and how. Interpreting <strong>pdplots</strong> is generally straightforward, whereas <strong>ice plots</strong> give more information.</p>
+<p><em>Note:</em> drawing <strong>ice plots</strong> for a classifier is only relevant if using prediction probability (and not simply prediction) as the <cite>Y</cite> output.</p>
+<p>To study the influence of 2 features <cite>A</cite> and <cite>B</cite> simultaneously with interactions, we follow the same process, this time generating and aggregating <cite>N x M</cite> dataframes of predictions (features <cite>A</cite> and <cite>B</cite> take respectively <cite>N</cite> and <cite>M</cite> different values). We can draw <strong>pdplots</strong> as heatmaps, however ice plots are not possible.</p>
+</div>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<p>Here is an example of using the icecream module (directly from <code class="docutils literal notranslate"><span class="pre">fbd_interpreter.icecream</span></code>) to draw PDP ans ICE plots</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">fbd_interpreter.icecream</span> <span class="kn">import</span> <span class="n">icecream</span>
+<span class="c1"># load data and adapt for binary classification</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">species</span> <span class="o">==</span> <span class="s1">&#39;setosa&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># train a classification model</span>
+<span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_width&#39;</span><span class="p">]</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;lbfgs&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">features</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">])</span>
+<span class="c1"># optionally customize icecream options</span>
+<span class="n">icecream</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">default_number_bins</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="c1"># create partial dependencies and draw plots</span>
+<span class="n">pdp</span> <span class="o">=</span> <span class="n">icecream</span><span class="o">.</span><span class="n">IceCream</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">features</span><span class="p">],</span>
+    <span class="n">feature_names</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
+    <span class="n">bins</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">targets</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">],</span>
+    <span class="n">use_classif_proba</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">use_ale</span><span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span>
+<span class="c1"># draw PDP</span>
+<span class="n">pdp</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;pdp&#39;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># draw ICE plots</span>
+<span class="n">pdp</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;ice&#39;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># create 2D partial dependencies and draw plots</span>
+<span class="n">pdp2d</span> <span class="o">=</span> <span class="n">icecream</span><span class="o">.</span><span class="n">IceCream2D</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">features</span><span class="p">],</span>
+    <span class="n">feature_x</span><span class="o">=</span><span class="s1">&#39;petal_length&#39;</span><span class="p">,</span>
+    <span class="n">feature_y</span><span class="o">=</span><span class="s1">&#39;sepal_width&#39;</span><span class="p">,</span>
+    <span class="n">bins_x</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">bins_y</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">targets</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">],</span>
+    <span class="n">use_classif_proba</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">pdp2d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="accumulated-local-effects-plots-from-icecream">
+<h2>Accumulated Local Effects Plots (from icecream)<a class="headerlink" href="#accumulated-local-effects-plots-from-icecream" title="Permalink to this headline">¶</a></h2>
+<p>Accumulated Local Effects plots are implemented in the <a class="reference internal" href="icecream.html"><span class="doc">Icecream</span></a> module.</p>
+<div class="section" id="id1">
+<h3>How it works<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>ALE plots show how the model predictions change in a small “window” of the feature around a certain grid value v for data instances in that window.</p>
+<p>To estimate local effects, we divide the feature into many intervals and compute the average of the differences in the predictions.</p>
+<ul class="simple">
+<li><p>we first divide into intervals</p></li>
+<li><p>for each interval (i), we filter the dataset in order to keep only observations within this interval</p></li>
+<li><p>for the data instances (points) in an interval (i), we calculate the difference in the prediction when we replace the feature with the upper and lower limit of the interval</p></li>
+<li><p>these differences are later accumulated and centered, resulting in the ALE curve.</p></li>
+</ul>
+<p>The value of the ALE can be interpreted as the main effect of the feature at a certain value compared to the average prediction of the data.
+For example, an ALE estimate of -2 at x_j = 3 means that when the j-th feature has value 3, then the prediction is lower by 2 compared to the average prediction.</p>
+<p>Imagine that we want to get the Accumulated Local Effects for a machine learning model that predicts the value of a house depending on the number of rooms and the size of the living area.
+For the effect of living area at 30 m2:
+- the ALE method uses all houses with about 30 m2 (between 29 m2 and 31 m1)
+- it gets the model predictions pretending these houses were 31 m2 minus the predictions pretending they were 29 m2.
+- then averages these differences</p>
+<p>This gives us the pure effect of the living area and is not mixing the effect with the effects of correlated features (number of rooms). The use of differences blocks the effect of other features.
+In addition to that, by filtering the dataset and keeping only data instances in the interval, we avoid generating unrealistic instances</p>
+<p>ALE are different than PDP because:</p>
+<ul class="simple">
+<li><p>We only generate fake data on instances that are already within the interval</p></li>
+<li><p>We average the changes of predictions, not the predictions itself (the change is the differences in the predictions over an interval).</p></li>
+<li><p>ALE are centred at zero. This makes their interpretation easier, a positive value means a positive effect and a negative value can be interpreted as a negative effect.</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>Example<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Here is an example of using the icecream module (directly from <code class="docutils literal notranslate"><span class="pre">fbd_interpreter.icecream</span></code>) to draw ALE plots</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">fbd_interpreter.icecream</span> <span class="kn">import</span> <span class="n">icecream</span>
+<span class="c1"># load data and adapt for binary classification</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">species</span> <span class="o">==</span> <span class="s1">&#39;setosa&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># train a classification model</span>
+<span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_width&#39;</span><span class="p">]</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;lbfgs&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">features</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">])</span>
+<span class="c1"># create accumulated local effects and draw plots</span>
+<span class="n">ale</span> <span class="o">=</span> <span class="n">icecream</span><span class="o">.</span><span class="n">IceCream</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">features</span><span class="p">],</span>
+    <span class="n">feature_names</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
+    <span class="n">bins</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">targets</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">],</span>
+    <span class="n">use_classif_proba</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">use_ale</span><span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span>
+<span class="n">ale</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;ale&#39;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="shap-feature-importance-and-summary-plots">
+<h2>SHAP feature importance and summary plots<a class="headerlink" href="#shap-feature-importance-and-summary-plots" title="Permalink to this headline">¶</a></h2>
+<p>SHAP (SHapley Additive exPlanations) by Lundberg and Lee (2016) is a game theoretic approach to explain the output of any machine learning model.
+It connects optimal credit allocation with local explanations using Shapley values from game theory and their related extensions.
+(see <a class="reference external" href="https://github.com/slundberg/shap">repo</a> and <a class="reference external" href="http://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf">paper</a> for details)</p>
+<p>The goal of SHAP is to explain the prediction of an instance x by computing the contribution of each feature to the prediction.
+The SHAP explanation method computes Shapley values from coalitional game theory. The feature values of a data instance act as players in a coalition.
+Shapley values tell us how to fairly distribute the &quot;payout&quot; (= the prediction) among the features.
+A player can be an individual feature value, e.g. for tabular data. A player can also be a group of feature values.
+One innovation that SHAP brings to the table is that the Shapley value explanation is represented as an additive feature attribution method, a linear model.
+That view connects LIME and Shapley Values.</p>
+<p>SHAP has explainers for every type of model, we use 2 among them to explain globally ML models (we will discuss Deep SHAP in local interpretability section):</p>
+<ul class="simple">
+<li><p><strong>KernelSHAP:</strong> uses a specially-weighted local linear regression to estimate SHAP values for any model. But it is slower than other Explainers and it offers an approximation rather than exact Shap values. (Note that to speed up computations, we summarize the train set with a set of weighted kmeans, each weighted by the number of points they represent.)</p></li>
+<li><p><strong>TreeSHAP:</strong> a variant of SHAP for tree-based machine learning models such as decision trees, random forests and gradient boosted trees. TreeSHAP was introduced as a fast, model-specific alternative to KernelSHAP.</p></li>
+</ul>
+<div class="section" id="shap-feature-importance">
+<h3>SHAP Feature Importance<a class="headerlink" href="#shap-feature-importance" title="Permalink to this headline">¶</a></h3>
+<p>The idea behind SHAP feature importance is simple: Features with large absolute Shapley values are important.
+Since we want the global importance, we average the absolute Shapley values per feature across the data.
+Next, we sort the features by decreasing importance and plot them.</p>
+<p>SHAP feature importance is an alternative to permutation feature importance.
+There is a big difference between both importance measures: Permutation feature importance is based on the decrease in model performance.
+SHAP is based on magnitude of feature attributions.</p>
+<p>The feature importance plot is useful, but contains no information beyond the importance. For a more informative plot, we need to look at the summary plot.</p>
+</div>
+<div class="section" id="shap-summary-plot">
+<h3>SHAP Summary Plot<a class="headerlink" href="#shap-summary-plot" title="Permalink to this headline">¶</a></h3>
+<p>The summary plot combines feature importance with feature effects. Each point on the summary plot is a Shapley value for a feature and an instance.
+The position on the y-axis is determined by the feature and on the x-axis by the Shapley value. The color represents the value of the feature from low to high. Overlapping points are jittered in y-axis direction, so we get a sense of the distribution of the Shapley values per feature. The features are ordered according to their importance.</p>
+</div>
+<div class="section" id="id3">
+<h3>Example<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Here is an example of using <code class="docutils literal notranslate"><span class="pre">ExplainML</span></code> class form <code class="docutils literal notranslate"><span class="pre">fbd_interpreter.explainers.ml.explain_ml</span></code> to compute SHAP feature importance and summary plots.</p>
+<p>An html report containing feature importance and summary plots (with a breve description) will be stored in out_path.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fbd_interpreter.explainers.ml.explain_ml</span> <span class="kn">import</span> <span class="n">ExplainML</span>
+<span class="n">exp</span> <span class="o">=</span> <span class="n">ExplainML</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">xgb_model</span><span class="p">,</span>
+        <span class="n">task_name</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
+        <span class="n">tree_based_model</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">features_name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;f2&quot;</span><span class="p">,</span> <span class="s2">&quot;f3&quot;</span><span class="p">,</span> <span class="s2">&quot;f4&quot;</span><span class="p">,</span> <span class="s2">&quot;f5&quot;</span><span class="p">],</span>
+        <span class="n">features_to_interpret</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;f2&quot;</span><span class="p">,</span> <span class="s2">&quot;f3&quot;</span><span class="p">,</span> <span class="s2">&quot;f4&quot;</span><span class="p">,</span> <span class="s2">&quot;f5&quot;</span><span class="p">],</span> <span class="c1"># not used for SHAP</span>
+        <span class="n">target_col</span><span class="o">=</span><span class="s2">&quot;target&quot;</span><span class="p">,</span>
+        <span class="n">out_path</span><span class="o">=</span><span class="s2">&quot;outputs_ml/&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="n">exp</span><span class="o">.</span><span class="n">global_shap</span><span class="p">(</span><span class="n">df_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="local_explainer.html" class="btn btn-neutral float-right" title="Local interpretability in a nutshell" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, DES Team.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

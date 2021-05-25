@@ -1,0 +1,255 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="python" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>fbd_interpreter.main.interpret &mdash; fbd_interpreter 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="fbd_interpreter.explainers.core.interpret_dl" href="fbd_interpreter.explainers.core.interpret_dl.html" />
+    <link rel="prev" title="fbd_interpreter.explainers.dl.grad_cam.GradCAM" href="fbd_interpreter.explainers.dl.grad_cam.GradCAM.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> fbd_interpreter
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development/index.html">Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#classes">Classes</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#functions">Functions</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">fbd_interpreter.main.interpret</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fbd_interpreter.explainers.core.interpret_dl.html">fbd_interpreter.explainers.core.interpret_dl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fbd_interpreter.explainers.core.interpret_ml.html">fbd_interpreter.explainers.core.interpret_ml</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../release_notes/index.html">Release notes</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">fbd_interpreter</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">API reference</a> &raquo;</li>
+        
+      <li>fbd_interpreter.main.interpret</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/api_reference/generated/fbd_interpreter.main.interpret.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="fbd-interpreter-main-interpret">
+<h1>fbd_interpreter.main.interpret<a class="headerlink" href="#fbd-interpreter-main-interpret" title="Permalink to this headline">¶</a></h1>
+<dl class="py data">
+<dt id="fbd_interpreter.main.interpret">
+<code class="sig-prename descclassname"><span class="pre">fbd_interpreter.main.</span></code><code class="sig-name descname"><span class="pre">interpret</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;Command</span> <span class="pre">interpret&gt;</span></em><a class="headerlink" href="#fbd_interpreter.main.interpret" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interpret any model (ML &amp; DL).
+Before using this function, you must fill in the config file located in
+config/config_{type_env}.cfg.
+Outputs are saved in the given output path from the config file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interpret_type</strong> (<em>str</em><em>, </em><em>optional</em>) -- Type of interpretability global, local or mix(both). (the default is &quot;mix&quot;, which implies
+global and local interpretability)
+Not needed for DL models.</p></li>
+<li><p><strong>use_ale</strong> (<em>bool</em><em>, </em><em>optional</em>) -- If True, computes ALE: Accumulated Local Effects.
+Can only be used for numerical features. (the default is True)
+Not needed for DL models.</p></li>
+<li><p><strong>use_pdp_ice</strong> (<em>bool</em><em>, </em><em>optional</em>) -- If True, computes PDP &amp; ICE: Partial Dependency &amp; Individual Expectation plots.
+(the default is True)
+Not needed for DL models.</p></li>
+<li><p><strong>use_shap</strong> (<em>bool</em><em>, </em><em>optional</em>) -- If True, computes SHAP plots. (the default is True)
+Not needed for DL models.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="fbd_interpreter.explainers.core.interpret_dl.html" class="btn btn-neutral float-right" title="fbd_interpreter.explainers.core.interpret_dl" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="fbd_interpreter.explainers.dl.grad_cam.GradCAM.html" class="btn btn-neutral float-left" title="fbd_interpreter.explainers.dl.grad_cam.GradCAM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, DES Team.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
