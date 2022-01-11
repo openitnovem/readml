@@ -3,12 +3,11 @@ import os
 import plotly.graph_objects as go
 from bs4 import BeautifulSoup
 
-from fbd_interpreter.logger import ROOT_DIR
-from fbd_interpreter.utils import configuration
-from fbd_interpreter.visualization.plots import interpretation_plots_to_html_report
+from readml.logger import ROOT_DIR
+from readml.visualization.plots import interpretation_plots_to_html_report
 
 # Get html sections path
-html_sections = configuration["PARAMS"]["html_sections"]
+html_sections = os.path.join(ROOT_DIR, "config/sections_html.txt")
 
 
 def test_interpretation_plots_to_html_report() -> None:
