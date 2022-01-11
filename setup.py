@@ -1,12 +1,16 @@
 import io
 import os
+
 from pkg_resources import parse_requirements
 from setuptools import setup, find_packages
+
 from version import __version__
 
 DESCRIPTION = "Interpretability DS Package"
-GIT_URL = "https://github.com/openitnovem/readme.git"
-AUTHOR_EMAIL = "readml-dev@gmail.com"
+GIT_URL = (
+    "https://gitlab-repo-gpf.apps.eul.sncf.fr/digital/"
+    "groupefbd-digital/90023/DSE/fbdtools-python/fbd-interpreter.git"
+)
 REQUIREMENTS_PATH = os.path.join("requirements", "requirements.txt")
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -25,8 +29,8 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url=GIT_URL,
-    author="Factory D&IA",
-    author_email=AUTHOR_EMAIL,
+    author="Soumaya IHIHI - DS",
+    author_email="soumaya.ihihi@sncf.fr",
     license="Apache Software License 2.0",
     install_requires=install_requires,
     python_requires=">=3.6.0",

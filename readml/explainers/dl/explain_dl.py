@@ -4,14 +4,10 @@ from typing import Any, Dict, List, Tuple
 import pandas as pd
 import shap
 
-from fbd_interpreter.explainers.dl.image_deep_explainer import VisualExplainer
-from fbd_interpreter.explainers.dl.tabular_deep_explainer import TabularExplainer
-from fbd_interpreter.explainers.dl.text_deep_explainer import TextExplainer
-from fbd_interpreter.logger import logger
-from fbd_interpreter.utils import configuration
-
-# Get html sections path
-html_sections = configuration["PARAMS"]["html_sections"]
+from readml.explainers.dl.image_deep_explainer import VisualExplainer
+from readml.explainers.dl.tabular_deep_explainer import TabularExplainer
+from readml.explainers.dl.text_deep_explainer import TextExplainer
+from readml.logger import logger
 
 
 class ExplainDL:

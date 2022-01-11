@@ -3,7 +3,7 @@ from typing import Any, List
 import pandas as pd
 import shap
 
-from fbd_interpreter.logger import logger
+from readml.logger import logger
 
 
 class TabularExplainer:

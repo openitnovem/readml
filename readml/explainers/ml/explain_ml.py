@@ -4,16 +4,15 @@ from typing import Any, List
 import pandas as pd
 import shap
 
-from fbd_interpreter.explainers.ml.shap_kernel_explainer import ShapKernelExplainer
-from fbd_interpreter.explainers.ml.shap_tree_explainer import ShapTreeExplainer
-from fbd_interpreter.icecream import icecream
-from fbd_interpreter.logger import logger
-from fbd_interpreter.resource.output_builders import initialize_dir
-from fbd_interpreter.utils import configuration
-from fbd_interpreter.visualization.plots import interpretation_plots_to_html_report
+from readml.explainers.ml.shap_kernel_explainer import ShapKernelExplainer
+from readml.explainers.ml.shap_tree_explainer import ShapTreeExplainer
+from readml.icecream import icecream
+from readml.logger import ROOT_DIR, logger
+from readml.resource.output_builders import initialize_dir
+from readml.visualization.plots import interpretation_plots_to_html_report
 
 # Get html sections path
-html_sections = configuration["PARAMS"]["html_sections"]
+html_sections = os.path.join(ROOT_DIR, "config/sections_html.txt")
 
 
 class ExplainML:

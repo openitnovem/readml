@@ -23,7 +23,7 @@ def get_logger():
     f_handler.setFormatter(f_format)
 
     # Create a custom logger (log)
-    log = logging.getLogger("fbd_interpreter")
+    log = logging.getLogger("readml")
     log.setLevel(logging.DEBUG)
 
     # Add handlers to the logger (log)

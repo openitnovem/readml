@@ -5,12 +5,12 @@ numpy
 pandas
 pickle5
 plotly
+scipy
 pyarrow
 scikit-learn
 shap
 colorlog
 beautifulsoup4
-tensorflow
 matplotlib
 opencv-python
 imutils

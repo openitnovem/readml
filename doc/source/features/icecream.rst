@@ -11,7 +11,7 @@ Icecream
 
 This module can be applied to any supervised learning model, however it presents the greatest value on "black box" models. The implemented methods are superior to simple feature importance assessment methods.
 
-This module offers two classes ``IceCream`` and ``IceCream2D``, it can be imported from ``fbd_interpreter.icecream``
+This module offers two classes ``IceCream`` and ``IceCream2D``, it can be imported from ``readml.icecream``
 
 Plots are created with Plotly_.
 

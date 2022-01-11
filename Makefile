@@ -15,11 +15,11 @@ upgrade:
 		$(REQUIREMENTSDIR)/requirements-dev.txt \
 
 format:
-	isort -rc fbd_interpreter/ tests/
-	black fbd_interpreter/ tests/
+	isort -rc readml/ tests/
+	black readml/ tests/
 
 check:
-	flake8 fbd_interpreter/ tests/
+	flake8 readml/ tests/
 	mypy .
 
 convert_notebooks:

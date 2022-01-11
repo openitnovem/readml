@@ -9,8 +9,8 @@ Contributing to this package
 
 .. _contributing.rules:
 
-Some rules to keep in mind
-==========================
+Some practices to keep in mind
+==============================
 
 .. _contributing.git:
 
@@ -18,17 +18,10 @@ Working with the code
 =====================
 
 You have an issue you want to fix, new feature to add, or documentation to improve,
-you need to learn how to work with Gitlab and the package code base.
+you need to learn how to work with github and the package code base.
 
 .. _contributing.version_control:
 
-Version control, Git
---------------------
-
-To the new user, working with Git is one of the more daunting aspects of contributing to pandas.
-It can very quickly become overwhelming, but sticking to the guidelines below will help keep the process
-straightforward and mostly trouble free.  As always, if you are having difficulties please
-feel free to ask for help.
 
 Forking
 -------
@@ -44,15 +37,12 @@ want to clone your fork to your machine::
 This creates the directory `package-yourname` and connects your repository to
 the upstream (main project) *package* repository.
 
-Note that performing a shallow clone (with ``--depth==N``, for some ``N`` greater
-or equal to 1) might break some tests and features as ``pd.show_versions()``
-as the version number cannot be computed anymore.
 
 Documentation
 =============
 
 Every documentation page must be writen in  `reStructuredText <http://sphinx-doc.org/rest.html>`_.
-It can be very handy to use an online Shinx editor to write or test your `reST code <http://livesphinx.herokuapp.com/>`_
+It can be very handy to use an online Sphinx editor to write or test your `reST code <http://livesphinx.herokuapp.com/>`_
 
 Please note that if you want to include a piece of python code that renders something like this
 
@@ -75,8 +65,7 @@ Remember to leave a blank line before and after the code.
 Writing Howto's
 ---------------
 
-bla bla bla
-
+If you want to add a new feature to the package, please consider adding examples to the ``API reference`` section.
 
 Docstrings
 ----------
