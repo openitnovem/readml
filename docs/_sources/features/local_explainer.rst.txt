@@ -37,11 +37,11 @@ SHAP force plots for non TreeBased model
 For non Tree based models, we use Kernel SHAP, a model agnostic explainer, to compute the shapely values.
 The Kernel SHAP algorithm provides model-agnostic (black box), human interpretable explanations suitable for regression and classification models applied to tabular data.
 
-Here is an example of using ``ExplainML`` class form ``fbd_interpreter.explainers.ml.explain_ml`` to interpret locally all ``df_test`` instances.
+Here is an example of using ``ExplainML`` class form ``readml.explainers.ml.explain_ml`` to interpret locally all ``df_test`` instances.
 Since we are using a non Tree based model, we set **tree_based_model** to False, and ``local_shap`` will use Kernel SHAP to compute SHAP force plots
 (plots will be stored in output path)::
 
-    from fbd_interpreter.explainers.ml.explain_ml import ExplainML
+    from readml.explainers.ml.explain_ml import ExplainML
     exp = ExplainML(
             model=svm_model,
             task_name="classification",
@@ -63,11 +63,11 @@ TreeSHAP was introduced as a fast, model-specific alternative to KernelSHAP, but
 
 Fast C++ implementations are supported for XGBoost, LightGBM, CatBoost, scikit-learn and pyspark tree models
 
-Here is an example of using ``ExplainML`` class form ``fbd_interpreter.explainers.ml.explain_ml`` to interpret locally all ``df_test`` instances.
+Here is an example of using ``ExplainML`` class form ``readml.explainers.ml.explain_ml`` to interpret locally all ``df_test`` instances.
 Since we are using XGBoost, we have to set **tree_based_model** to True, and ``local_shap`` will use Tree SHAP to compute SHAP force plots
 (plots will be stored in output path)::
 
-    from fbd_interpreter.explainers.ml.explain_ml import ExplainML
+    from readml.explainers.ml.explain_ml import ExplainML
     exp = ExplainML(
             model=xgboost,
             task_name="classification",
@@ -94,11 +94,11 @@ TensorFlow models and Keras models using the TensorFlow backend are supported.
 
 .. note:: To interpret locally a deep learning model applied to text data, you need to provide a word2index mapping (A dictionary where keys are the vocabulary and the values are the indexes)
 
-Here is an example of using ``ExplainDL`` class form ``fbd_interpreter.explainers.dl.explain_dl`` to interpret locally the first 10 instances of ``df_test``.
+Here is an example of using ``ExplainDL`` class form ``readml.explainers.dl.explain_dl`` to interpret locally the first 10 instances of ``df_test``.
 Since we are dealing with text data, we have to provide the word2index mapping. ``explain_text``  method will use Deep SHAP to compute SHAP force plots
 (plots will be stored in output path) ::
 
-    from fbd_interpreter.explainers.dl.explain_dl import ExplainDL
+    from readml.explainers.dl.explain_dl import ExplainDL
     exp = ExplainDL(model=lstm_model, out_path="outputs_dl/")
     exp.explain_text(
         test_data=test_data.head(10),
@@ -110,29 +110,21 @@ GRAD-CAM for DL models on image data
 ------------------------------------
 .. image:: ../_static/guided_grad_cam.png
 
-WIP
+GRAD-CAM (Gradient-weighted Class Activation Mapping) is a generalization of the Class Activation Mapping (CAM) to any CNN-based architectures.
+For a particular category, this method generates a map that indicates the discriminative image regions used by the CNN to identify that category.
+For more details on GRAD-CAM, we recommend to read the original paper_ .
 
-Given an image and a class of interest (e.g., ‘tiger cat’ or any other type of differentiable output) as input, we forward
-propagate the image through the CNN part of the model and then through task-specific computations to obtain a raw score
-for the category. The gradients are set to zero for all classes except the desired class (tiger cat), which is set to 1.
-This signal is then backpropagated to the rectified convolutional feature maps of interest, which we combine to compute the coarse
-Grad-CAM localization (blue heatmap) which represents where the model has to look to make the particular decision.
-TODO:
+Here is an example of using ``ExplainDL`` class form ``readml.explainers.dl.explain_dl`` to interpret locally a CNN applied to image data ::
 
-1) Compute the model output and last convolutional layer output for the image.
-2) Find the index of the winning class in the model output.
-3) Compute the gradient of the winning class with resepct to the last convolutional layer.
-3) Average this, then weigh it with the last convolutional layer (multiply them).
-4) TODO: Add multiply the heatmap with guided backpropagation
-5) Normalize between 0 and 1 for visualization
-6) Convert to RGB and layer it over the original image.
-
-Here is an example of using ``ExplainDL`` class form ``fbd_interpreter.explainers.dl.explain_dl`` to interpret locally a CNN applied to image data ::
-
-    from fbd_interpreter.explainers.dl.explain_dl import ExplainDL
+    from readml.explainers.dl.explain_dl import ExplainDL
     exp = ExplainDL(model=cnn_model, out_path="outputs_dl_image/")
     exp.explain_image(
         image_dir= "inputs/image_data",
         size=(224,224),
         color_mode="rgb",
     )
+
+
+References
+----------
+.. _paper: https://arxiv.org/pdf/1610.02391v1.pdf

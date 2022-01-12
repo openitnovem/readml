@@ -1,0 +1,25 @@
+﻿readml.explainers.dl.image\_deep\_explainer.VisualExplainer
+===========================================================
+
+.. currentmodule:: readml.explainers.dl.image_deep_explainer
+
+.. autoclass:: VisualExplainer
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~VisualExplainer.__init__
+      ~VisualExplainer.get_img_array
+      ~VisualExplainer.gradcam_explainer
+      ~VisualExplainer.local_explainer
+   
+   
+
+   
+   
+   

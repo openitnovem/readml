@@ -1,0 +1,23 @@
+readml.icecream.IceCream
+========================
+
+.. currentmodule:: readml.icecream
+
+.. autoclass:: IceCream
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~IceCream.__init__
+      ~IceCream.draw
+   
+   
+
+   
+   
+   

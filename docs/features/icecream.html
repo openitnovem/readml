@@ -1,70 +1,32 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="python" >
+<html class="writer-html4" lang="python" >
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Icecream &mdash; fbd_interpreter 0.0.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>Icecream &mdash; readml 0.0.0 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Development" href="../development/index.html" />
     <link rel="prev" title="Local interpretability in a nutshell" href="local_explainer.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="../index.html" class="icon icon-home"> fbd_interpreter
-          
-
-          
+            <a href="../index.html" class="icon icon-home"> readml
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -72,18 +34,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Features</a><ul class="current">
@@ -105,84 +56,42 @@
 <li class="toctree-l1"><a class="reference internal" href="../release_notes/index.html">Release notes</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">fbd_interpreter</a>
-        
+          <a href="../index.html">readml</a>
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="index.html">Features</a> &raquo;</li>
-        
       <li>Icecream</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/features/icecream.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <div class="section" id="icecream">
 <h1>Icecream<a class="headerlink" href="#icecream" title="Permalink to this headline">¶</a></h1>
 <p>🍨 Individual Conditional Expectation Charts by REAdme teaM 🍦</p>
-<p><strong>icecream</strong> is a module that aims at explaining how a machine learning model works. It offers ways of assessing the influence of features on a model using methods such as Partial Dependency Plots <a class="footnote-reference brackets" href="#id4" id="id1">1</a>, Individual Conditional Expectation <a class="footnote-reference brackets" href="#id5" id="id2">2</a> and Accumulated Local Effects <a class="footnote-reference brackets" href="#id6" id="id3">3</a> . For a specific feature, it can draw the influence of its values on the output of the model. It helps:</p>
+<p><strong>icecream</strong> is a module that aims at explaining how a machine learning model works. It offers ways of assessing the influence of features on a model using methods such as Partial Dependency Plots <a class="footnote-reference" href="#id4" id="id1">[1]</a>, Individual Conditional Expectation <a class="footnote-reference" href="#id5" id="id2">[2]</a> and Accumulated Local Effects <a class="footnote-reference" href="#id6" id="id3">[3]</a> . For a specific feature, it can draw the influence of its values on the output of the model. It helps:</p>
 <ul class="simple">
-<li><p>identify which features influence the model</p></li>
-<li><p>how they influence the model (what values)</p></li>
-<li><p>compare how the model reacts versus how the target reacts (for example some features would show an influence on the target but are actually not used by the model)</p></li>
+<li>identify which features influence the model</li>
+<li>how they influence the model (what values)</li>
+<li>compare how the model reacts versus how the target reacts (for example some features would show an influence on the target but are actually not used by the model)</li>
 </ul>
 <p>This module can be applied to any supervised learning model, however it presents the greatest value on &quot;black box&quot; models. The implemented methods are superior to simple feature importance assessment methods.</p>
-<p>This module offers two classes <code class="docutils literal notranslate"><span class="pre">IceCream</span></code> and <code class="docutils literal notranslate"><span class="pre">IceCream2D</span></code>, it can be imported from <code class="docutils literal notranslate"><span class="pre">fbd_interpreter.icecream</span></code></p>
+<p>This module offers two classes <code class="docutils literal notranslate"><span class="pre">IceCream</span></code> and <code class="docutils literal notranslate"><span class="pre">IceCream2D</span></code>, it can be imported from <code class="docutils literal notranslate"><span class="pre">readml.icecream</span></code></p>
 <p>Plots are created with <a class="reference external" href="https://plot.ly/python/">Plotly</a>.</p>
 <div class="section" id="recommandations">
 <h2>Recommandations<a class="headerlink" href="#recommandations" title="Permalink to this headline">¶</a></h2>
@@ -199,41 +108,38 @@
 <h2>Using icecream<a class="headerlink" href="#using-icecream" title="Permalink to this headline">¶</a></h2>
 <p>Explaining a model using <strong>icecream</strong> consists in two steps:</p>
 <ol class="arabic simple">
-<li><p>Creation of a <code class="docutils literal notranslate"><span class="pre">IceCream</span></code> or <code class="docutils literal notranslate"><span class="pre">IceCream2D</span></code> instance given data, model, bin definitions, targets and options. All computations and aggregations are conducted on instance creation.</p></li>
-<li><p>Plot drawing and saving using method <code class="docutils literal notranslate"><span class="pre">draw()</span></code> of created instance. Several plots are available (PDP, ICE &amp; ALE plots):</p></li>
+<li>Creation of a <code class="docutils literal notranslate"><span class="pre">IceCream</span></code> or <code class="docutils literal notranslate"><span class="pre">IceCream2D</span></code> instance given data, model, bin definitions, targets and options. All computations and aggregations are conducted on instance creation.</li>
+<li>Plot drawing and saving using method <code class="docutils literal notranslate"><span class="pre">draw()</span></code> of created instance. Several plots are available (PDP, ICE &amp; ALE plots):</li>
 </ol>
 <blockquote>
 <div><ul class="simple">
-<li><p>for <code class="docutils literal notranslate"><span class="pre">IceCream</span></code>, 1 chart is created per feature:</p>
-<ul>
-<li><p><strong>pdp</strong>: aggregated targets and predictions (mean or median) for each feature value, light in resources.</p></li>
-<li><p><strong>ale</strong>: mean of differences in predictions between min and max of each bin, it shows how the model predictions change in a small “window” of the feature values.</p></li>
-<li><p><strong>ice</strong>: clustered lines showing predictions, clustering method can be heavy in CPU, but final plot is light in resources; available clustering methods:</p>
-<ul>
-<li><p><strong>kmeans</strong>: KMeans clustering of predictions, lines are clusters centers, line widths are number of predictions for each cluster; heaviest in CPU but generally most revealing</p></li>
-<li><p><strong>quantiles</strong>: division of predictions in quantiles, lines are quantiles limits, lighter in CPU and still revealing</p></li>
-<li><p><strong>random</strong>: random selection of predictions, lightest in CPU but not reliable</p></li>
+<li>for <code class="docutils literal notranslate"><span class="pre">IceCream</span></code>, 1 chart is created per feature:<ul>
+<li><strong>pdp</strong>: aggregated targets and predictions (mean or median) for each feature value, light in resources.</li>
+<li><strong>ale</strong>: mean of differences in predictions between min and max of each bin, it shows how the model predictions change in a small “window” of the feature values.</li>
+<li><strong>ice</strong>: clustered lines showing predictions, clustering method can be heavy in CPU, but final plot is light in resources; available clustering methods:<ul>
+<li><strong>kmeans</strong>: KMeans clustering of predictions, lines are clusters centers, line widths are number of predictions for each cluster; heaviest in CPU but generally most revealing</li>
+<li><strong>quantiles</strong>: division of predictions in quantiles, lines are quantiles limits, lighter in CPU and still revealing</li>
+<li><strong>random</strong>: random selection of predictions, lightest in CPU but not reliable</li>
 </ul>
 </li>
-<li><p><strong>box</strong>: distributions of predictions as boxes for each feature value, heavier in resources.</p></li>
+<li><strong>box</strong>: distributions of predictions as boxes for each feature value, heavier in resources.</li>
 </ul>
 </li>
-<li><p>for <code class="docutils literal notranslate"><span class="pre">IceCream2D</span></code>, all charts are created using the 2 given features:</p>
-<ul>
-<li><p><strong>hist</strong>: heatmap of aggregated targets and predictions for feature values with histograms of feature values on the sides</p></li>
-<li><p><strong>scatter</strong>: heatmap of aggregated targets and predictions for feature values with overlaid scatter plot of number of feature values</p></li>
+<li>for <code class="docutils literal notranslate"><span class="pre">IceCream2D</span></code>, all charts are created using the 2 given features:<ul>
+<li><strong>hist</strong>: heatmap of aggregated targets and predictions for feature values with histograms of feature values on the sides</li>
+<li><strong>scatter</strong>: heatmap of aggregated targets and predictions for feature values with overlaid scatter plot of number of feature values</li>
 </ul>
 </li>
 </ul>
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>The created <code class="docutils literal notranslate"><span class="pre">IceCream</span></code> instance contains all discretizations, aggregations, predictions and samples that are used to create the charts.</p></li>
+<li>The created <code class="docutils literal notranslate"><span class="pre">IceCream</span></code> instance contains all discretizations, aggregations, predictions and samples that are used to create the charts.</li>
 </ol>
 <p><em>Notes:</em></p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Number of lines in <strong>ice</strong> plots should not be too high, because Plotly becomes heavy with too many traces. 30 lines would be the recommended maximum.</p></li>
-<li><p>If using <strong>quantiles</strong> method, number of lines should be odd so that a median line is drawn.</p></li>
+<li>Number of lines in <strong>ice</strong> plots should not be too high, because Plotly becomes heavy with too many traces. 30 lines would be the recommended maximum.</li>
+<li>If using <strong>quantiles</strong> method, number of lines should be odd so that a median line is drawn.</li>
 </ul>
 </div></blockquote>
 </div>
@@ -241,71 +147,60 @@
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
 <p><strong>icecream</strong> functions use custom options stored in a global configuration object called <code class="docutils literal notranslate"><span class="pre">options</span></code>. These options mostly affect the automatic discretization functions and the chart attributes. Calling <code class="docutils literal notranslate"><span class="pre">icecream.options</span></code> shows available options and current values. Values can be customized with statement:</p>
 <blockquote>
-<div><p>icecream.options.&lt;field_name&gt; = &lt;value&gt;</p>
-</div></blockquote>
+<div>icecream.options.&lt;field_name&gt; = &lt;value&gt;</div></blockquote>
 <div class="section" id="references">
 <h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
-<dl class="footnote brackets">
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Hastie, T., Tibshirani, R. and Friedman, J. (2009). The Elements of Statistical Learning Ed. 2. New York: Springer.</p>
-</dd>
-<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>Goldstein, A., Kapelner, A., Bleich, J., Pitkin, E. (2013). Peeking Inside the Black Box: Visualizing Statistical Learning with Plots of Individual Conditional Expectation. <a class="reference external" href="https://arxiv.org/abs/1309.6392">https://arxiv.org/abs/1309.6392</a></p>
-</dd>
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
-<dd><p>Molnar, Christoph. (2019). Interpretable Machine Learning: A Guide for Making Black Box Models Explainable. <a class="reference external" href="https://christophm.github.io/interpretable-ml-book/">https://christophm.github.io/interpretable-ml-book/</a></p>
-</dd>
-</dl>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Hastie, T., Tibshirani, R. and Friedman, J. (2009). The Elements of Statistical Learning Ed. 2. New York: Springer.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>Goldstein, A., Kapelner, A., Bleich, J., Pitkin, E. (2013). Peeking Inside the Black Box: Visualizing Statistical Learning with Plots of Individual Conditional Expectation. <a class="reference external" href="https://arxiv.org/abs/1309.6392">https://arxiv.org/abs/1309.6392</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>Molnar, Christoph. (2019). Interpretable Machine Learning: A Guide for Making Black Box Models Explainable. <a class="reference external" href="https://christophm.github.io/interpretable-ml-book/">https://christophm.github.io/interpretable-ml-book/</a></td></tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../development/index.html" class="btn btn-neutral float-right" title="Development" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="local_explainer.html" class="btn btn-neutral float-left" title="Local interpretability in a nutshell" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../development/index.html" class="btn btn-neutral float-right" title="Development" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020, DES Team.
-
-    </p>
+    <p>&#169; Copyright 2020, DES Team.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
