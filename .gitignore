@@ -6,7 +6,7 @@ doc/_build/
 Notes
 tmp/
 dist/
-fbd_interpreter.egg-info/
+readml.egg-info/
 build/
 .ipynb_checkpoints/
 *.ipynb
@@ -14,23 +14,43 @@ build/
 meta_build.json
 sonar-project.properties
 .idea/
-fbd_interpreter/data_factory/
-fbd_interpreter/dev/
+readml/data_factory/
+readml/dev/
+readml/config/config_local.cfg
+
+# test
 outputs/global_interpretation/
 outputs/local_interpretation/
 outputs/logs.log
 outputs/logs.txt
 outputs/tests/dummy_figure.html
+outputs/tests/dl/tabular/*.html
+outputs/tests/dl/image/*.html
+outputs/tests/dl/text/*.html
+outputs/tests/dl/data_image/*.jpg
+outputs/tests/ml/
+outputs/tests/
+outputs/tests/data/
 outputs_ml/
 outputs_dl/
+
 # test coverage
 htmlcov/
 .coverage
+.coverage.36b78008a6f3.15551.636974
 coverage.xml
-fbd_interpreter/main.prof
-
+readml/main.prof
 
 # doc
 doc/build/
 doc/source/api_reference/generated
-/build_and_publish.sh
+
+# code quality
+.scannerwork
+.pytest_cache
+pylint_reports.txt
+
+
+.devcontainer/devcontainer.json
+.vscode/tasks.json
+.vscode/launch.json
