@@ -1,0 +1,6 @@
+readml.explainers.core.interpret\_ml
+====================================
+
+.. currentmodule:: readml.explainers.core
+
+.. autofunction:: interpret_ml

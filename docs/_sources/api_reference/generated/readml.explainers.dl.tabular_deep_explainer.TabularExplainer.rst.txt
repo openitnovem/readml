@@ -1,0 +1,23 @@
+readml.explainers.dl.tabular\_deep\_explainer.TabularExplainer
+==============================================================
+
+.. currentmodule:: readml.explainers.dl.tabular_deep_explainer
+
+.. autoclass:: TabularExplainer
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~TabularExplainer.__init__
+      ~TabularExplainer.local_explainer
+   
+   
+
+   
+   
+   

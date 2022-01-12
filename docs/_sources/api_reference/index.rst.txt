@@ -10,7 +10,7 @@ Many classes can be used to interpret any model.
 
 **For ML interpretability:**
 
-.. currentmodule:: fbd_interpreter.explainers.ml
+.. currentmodule:: readml.explainers.ml
 
 .. autosummary::
    :toctree: generated/
@@ -21,7 +21,7 @@ Many classes can be used to interpret any model.
 
 You can also use the icecream module classes for custom visualizations.
 
-.. currentmodule:: fbd_interpreter.icecream
+.. currentmodule:: readml.icecream
 
 .. autosummary::
    :toctree: generated/
@@ -31,13 +31,13 @@ You can also use the icecream module classes for custom visualizations.
 
 **For DL interpretability:**
 
-.. currentmodule:: fbd_interpreter.explainers.dl
+.. currentmodule:: readml.explainers.dl
 
 .. autosummary::
    :toctree: generated/
 
    explain_dl.ExplainDL
-   tabular_deep_explainer.TabExplainer
+   tabular_deep_explainer.TabularExplainer
    text_deep_explainer.TextExplainer
    image_deep_explainer.VisualExplainer
    grad_cam.GradCAM
@@ -46,22 +46,12 @@ You can also use the icecream module classes for custom visualizations.
 Functions
 ---------
 
-.. currentmodule:: fbd_interpreter.main
+.. currentmodule:: readml.main
 
 .. autosummary::
    :toctree: generated/
 
    interpret
-
-.. currentmodule:: fbd_interpreter.explainers.core
-
-.. autosummary::
-   :toctree: generated/
-   :recursive:
-
-   interpret_dl
-   interpret_ml
-
 
 
 .. warning::

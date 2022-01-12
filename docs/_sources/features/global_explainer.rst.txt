@@ -81,11 +81,11 @@ To study the influence of 2 features `A` and `B` simultaneously with interaction
 Example
 ~~~~~~~
 
-Here is an example of using the icecream module (directly from ``fbd_interpreter.icecream``) to draw PDP ans ICE plots ::
+Here is an example of using the icecream module (directly from ``readml.icecream``) to draw PDP ans ICE plots ::
 
     import pandas as pd
     from sklearn.linear_model import LogisticRegression
-    from fbd_interpreter.icecream import icecream
+    from readml.icecream import icecream
     # load data and adapt for binary classification
     df = pd.read_csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv')
     df['label'] = (df.species == 'setosa') * 1
@@ -161,11 +161,11 @@ ALE are different than PDP because:
 
 Example
 ~~~~~~~
-Here is an example of using the icecream module (directly from ``fbd_interpreter.icecream``) to draw ALE plots ::
+Here is an example of using the icecream module (directly from ``readml.icecream``) to draw ALE plots ::
 
     import pandas as pd
     from sklearn.linear_model import LogisticRegression
-    from fbd_interpreter.icecream import icecream
+    from readml.icecream import icecream
     # load data and adapt for binary classification
     df = pd.read_csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv')
     df['label'] = (df.species == 'setosa') * 1
@@ -225,11 +225,11 @@ The position on the y-axis is determined by the feature and on the x-axis by the
 
 Example
 ~~~~~~~
-Here is an example of using ``ExplainML`` class form ``fbd_interpreter.explainers.ml.explain_ml`` to compute SHAP feature importance and summary plots.
+Here is an example of using ``ExplainML`` class form ``readml.explainers.ml.explain_ml`` to compute SHAP feature importance and summary plots.
 
 An html report containing feature importance and summary plots (with a breve description) will be stored in out_path. ::
 
-    from fbd_interpreter.explainers.ml.explain_ml import ExplainML
+    from readml.explainers.ml.explain_ml import ExplainML
     exp = ExplainML(
             model=xgb_model,
             task_name="classification",

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="python" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>readml.icecream.IceCream2D &mdash; readml 0.0.0 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="readml.explainers.dl.explain_dl.ExplainDL" href="readml.explainers.dl.explain_dl.ExplainDL.html" />
+    <link rel="prev" title="readml.icecream.IceCream" href="readml.icecream.IceCream.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> readml
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development/index.html">Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#classes">Classes</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="readml.explainers.ml.explain_ml.ExplainML.html">readml.explainers.ml.explain_ml.ExplainML</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readml.explainers.ml.shap_tree_explainer.ShapTreeExplainer.html">readml.explainers.ml.shap_tree_explainer.ShapTreeExplainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readml.explainers.ml.shap_kernel_explainer.ShapKernelExplainer.html">readml.explainers.ml.shap_kernel_explainer.ShapKernelExplainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readml.icecream.IceCream.html">readml.icecream.IceCream</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">readml.icecream.IceCream2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readml.explainers.dl.explain_dl.ExplainDL.html">readml.explainers.dl.explain_dl.ExplainDL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readml.explainers.dl.tabular_deep_explainer.TabularExplainer.html">readml.explainers.dl.tabular_deep_explainer.TabularExplainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readml.explainers.dl.text_deep_explainer.TextExplainer.html">readml.explainers.dl.text_deep_explainer.TextExplainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readml.explainers.dl.image_deep_explainer.VisualExplainer.html">readml.explainers.dl.image_deep_explainer.VisualExplainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readml.explainers.dl.grad_cam.GradCAM.html">readml.explainers.dl.grad_cam.GradCAM</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../release_notes/index.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">readml</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">API reference</a> &raquo;</li>
+      <li>readml.icecream.IceCream2D</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api_reference/generated/readml.icecream.IceCream2D.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="readml-icecream-icecream2d">
+<h1>readml.icecream.IceCream2D<a class="headerlink" href="#readml-icecream-icecream2d" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="readml.icecream.IceCream2D">
+<em class="property">class </em><code class="descclassname">readml.icecream.</code><code class="descname">IceCream2D</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame, feature_x: str, feature_y: str, bins_x: Union[int, Sized, None], bins_y: Union[int, Sized, None], use_ale: bool = False, model: Optional[Any] = None, predictions: Optional[Sized] = None, targets: Optional[Sized] = None, aggfunc: str = 'mean', use_classif_proba: bool = True, clip_quantile: float = 0.0, quantile_based: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/readml/icecream/icecream.html#IceCream2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#readml.icecream.IceCream2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class that generates and contains predictions and aggregations used to
+draw 2D interaction plots (partial dependencies or ALE heatmaps).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> (<em>pd.DataFrame</em>) -- Dataframe of model inputs</li>
+<li><strong>feature_x</strong> (<em>str</em>) -- Name of column from data to discretize for x axis</li>
+<li><strong>feature_y</strong> (<em>str</em>) -- Name of column from data to discretize for y axis</li>
+<li><strong>bins_x</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>Sized</em><em>]</em><em>]</em>) -- Bin definition for feature_x
+- None -&gt; bin definition is guessed by module
+- integer -&gt; value is used as number of bins for all features
+- Sized -&gt; define specific bins</li>
+<li><strong>bins_y</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>Sized</em><em>]</em><em>]</em>) -- Bin definition for feature_y
+- None -&gt; bin definition is guessed by module
+- integer -&gt; value is used as number of bins for all features
+- Sized -&gt; define specific bins</li>
+<li><strong>use_ale</strong> (<em>bool</em><em>, </em><em>optional</em>) -- If True, computes ALE: Accumulated Local Effects.
+Can only be used for numerical features. (the default is False)</li>
+<li><strong>model</strong> (<em>scikit-learn model</em><em>, </em><em>optional</em>) -- Model to compute predictions using provided data,
+<cite>model.predict(data)</cite> must work</li>
+<li><strong>predictions</strong> (<em>Optional</em><em>[</em><em>Sized</em><em>]</em>) -- Series containing predictions for rows in data,
+used if no model can be given</li>
+<li><strong>targets</strong> (<em>Optional</em><em>[</em><em>Sized</em><em>]</em>) -- Series containing targets for rows in data</li>
+<li><strong>aggfunc</strong> (<em>str</em><em>, </em><em>optional</em>) -- Aggregation function for targets and predictions aggregation
+(the default is &quot;mean&quot;)</li>
+<li><strong>use_classif_proba</strong> (<em>bool</em>) -- If True, use prediction probability as model output,
+only used if model is a classifier
+(the default is True)</li>
+<li><strong>clip_quantile</strong> (<em>float</em><em>, </em><em>optional</em>) -- Quantile to clip the feature values for continuous features,
+set to 0 to disable clipping
+(the default is 0.0)</li>
+<li><strong>quantile_based</strong> (<em>bool</em><em>, </em><em>optional</em>) -- Option to use a quantile-based discretization function for
+continuous features (instead of a linear discretization).
+(the default is False)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="readml.icecream.IceCream2D.feature_x">
+<code class="descname">feature_x</code><a class="headerlink" href="#readml.icecream.IceCream2D.feature_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Discretized representation of feature for x axis</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">FeatureDiscretizer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="readml.icecream.IceCream2D.feature_y">
+<code class="descname">feature_y</code><a class="headerlink" href="#readml.icecream.IceCream2D.feature_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>Discretized representation of feature for y axis</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">FeatureDiscretizer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="readml.icecream.IceCream2D.counts">
+<code class="descname">counts</code><a class="headerlink" href="#readml.icecream.IceCream2D.counts" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of counts of number of rows for each square of heatmap</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">List[pd.DataFrame]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="readml.icecream.IceCream2D.agg_predictions">
+<code class="descname">agg_predictions</code><a class="headerlink" href="#readml.icecream.IceCream2D.agg_predictions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dataframe of aggregated predictions for each bin of features x and y</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">pd.DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="readml.icecream.IceCream2D.agg_targets">
+<code class="descname">agg_targets</code><a class="headerlink" href="#readml.icecream.IceCream2D.agg_targets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dataframe of aggregated targets for each bin of features x and y</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">pd.DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="readml.icecream.IceCream2D.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame, feature_x: str, feature_y: str, bins_x: Union[int, Sized, None], bins_y: Union[int, Sized, None], use_ale: bool = False, model: Optional[Any] = None, predictions: Optional[Sized] = None, targets: Optional[Sized] = None, aggfunc: str = 'mean', use_classif_proba: bool = True, clip_quantile: float = 0.0, quantile_based: bool = False</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../../_modules/readml/icecream/icecream.html#IceCream2D.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#readml.icecream.IceCream2D.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates class instance with attributes, then run results computation.</p>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#readml.icecream.IceCream2D.__init__" title="readml.icecream.IceCream2D.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(data,&nbsp;feature_x,&nbsp;feature_y,&nbsp;bins_x,&nbsp;...)</td>
+<td>Creates class instance with attributes, then run results computation.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw</span></code>(kind,&nbsp;show,&nbsp;save_path)</td>
+<td>Builds plots, optionally shows them in current notebook and save them in HTML format.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="readml.icecream.IceCream.html" class="btn btn-neutral float-left" title="readml.icecream.IceCream" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="readml.explainers.dl.explain_dl.ExplainDL.html" class="btn btn-neutral float-right" title="readml.explainers.dl.explain_dl.ExplainDL" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, DES Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

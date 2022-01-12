@@ -1,0 +1,6 @@
+readml.main.interpret
+=====================
+
+.. currentmodule:: readml.main
+
+.. autodata:: interpret

@@ -1,70 +1,32 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="python" >
+<html class="writer-html4" lang="python" >
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Contributing to this package &mdash; fbd_interpreter 0.0.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>Contributing to this package &mdash; readml 0.0.0 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="API reference" href="../api_reference/index.html" />
     <link rel="prev" title="Development" href="index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="../index.html" class="icon icon-home"> fbd_interpreter
-          
-
-          
+            <a href="../index.html" class="icon icon-home"> readml
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -72,26 +34,14 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Contributing to this package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#some-rules-to-keep-in-mind">Some rules to keep in mind</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#some-practices-to-keep-in-mind">Some practices to keep in mind</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#working-with-the-code">Working with the code</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#version-control-git">Version control, Git</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#forking">Forking</a></li>
 </ul>
 </li>
@@ -109,110 +59,58 @@
 <li class="toctree-l1"><a class="reference internal" href="../release_notes/index.html">Release notes</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">fbd_interpreter</a>
-        
+          <a href="../index.html">readml</a>
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="index.html">Development</a> &raquo;</li>
-        
       <li>Contributing to this package</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/development/contributing.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <div class="section" id="contributing-to-this-package">
 <span id="contributing"></span><h1>Contributing to this package<a class="headerlink" href="#contributing-to-this-package" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="table-of-contents">
-<p class="topic-title">Table of contents:</p>
+<p class="topic-title first">Table of contents:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#some-rules-to-keep-in-mind" id="id1">Some rules to keep in mind</a></p></li>
-<li><p><a class="reference internal" href="#working-with-the-code" id="id2">Working with the code</a></p>
-<ul>
-<li><p><a class="reference internal" href="#version-control-git" id="id3">Version control, Git</a></p></li>
-<li><p><a class="reference internal" href="#forking" id="id4">Forking</a></p></li>
+<li><a class="reference internal" href="#some-practices-to-keep-in-mind" id="id1">Some practices to keep in mind</a></li>
+<li><a class="reference internal" href="#working-with-the-code" id="id2">Working with the code</a><ul>
+<li><a class="reference internal" href="#forking" id="id3">Forking</a></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#documentation" id="id5">Documentation</a></p>
-<ul>
-<li><p><a class="reference internal" href="#writing-howto-s" id="id6">Writing Howto's</a></p></li>
-<li><p><a class="reference internal" href="#docstrings" id="id7">Docstrings</a></p></li>
-<li><p><a class="reference internal" href="#building-the-doc" id="id8">Building the doc</a></p></li>
+<li><a class="reference internal" href="#documentation" id="id4">Documentation</a><ul>
+<li><a class="reference internal" href="#writing-howto-s" id="id5">Writing Howto's</a></li>
+<li><a class="reference internal" href="#docstrings" id="id6">Docstrings</a></li>
+<li><a class="reference internal" href="#building-the-doc" id="id7">Building the doc</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="section" id="some-rules-to-keep-in-mind">
-<span id="contributing-rules"></span><h2><a class="toc-backref" href="#id1">Some rules to keep in mind</a><a class="headerlink" href="#some-rules-to-keep-in-mind" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="some-practices-to-keep-in-mind">
+<span id="contributing-rules"></span><h2><a class="toc-backref" href="#id1">Some practices to keep in mind</a><a class="headerlink" href="#some-practices-to-keep-in-mind" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="working-with-the-code">
 <span id="contributing-git"></span><h2><a class="toc-backref" href="#id2">Working with the code</a><a class="headerlink" href="#working-with-the-code" title="Permalink to this headline">¶</a></h2>
 <p>You have an issue you want to fix, new feature to add, or documentation to improve,
-you need to learn how to work with Gitlab and the package code base.</p>
-<div class="section" id="version-control-git">
-<span id="contributing-version-control"></span><h3><a class="toc-backref" href="#id3">Version control, Git</a><a class="headerlink" href="#version-control-git" title="Permalink to this headline">¶</a></h3>
-<p>To the new user, working with Git is one of the more daunting aspects of contributing to pandas.
-It can very quickly become overwhelming, but sticking to the guidelines below will help keep the process
-straightforward and mostly trouble free.  As always, if you are having difficulties please
-feel free to ask for help.</p>
-</div>
+you need to learn how to work with github and the package code base.</p>
 <div class="section" id="forking">
-<h3><a class="toc-backref" href="#id4">Forking</a><a class="headerlink" href="#forking" title="Permalink to this headline">¶</a></h3>
+<span id="contributing-version-control"></span><h3><a class="toc-backref" href="#id3">Forking</a><a class="headerlink" href="#forking" title="Permalink to this headline">¶</a></h3>
 <p>You will need your own fork to work on the code. Go to the <a class="reference external" href="https://gitlab-repo-gpf.apps.eul.sncf.fr/digital/groupefbd-digital/90023/DSE/fbd_tools">package project
 page</a> and hit the <code class="docutils literal notranslate"><span class="pre">Fork</span></code> button. You will
 want to clone your fork to your machine:</p>
@@ -223,15 +121,12 @@ want to clone your fork to your machine:</p>
 </div>
 <p>This creates the directory <cite>package-yourname</cite> and connects your repository to
 the upstream (main project) <em>package</em> repository.</p>
-<p>Note that performing a shallow clone (with <code class="docutils literal notranslate"><span class="pre">--depth==N</span></code>, for some <code class="docutils literal notranslate"><span class="pre">N</span></code> greater
-or equal to 1) might break some tests and features as <code class="docutils literal notranslate"><span class="pre">pd.show_versions()</span></code>
-as the version number cannot be computed anymore.</p>
 </div>
 </div>
 <div class="section" id="documentation">
-<h2><a class="toc-backref" href="#id5">Documentation</a><a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Documentation</a><a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
 <p>Every documentation page must be writen in  <a class="reference external" href="http://sphinx-doc.org/rest.html">reStructuredText</a>.
-It can be very handy to use an online Shinx editor to write or test your <a class="reference external" href="http://livesphinx.herokuapp.com/">reST code</a></p>
+It can be very handy to use an online Sphinx editor to write or test your <a class="reference external" href="http://livesphinx.herokuapp.com/">reST code</a></p>
 <p>Please note that if you want to include a piece of python code that renders something like this</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">show_versions</span><span class="p">()</span>
@@ -246,11 +141,11 @@ It can be very handy to use an online Shinx editor to write or test your <a clas
 </div>
 <p>Remember to leave a blank line before and after the code.</p>
 <div class="section" id="writing-howto-s">
-<h3><a class="toc-backref" href="#id6">Writing Howto's</a><a class="headerlink" href="#writing-howto-s" title="Permalink to this headline">¶</a></h3>
-<p>bla bla bla</p>
+<h3><a class="toc-backref" href="#id5">Writing Howto's</a><a class="headerlink" href="#writing-howto-s" title="Permalink to this headline">¶</a></h3>
+<p>If you want to add a new feature to the package, please consider adding examples to the <code class="docutils literal notranslate"><span class="pre">API</span> <span class="pre">reference</span></code> section.</p>
 </div>
 <div class="section" id="docstrings">
-<h3><a class="toc-backref" href="#id7">Docstrings</a><a class="headerlink" href="#docstrings" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id6">Docstrings</a><a class="headerlink" href="#docstrings" title="Permalink to this headline">¶</a></h3>
 <p>Docstrings must be written with the numpy style:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This can be a brief description of your function</span>
@@ -294,57 +189,40 @@ It can be very handy to use an online Shinx editor to write or test your <a clas
 <p>For a complete reference of this style, see the <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html#sections">link</a></p>
 </div>
 <div class="section" id="building-the-doc">
-<h3><a class="toc-backref" href="#id8">Building the doc</a><a class="headerlink" href="#building-the-doc" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id7">Building the doc</a><a class="headerlink" href="#building-the-doc" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 </div>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../api_reference/index.html" class="btn btn-neutral float-right" title="API reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Development" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api_reference/index.html" class="btn btn-neutral float-right" title="API reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020, DES Team.
-
-    </p>
+    <p>&#169; Copyright 2020, DES Team.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
