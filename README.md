@@ -220,6 +220,4 @@ For future development, please use black for code formatting
 ## Copyright 
 DSE Team - Data IA Factory
 
-## Author :
-* **Soumaya IHIHI** - *Data scientist*
 
