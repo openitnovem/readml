@@ -30,7 +30,7 @@ setup(
     long_description_content_type="text/markdown",
     url=GIT_URL,
     author="Soumaya IHIHI - DS",
-    author_email="soumaya.ihihi@sncf.fr",
+    author_email="",
     license="Apache Software License 2.0",
     install_requires=install_requires,
     python_requires=">=3.6.0",
