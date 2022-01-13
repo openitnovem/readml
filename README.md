@@ -217,7 +217,4 @@ For future development, please use black for code formatting
 - [SHAP](https://github.com/slundberg/shap)
 
 
-## Copyright 
-DSE Team - Data IA Factory
-
 
