@@ -15,8 +15,11 @@ from readml.icecream.compute_utils import (
 )
 from readml.icecream.discretizer import FeatureDiscretizer
 
-DUMMY_PREDICT = np.array([2, 3, 4])
-DUMMY_PREDICT_PROBA = np.array([[1, 0.5, 0], [0, 0.5, 1]])
+DUMMY_REG_PREDICT = np.array([2, 3, 4])
+DUMMY_BINARY_PREDICT_PROBA = np.array([[1, 0], [0.5, 0.5], [0, 1]])
+DUMMY_BINARY_PREDICT = np.array([0, 0, 1])
+DUMMY_MULTICLASS_PREDICT_PROBA = np.array([[0.8, 0.2, 0], [0, 0.5, 0.5]])
+DUMMY_MULTICLASS_PREDICT = np.array([0, 2])
 
 
 class DummyModel(object):
@@ -24,11 +27,17 @@ class DummyModel(object):
     Dummy class that acts like a scikit-learn supervised learning model
     """
 
-    def __init__(self, classifier: bool = True) -> None:
-        self.predict = lambda x: DUMMY_PREDICT
-        if classifier:
-            self.classes_ = [0, 1]
-            self.predict_proba = lambda x: DUMMY_PREDICT_PROBA
+    def __init__(self, type: str) -> None:
+        if type == "reg":
+            self.predict = lambda x: DUMMY_REG_PREDICT
+        elif type == "binary":
+            self.classes_ = np.array(range(DUMMY_BINARY_PREDICT_PROBA.shape[1]))
+            self.predict = lambda x: DUMMY_BINARY_PREDICT
+            self.predict_proba = lambda x: DUMMY_BINARY_PREDICT_PROBA
+        elif type == "multiclass":
+            self.classes_ = np.array(range(DUMMY_MULTICLASS_PREDICT_PROBA.shape[1]))
+            self.predict = lambda x: DUMMY_MULTICLASS_PREDICT
+            self.predict_proba = lambda x: DUMMY_MULTICLASS_PREDICT_PROBA
 
 
 def test_generate_fake_data() -> None:
@@ -54,25 +63,47 @@ def test_aggregate_series() -> None:
 
 def test_guess_model_predict_function() -> None:
     pd.util.testing.assert_numpy_array_equal(
-        guess_model_predict_function(DummyModel(False), use_classif_proba=False)(None),
-        DUMMY_PREDICT,
+        guess_model_predict_function(DummyModel("reg"), use_classif_proba=False)(None),
+        DUMMY_REG_PREDICT,
     )
     pd.util.testing.assert_numpy_array_equal(
-        guess_model_predict_function(DummyModel(True), use_classif_proba=False)(None),
-        DUMMY_PREDICT,
+        guess_model_predict_function(DummyModel("binary"), use_classif_proba=False)(
+            None
+        ),
+        DUMMY_BINARY_PREDICT,
     )
     pd.util.testing.assert_numpy_array_equal(
-        guess_model_predict_function(DummyModel(True), use_classif_proba=True)(None),
-        DUMMY_PREDICT_PROBA[:, 1],
+        guess_model_predict_function(DummyModel("binary"), use_classif_proba=True)(
+            None
+        ),
+        DUMMY_BINARY_PREDICT_PROBA[:, 1],
+    )
+    pd.util.testing.assert_numpy_array_equal(
+        guess_model_predict_function(
+            DummyModel("multiclass"), use_classif_proba=False, class_name=1
+        )(None),
+        DUMMY_MULTICLASS_PREDICT,
+    )
+    pd.util.testing.assert_numpy_array_equal(
+        guess_model_predict_function(
+            DummyModel("multiclass"), use_classif_proba=True, class_name=1
+        )(None),
+        DUMMY_MULTICLASS_PREDICT_PROBA[:, 1],
+    )
+    pd.util.testing.assert_numpy_array_equal(
+        guess_model_predict_function(
+            DummyModel("multiclass"), use_classif_proba=True, class_name=2
+        )(None),
+        DUMMY_MULTICLASS_PREDICT_PROBA[:, 2],
     )
 
 
 def test_compute_ale_agg_results() -> None:
     data = pd.DataFrame([2, 2, 4, 4], columns=["complex_data"])
     fd = FeatureDiscretizer(data["complex_data"], 2)
-    function = DummyModel(True).predict
+    function = DummyModel("binary").predict
     pd.util.testing.assert_frame_equal(
-        compute_ale_agg_results(data, fd, function),
+        compute_ale_agg_results(data, fd, function, add_mean=False),
         pd.DataFrame([[0.0, 0.0]], columns=fd.categorical_feature.categories),
     )
 
@@ -80,7 +111,7 @@ def test_compute_ale_agg_results() -> None:
 def test_compute_ice_model_predictions() -> None:
     data = pd.DataFrame([2, 2, 4, 4], columns=["complex_data"])
     fd = FeatureDiscretizer(data["complex_data"], 2)
-    function = DummyModel(True).predict
+    function = DummyModel("reg").predict
     pd.util.testing.assert_frame_equal(
         compute_ice_model_predictions(data, fd, function),
         pd.DataFrame(
@@ -112,7 +143,7 @@ def test_compute_results_ale_2D() -> None:
     data = pd.DataFrame([[1, 2], [3, 4]], columns=["a", "b"])
     fd_a = FeatureDiscretizer(data["a"], 2)
     fd_b = FeatureDiscretizer(data["b"], 2)
-    function = DummyModel(True).predict
+    function = DummyModel("reg").predict
     pd.util.testing.assert_frame_equal(
         compute_model_ale_results_2D(data, fd_a, fd_b, function),
         pd.DataFrame(
@@ -127,7 +158,7 @@ def test_compute_ice_model_results_2D() -> None:
     data = pd.DataFrame([[1, 2], [3, 4]], columns=["a", "b"])
     fd_a = FeatureDiscretizer(data["a"], 2)
     fd_b = FeatureDiscretizer(data["b"], 2)
-    function = DummyModel(True).predict
+    function = DummyModel("reg").predict
     pd.util.testing.assert_frame_equal(
         compute_ice_model_results_2D(data, fd_a, fd_b, function, "mean"),
         pd.DataFrame(
