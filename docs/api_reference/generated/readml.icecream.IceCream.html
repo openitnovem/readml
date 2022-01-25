@@ -88,7 +88,7 @@
 <h1>readml.icecream.IceCream<a class="headerlink" href="#readml-icecream-icecream" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="readml.icecream.IceCream">
-<em class="property">class </em><code class="descclassname">readml.icecream.</code><code class="descname">IceCream</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame, feature_names: List[str], bins: Union[Dict[str, Union[int, Sized, None]], int] = {}, use_ale: bool = False, model: Optional[Any] = None, predictions: Optional[Sized] = None, targets: Optional[Sized] = None, aggfunc: str = 'mean', use_classif_proba: bool = True, clip_quantile: float = 0.0, quantile_based: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/readml/icecream/icecream.html#IceCream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#readml.icecream.IceCream" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">readml.icecream.</code><code class="descname">IceCream</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame, feature_names: List[str], bins: Union[Dict[str, Union[int, Sized, None]], int] = {}, use_ale: bool = False, model: Optional[Any] = None, predictions: Optional[Sized] = None, targets: Optional[Sized] = None, aggfunc: str = 'mean', use_classif_proba: bool = True, clip_quantile: float = 0.0, quantile_based: bool = False, class_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/readml/icecream/icecream.html#IceCream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#readml.icecream.IceCream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class that generates and contains predictions and aggregations used to
 draw PDPlots, ICE plots and ALE plots.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -204,7 +204,7 @@ if ice line plot is drawn. Not filled until <cite>draw</cite> method is called.<
 
 <dl class="method">
 <dt id="readml.icecream.IceCream.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame, feature_names: List[str], bins: Union[Dict[str, Union[int, Sized, None]], int] = {}, use_ale: bool = False, model: Optional[Any] = None, predictions: Optional[Sized] = None, targets: Optional[Sized] = None, aggfunc: str = 'mean', use_classif_proba: bool = True, clip_quantile: float = 0.0, quantile_based: bool = False</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../../_modules/readml/icecream/icecream.html#IceCream.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#readml.icecream.IceCream.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame, feature_names: List[str], bins: Union[Dict[str, Union[int, Sized, None]], int] = {}, use_ale: bool = False, model: Optional[Any] = None, predictions: Optional[Sized] = None, targets: Optional[Sized] = None, aggfunc: str = 'mean', use_classif_proba: bool = True, clip_quantile: float = 0.0, quantile_based: bool = False, class_name=None</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../../_modules/readml/icecream/icecream.html#IceCream.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#readml.icecream.IceCream.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates class instance with attributes, then run results computation.</p>
 </dd></dl>
 
@@ -215,7 +215,7 @@ if ice line plot is drawn. Not filled until <cite>draw</cite> method is called.<
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#readml.icecream.IceCream.__init__" title="readml.icecream.IceCream.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(data,&nbsp;feature_names,&nbsp;bins,&nbsp;...)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#readml.icecream.IceCream.__init__" title="readml.icecream.IceCream.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(data,&nbsp;feature_names,&nbsp;bins,&nbsp;...[,&nbsp;...])</td>
 <td>Creates class instance with attributes, then run results computation.</td>
 </tr>
 <tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw</span></code>(kind,&nbsp;show,&nbsp;save_path,&nbsp;ice_nb_lines,&nbsp;...)</td>
