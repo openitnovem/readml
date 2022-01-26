@@ -2,8 +2,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from fbd_interpreter.icecream import options
-from fbd_interpreter.icecream.discretizer import FeatureDiscretizer
+from readml.icecream import options
+from readml.icecream.discretizer import FeatureDiscretizer
 
 
 def test_categorical_feature() -> None:
@@ -36,7 +36,7 @@ def test_continuous_feature() -> None:
 
 
 def test_guess_bins() -> None:
-    assert FeatureDiscretizer._guess_bins(pd.Series(dtype="float64")) == 0
+    assert FeatureDiscretizer._guess_bins(pd.Series()) == 0
     assert FeatureDiscretizer._guess_bins(pd.Series(["a", "b", "c"])) == 0
     assert FeatureDiscretizer._guess_bins(pd.Categorical([0, 0, 1])) == 0
     assert FeatureDiscretizer._guess_bins(pd.Series([0, 0, 1])) == 0

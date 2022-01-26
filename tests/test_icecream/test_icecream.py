@@ -1,6 +1,6 @@
 import pandas as pd
 
-from fbd_interpreter.icecream.icecream import IceCream
+from readml.icecream.icecream import IceCream
 
 DATA = pd.DataFrame({"a": [0, 1, 2, 3, 4, 5, 6, 7], "b": [1, 1, 1, 1, 2, 2, 2, 2]})
 FEATURES = ["a", "b"]

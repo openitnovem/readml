@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 from version import __version__
 
 DESCRIPTION = "Interpretability DS Package"
-GIT_URL = "https://github.com/openitnovem/readme.git"
+GIT_URL = "https://github.com/openitnovem/readml.git"
 AUTHOR_EMAIL = "readml-dev@gmail.com"
 REQUIREMENTS_PATH = os.path.join("requirements", "requirements.txt")
 

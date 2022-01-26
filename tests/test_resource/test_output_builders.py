@@ -1,7 +1,7 @@
 import os
 
-from fbd_interpreter.logger import ROOT_DIR
-from fbd_interpreter.resource.output_builders import initialize_dir
+from readml.logger import ROOT_DIR
+from readml.resource.output_builders import initialize_dir
 
 
 def test_initialize_dir():

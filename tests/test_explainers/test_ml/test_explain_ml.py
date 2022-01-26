@@ -4,8 +4,8 @@ import numpy as np
 import pandas as pd
 import sklearn
 
-from fbd_interpreter.explainers.ml.explain_ml import ExplainML
-from fbd_interpreter.logger import ROOT_DIR
+from readml.explainers.ml.explain_ml import ExplainML
+from readml.logger import ROOT_DIR
 
 FEATURES = ["a", "b"]
 PREDICTIONS = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1]
@@ -64,6 +64,37 @@ PREDICT_PROBA = np.array(
 ).T
 
 
+def initialize_directories(out_path, dir_to_create):
+    os.chdir(ROOT_DIR)
+    new_root = os.getcwd()
+    new_root = "/".join(new_root.split("/")[:-1])
+    os.chdir(new_root)
+    start = out_path.index("/") + 1
+    split = out_path[start:].split("/")
+    for elt in split:
+        if not os.path.isdir(elt):
+            os.makedirs(elt)
+            os.chdir(elt)
+        else:
+            os.chdir(elt)
+    os.chdir(new_root)
+
+    for elt in dir_to_create:
+        if not os.path.isdir(os.path.join(out_path, elt)):
+            os.makedirs(os.path.join(out_path, elt))
+
+
+dir_to_create = ["local_interpretation", "global_interpretation"]
+out_path = "outputs/tests/ml"
+initialize_directories(out_path, dir_to_create)
+output_path_local_dir = os.path.join(
+    ROOT_DIR, "../outputs/tests/ml", "local_interpretation"
+)
+output_path_global_dir = os.path.join(
+    ROOT_DIR, "../outputs/tests/ml", "global_interpretation"
+)
+
+
 class DummyModel(object):
     def __init__(self, classification: bool = True):
         self.predict = lambda x: PREDICTIONS
@@ -80,13 +111,6 @@ interpreter = ExplainML(
     features_to_interpret=FEATURES,
     target_col="target",
     out_path=os.path.join(ROOT_DIR, "../outputs/tests/ml"),
-)
-
-output_path_global_dir = os.path.join(
-    ROOT_DIR, "../outputs/tests/ml", "global_interpretation"
-)
-output_path_local_dir = os.path.join(
-    ROOT_DIR, "../outputs/tests/ml", "local_interpretation"
 )
 
 
@@ -111,9 +135,7 @@ def test_global_ale() -> None:
 
 
 def kernel_interp(scale: str) -> None:
-    # X_train, X_test, Y_train, Y_test = train_test_split(*shap.datasets.iris(), test_size=0.1, random_state=0)
     svm = sklearn.svm.SVC(kernel="rbf", probability=True)
-    # svm.fit(X_train, Y_train)
     svm.fit(DATA_X, TARGETS_Y)
     kernel_interpreter = ExplainML(
         model=svm,
@@ -131,7 +153,6 @@ def kernel_interp(scale: str) -> None:
 
 
 def tree_interp(scale: str) -> None:
-    # X, y = shap.datasets.boston()
     model = sklearn.ensemble.RandomForestRegressor(n_estimators=10)
     model.fit(DATA_X, TARGETS_Y)
 
@@ -164,7 +185,7 @@ def test_global_shap() -> None:
     assert os.path.isfile(output_path_global_tree_shap)
 
 
-def test_local_shap() -> None:
+def test_local_shap_tree() -> None:
     for files in os.listdir(output_path_local_dir):
         os.remove(os.path.join(output_path_local_dir, files))
 
@@ -183,4 +204,26 @@ def test_local_shap() -> None:
 
     assert os.path.isfile(output_path_local_min_obs_shap)
     assert os.path.isfile(output_path_local_max_obs_shap)
-    assert os.path.isfile(outside_output) == False
+    assert not os.path.isfile(outside_output)
+
+
+def test_local_shap_kernel() -> None:
+    for files in os.listdir(output_path_local_dir):
+        os.remove(os.path.join(output_path_local_dir, files))
+
+    min_obs = 0
+    max_obs = len(DATA_X)
+    kernel_interp("local")
+    output_path_local_min_obs_shap = os.path.join(
+        output_path_local_dir, f"shap_local_explanation_{min_obs + 1}th_obs.html"
+    )
+    output_path_local_max_obs_shap = os.path.join(
+        output_path_local_dir, f"shap_local_explanation_{max_obs}th_obs.html"
+    )
+    outside_output = os.path.join(
+        output_path_local_dir, f"shap_local_explanation_{max_obs + 1}th_obs.html"
+    )
+
+    assert os.path.isfile(output_path_local_min_obs_shap)
+    assert os.path.isfile(output_path_local_max_obs_shap)
+    assert not os.path.isfile(outside_output)
