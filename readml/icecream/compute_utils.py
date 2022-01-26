@@ -4,7 +4,7 @@ This module contains useful functions to compute and aggregate predictions and
 target values.
 """
 
-from typing import Any, Callable, List, Tuple, Union
+from typing import Any, Callable, List, Optional, Tuple, Union
 
 import numpy as np
 import pandas as pd
@@ -14,7 +14,11 @@ from .config import options
 from .discretizer import FeatureDiscretizer
 
 
-def guess_model_predict_function(model: Any, use_classif_proba: bool) -> Callable:
+def guess_model_predict_function(
+    model: Any,
+    use_classif_proba: bool,
+    class_name: Optional[Union[int, str]] = None,
+) -> Callable:
     """
     Returns model prediction method guessed from model properties.
     Multi-class classification not implemented yet.
@@ -25,6 +29,9 @@ def guess_model_predict_function(model: Any, use_classif_proba: bool) -> Callabl
     use_classif_proba : bool
         If True, use `predict_proba` for positive class as model output,
         only used if model is a classifier
+    class_name: Optional[Union[int, str]]
+        Name of the class of interest. It is likely to be an integer or a string,
+        it depends on the type of the target vector type.
 
     Returns
     -------
@@ -32,11 +39,21 @@ def guess_model_predict_function(model: Any, use_classif_proba: bool) -> Callabl
         Prediction method for direct use on data
     """
     if hasattr(model, "classes_"):
-        if len(model.classes_) > 2:
-            # multiclass
+        if len(model.classes_) > 2:  # multiclass
+            if not class_name:
+                raise ValueError("class_name must be provided for multiclass model.")
+            if use_classif_proba:
+                if not class_name in model.classes_:
+                    raise ValueError(
+                        f"Provided class_name, {class_name}, "
+                        f"should be a valid class among {model.classes_}."
+                    )
+                class_id = np.argwhere(model.classes_ == class_name)
+                assert len(class_id) == 1  # only one class with this name
+                class_id = class_id[0]
+                return lambda x: model.predict_proba(x)[:, class_id[0]]
             return model.predict
-        else:
-            # binary class
+        else:  # binary class
             if use_classif_proba:
                 return lambda x: model.predict_proba(x)[:, 1]
             return model.predict
@@ -45,7 +62,10 @@ def guess_model_predict_function(model: Any, use_classif_proba: bool) -> Callabl
 
 
 def compute_ale_agg_results(
-    data: pd.DataFrame, feature: FeatureDiscretizer, predict_function: Callable
+    data: pd.DataFrame,
+    feature: FeatureDiscretizer,
+    predict_function: Callable,
+    add_mean: bool = False,
 ) -> pd.DataFrame:
     """
     Computes ale : difference in the prediction when we replace the discretized feature
@@ -59,6 +79,8 @@ def compute_ale_agg_results(
         Discretized representation of the feature
     predict_function : Callable
         Function to compute predictions `predict_function(data)` must work
+    add_mean: bool
+        Whether to add the predicted mean to ALE.
 
     Returns
     -------
@@ -72,16 +94,16 @@ def compute_ale_agg_results(
         -columns are bins of 'feature'
     """
 
-    comb = []
+    le = []
     for width, center in zip(feature.widths, feature.centers):
         data_bin = data[
             (
-                (data[feature.name] >= (center - (width / 2)))
-                & (data[feature.name] < (center + (width / 2)))
+                (data[feature.name] > (center - (width / 2)))
+                & (data[feature.name] <= (center + (width / 2)))
             )
         ]
         if data_bin.empty:
-            comb.append(0.0)
+            le.append(0.0)
             continue
         else:
             predict_right = predict_function(
@@ -90,8 +112,16 @@ def compute_ale_agg_results(
             predict_left = predict_function(
                 generate_fake_data(data_bin, feature.name, center - (width / 2))
             )
-            comb.append(pd.Series(np.subtract(predict_right, predict_left)).agg("mean"))
-    return pd.DataFrame(comb, index=feature.categorical_feature.categories).T
+            le.append(pd.Series(np.subtract(predict_right, predict_left)).agg("mean"))
+
+    ale = np.cumsum(le)
+    centered_ale = ale - np.mean(ale)
+    if add_mean:
+        centered_ale += np.mean(predict_function(data))
+    return pd.DataFrame(
+        centered_ale,
+        index=feature.categorical_feature.categories,
+    ).T
 
 
 def compute_ice_model_predictions(
@@ -176,10 +206,12 @@ def compute_model_ale_results_2D(
         - rows are bins of feature y
         - columns are bins of feature x
     """
-    comb_y = []
+    le = []
+    size = []
 
     for width_y, center_y in zip(feature_y.widths, feature_y.centers):
-        comb_x = []
+        le_x = []
+        size_x = []
         for width_x, center_x in zip(feature_x.widths, feature_x.centers):
             max_x = center_x + (width_x / 2)
             min_x = center_x - (width_x / 2)
@@ -187,13 +219,14 @@ def compute_model_ale_results_2D(
             min_y = center_y - (width_y / 2)
             data_bin = data[
                 (
-                    ((data[feature_x.name] >= min_x) & (data[feature_x.name] < max_x))
-                    & ((data[feature_y.name] >= min_y) & (data[feature_y.name] < max_y))
+                    ((data[feature_x.name] > min_x) & (data[feature_x.name] <= max_x))
+                    & ((data[feature_y.name] > min_y) & (data[feature_y.name] <= max_y))
                 )
             ]
 
             if data_bin.empty:
-                comb_x.append(0.0)
+                le_x.append(0.0)
+                size_x.append(0)
                 continue
             else:
                 max_x_max_y = predict_function(
@@ -228,7 +261,7 @@ def compute_model_ale_results_2D(
                     )
                 )
 
-                comb_x.append(
+                le_x.append(
                     pd.Series(
                         np.subtract(
                             np.subtract(max_x_max_y, min_x_max_y),
@@ -236,10 +269,42 @@ def compute_model_ale_results_2D(
                         )
                     ).agg("mean")
                 )
-        comb_y.append(comb_x)
+                size_x.append(len(data_bin))
+        le.append(le_x)
+        size.append(size_x)
+
+    # compute accumulated local effects
+    size = np.array(size)
+    le = np.array(le)
+    ale = np.zeros_like(le)
+    for i in range(ale.shape[0]):
+        for j in range(ale.shape[1]):
+            ale[i, j] = np.sum(le[: i + 1, : j + 1])
+
+    # remove single variable effect
+    ale_x_prev_index = np.c_[np.zeros((ale.shape[0], 1)), ale[:, :-1]]
+    x_effect = np.cumsum(
+        np.sum((ale - ale_x_prev_index) * size, axis=0) / np.sum(size, axis=0)
+    )
+
+    ale_y_prev_index = np.r_[np.zeros((1, ale.shape[1])), ale[:-1, :]]
+    y_effect = np.expand_dims(
+        np.cumsum(
+            np.sum((ale - ale_y_prev_index) * size, axis=1, keepdims=True)
+            / np.sum(size, axis=1, keepdims=True)
+        ),
+        axis=1,
+    )
+
+    ale_wo_single_var_effect = ale - x_effect - y_effect
+
+    # center result to remove mean
+    ale_wo_single_var_effect_centered = ale_wo_single_var_effect - np.nanmean(
+        ale_wo_single_var_effect
+    )
 
     return pd.DataFrame(
-        comb_y,
+        ale_wo_single_var_effect_centered,
         index=feature_y.categorical_feature.categories,
         columns=feature_x.categorical_feature.categories,
     )

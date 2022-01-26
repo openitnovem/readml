@@ -110,6 +110,7 @@ class IceCream(object):
         use_classif_proba: bool = True,
         clip_quantile: float = 0.0,
         quantile_based: bool = False,
+        class_name=None,
     ) -> None:
         """
         Creates class instance with attributes, then run results computation.
@@ -144,6 +145,7 @@ class IceCream(object):
         self.samples = dict()  # type: Dict[str, Any]
         self._aggfunc = aggfunc
         self.use_ale = use_ale
+        self.class_name = class_name
         self._run(data, model, predictions, targets, use_classif_proba, use_ale)
 
     def __repr__(self) -> str:
@@ -173,7 +175,9 @@ class IceCream(object):
             }
 
         if model is not None:
-            predict_function = guess_model_predict_function(model, use_classif_proba)
+            predict_function = guess_model_predict_function(
+                model, use_classif_proba, self.class_name
+            )
 
             if use_ale:
                 for feature in self.features:
