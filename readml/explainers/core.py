@@ -2,14 +2,11 @@ from typing import Dict
 
 import tensorflow as tf
 
-from fbd_interpreter.explainers.dl.explain_dl import ExplainDL
-from fbd_interpreter.explainers.ml.explain_ml import ExplainML
-from fbd_interpreter.logger import logger
-from fbd_interpreter.resource.data_loader import (
-    load_json_resource,
-    load_pickle_resource,
-)
-from fbd_interpreter.utils import check_and_load_data, optimize
+from readml.explainers.dl.explain_dl import ExplainDL
+from readml.explainers.ml.explain_ml import ExplainML
+from readml.logger import logger
+from readml.resource.data_loader import load_json_resource, load_pickle_resource
+from readml.utils import check_and_load_data, optimize
 
 
 def interpret_ml(
@@ -116,7 +113,6 @@ def interpret_dl(config_values: Dict[str, str]) -> None:
 
     logger.info("Loading DL model")
     model = tf.keras.models.load_model(config_values["model_path"], compile=False)
-    print(model.summary())
     exp = ExplainDL(model=model, out_path=config_values["out_path"])
     logger.info(f"Data type : {data_type}")
     if data_type == "image":

@@ -3,9 +3,9 @@
 Installation
 ------------
 
-Before creating a virtual environment, make sure **Python3.6** is installed. If not, install it with::
+Before creating a virtual environment, make sure at least **Python3.6** is installed. If not, install it with::
 
-    sudo apt-get install python3.6-dev
+    sudo apt-get install python3.7-dev
 
 Create a virtual environment ::
 
@@ -23,7 +23,7 @@ Install project modules with ::
 
     pip install -e .
 
-This command runs the ``setup.py`` script to make the package **fbd_interpreter** available in the environment.
+This command runs the ``setup.py`` script to make the package **readml** available in the environment.
 
 Python version support
 ----------------------
@@ -33,22 +33,24 @@ Officially Python 3.6 and above.
 Quickstart
 ----------
 
-Note that for the **first two usages**, you will need to update required configuration variables located in ``fbd_interpreter/config/config_local.cfg``
+Note that for the **first two usages**, you will need to update required configuration variables located in ``readml/config/config_local.cfg``
+If you don't want to clone the repository, you can jump to the last two usages.
+
 
 Usage via command line interface [CLI]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The most straightforward way is to use the **interpret** click command , that wraps around most of the functionality in the module.
 The command parameters allow you to choose the interpretability method. These parameters are not used for DL models since there is only one method for each data type.
 
-.. note:: You need to update required configuration variables located in ``fbd_interpreter/config/config_local.cfg``
+.. note:: You need to update required configuration variables located in ``readml/config/config_local.cfg``
 
 A basic usage example is shown below ::
 
-    python fbd_interpreter/main.py
+    python readml/main.py
 
 Supported parameters are (not used for DL)::
 
-    python fbd_interpreter/main.py --help
+    python readml/main.py --help
 
     Usage: main.py [OPTIONS]
 
@@ -72,11 +74,11 @@ Usage as external module [Python package]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 One way of using the package is to run the ``interpret`` function which takes care of explaining model behaviour.
 
-.. note:: You need to update required configuration variables located in ``fbd_interpreter/config/config_local.cfg`` before.
+.. note:: You need to update required configuration variables located in ``readml/config/config_local.cfg`` before.
 
 For instance , using **partial dependency plots** for global interpretability on ML model::
 
-    from fbd_interpreter.main import interpret
+    from readml.main import interpret
     interpret(interpret_type="global", use_pdp_ice=True, use_ale=False, use_shap=False)
 
 The function parameters are not used for DL models since there is only one method for each data type.
@@ -89,7 +91,7 @@ when applied to tabular, textual or image data.
 
 For instance , using **accumulated local effect plots** for global interpretability of a tree based classification model::
 
-    from fbd_interpreter.explainers.ml.explain_ml import ExplainML
+    from readml.explainers.ml.explain_ml import ExplainML
     exp = ExplainML(
             model=xgb_model,
             task_name="classification",
@@ -103,14 +105,14 @@ For instance , using **accumulated local effect plots** for global interpretabil
 
 Here is an other example of using **Guided GRAD-CAM** for local interpretability of a DL model applied to images::
 
-    from fbd_interpreter.explainers.dl.explain_dl import ExplainDL
+    from readml.explainers.dl.explain_dl import ExplainDL
     from tensorflow.keras.applications.vgg16 import VGG16
     exp = ExplainDL(
             model=VGG16(),
             task_name="classification",
             out_path="outputs_dl/",
         )
-    exp.explain_image(image_dir= "fbd_interpreter/data_factory/inputs/data/image_data/")
+    exp.explain_image(image_dir= "readml/data_factory/inputs/data/image_data/")
 
 Usage of a particular explainer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -122,7 +124,7 @@ For instance , using **partial dependency plots** for global interpretability::
 
     import pandas as pd
     from sklearn.linear_model import LogisticRegression
-    from fbd_interpreter.icecream import icecream
+    from readml.icecream import icecream
     # load data and adapt for binary classification
     df = pd.read_csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv')
     df['label'] = (df.species == 'setosa') * 1
@@ -156,7 +158,7 @@ For instance , using **partial dependency plots** for global interpretability::
         )
     pdp2d.draw(kind='hist', show=True)
 
-.. note:: Other explainers located in ``fbd_interpreter/explainers/`` can also be used directly.
+.. note:: Other explainers located in ``readml/explainers/`` can also be used directly.
 
 
 Deployment

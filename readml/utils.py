@@ -2,11 +2,11 @@ from typing import Dict, List
 
 import pandas as pd
 
-from fbd_interpreter import config
-from fbd_interpreter.config import env
-from fbd_interpreter.config.load import load_cfg_resource
-from fbd_interpreter.logger import logger
-from fbd_interpreter.resource.data_loader import (
+from readml import config
+from readml.config import env
+from readml.config.load import load_cfg_resource
+from readml.logger import logger
+from readml.resource.data_loader import (
     load_csv_resource,
     load_json_resource,
     load_parquet_resource,
@@ -174,7 +174,7 @@ def read_sections_from_txt(file_path: str) -> Dict:
     Example
     -------
     >>> import os
-    >>> path = os.path.abspath("fbd_interpreter/config/sections_html.txt")
+    >>> path = os.path.abspath("config/sections_html.txt")
     >>> "COMMUN" in (list(read_sections_from_txt(path).keys()))
     True
     """

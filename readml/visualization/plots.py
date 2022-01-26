@@ -5,7 +5,7 @@ from typing import Dict
 import plotly.graph_objs as go
 import plotly.offline as pyo
 
-from fbd_interpreter.utils import read_sections_from_txt
+from readml.utils import read_sections_from_txt
 
 
 def interpretation_plots_to_html_report(

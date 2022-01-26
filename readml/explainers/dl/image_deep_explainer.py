@@ -6,8 +6,8 @@ import imutils
 import numpy as np
 from tensorflow.keras.preprocessing.image import img_to_array, load_img
 
-from fbd_interpreter.explainers.dl.grad_cam import GradCAM
-from fbd_interpreter.logger import logger
+from readml.explainers.dl.grad_cam import GradCAM
+from readml.logger import logger
 
 
 class VisualExplainer:

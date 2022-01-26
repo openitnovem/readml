@@ -1,6 +1,6 @@
 import os
 
-from fbd_interpreter.logger import logger
+from readml.logger import logger
 
 
 def initialize_dir(out_path: str):

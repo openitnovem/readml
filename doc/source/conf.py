@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 
 # -- Project information -----------------------------------------------------
 
-project = "fbd_interpreter"
+project = "readml"
 copyright = "2020, DES Team"
 author = "Soumaya IHIHI"
 
@@ -30,6 +30,8 @@ release = "0.0.0"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
+master_doc = 'index'
+
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
@@ -70,4 +72,4 @@ html_theme = "sphinx_rtd_theme"
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
 
-htmlhelp_basename = 'fbd_interpreter_doc'
+htmlhelp_basename = 'readml_doc'

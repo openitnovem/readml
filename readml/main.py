@@ -1,10 +1,11 @@
 from pprint import pformat
 
 import click
+import sklearn
 
-from fbd_interpreter.explainers.core import interpret_dl, interpret_ml
-from fbd_interpreter.logger import logger
-from fbd_interpreter.utils import _parse_and_check_config
+from readml.explainers.core import interpret_dl, interpret_ml
+from readml.logger import logger
+from readml.utils import _parse_and_check_config
 
 
 @click.command()

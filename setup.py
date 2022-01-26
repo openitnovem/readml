@@ -1,7 +1,9 @@
 import io
 import os
+
 from pkg_resources import parse_requirements
 from setuptools import setup, find_packages
+
 from version import __version__
 
 DESCRIPTION = "Interpretability DS Package"
