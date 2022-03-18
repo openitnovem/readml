@@ -466,8 +466,22 @@ class MaxActivation:
 
         # get maximum size to look at during optimization
         if nb_activation_to_max == "single":
+            feature_map_x = 0
+            feature_map_y = 0
             x_min, x_max, y_min, y_max = self._feature_map_loc_to_input_loc(
-                self.model, layer_name, 0, 0
+                self.model, layer_name, feature_map_x, feature_map_y
+            )
+            if min(x_min, y_min) < 0:
+                feature_map_x -= x_min
+                feature_map_y -= y_min
+                x_min, x_max, y_min, y_max = self._feature_map_loc_to_input_loc(
+                    self.model, layer_name, feature_map_x, feature_map_y
+                )
+            assert (
+                x_min >= 0
+                and y_min >= 0
+                and x_max < submodel.inputs[0].shape[1]
+                and y_max < submodel.inputs[0].shape[2]
             )
         elif nb_activation_to_max == "all":
             x_min, y_min = 0, 0
