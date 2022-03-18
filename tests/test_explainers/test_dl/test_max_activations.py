@@ -61,7 +61,9 @@ def test_get_filter_max_activations():
     model = get_model(nb_channel)
     img_dataset = get_image_dataset(nb_channel)
     max_activation = MaxActivation(model)
-    filter_max_activations = max_activation.get_filter_max_activations(img_dataset)
+    filter_max_activations = (
+        max_activation.get_filter_max_activations_from_image_dataset(img_dataset)
+    )
     assert len(filter_max_activations) == 2
     assert len(filter_max_activations[0]) == NB_CHANNEL_CONV2D[0]
     assert len(filter_max_activations[1]) == NB_CHANNEL_CONV2D[1]
@@ -90,7 +92,9 @@ def test_get_filter_max_activations():
     model = get_model(nb_channel)
     img_dataset = get_image_dataset(nb_channel)
     max_activation = MaxActivation(model)
-    filter_max_activations = max_activation.get_filter_max_activations(img_dataset)
+    filter_max_activations = (
+        max_activation.get_filter_max_activations_from_image_dataset(img_dataset)
+    )
     assert filter_max_activations[0][0]["input"][0].shape == np.array([3, 3, 3])
 
 

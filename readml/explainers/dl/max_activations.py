@@ -164,7 +164,7 @@ class MaxActivation:
                 )
         return overall_max_activations
 
-    def get_filter_max_activations(
+    def get_filter_max_activations_from_image_dataset(
         self, img_dataset: Iterable, nb_images_per_filter: int = 9
     ) -> dict:
         """Given a dataset of image batches and a number of images parts to keep per
@@ -315,7 +315,7 @@ class MaxActivation:
                     )
         return x_min, x_max, y_min, y_max
 
-    def get_filter_max_activations_visualization(
+    def get_filter_max_activations_from_image_dataset_visualization(
         self, max_activations: dict, **kwargs
     ) -> List[List[io.BytesIO]]:
         """For all the filters of the CNN, create BytesIO containing nb_images_per_filter
@@ -394,9 +394,13 @@ if __name__ == "__main__":
 
     # test
     max_activation = MaxActivation(model)
-    filter_max_activations = max_activation.get_filter_max_activations(img_dataset)
-    all_layer_io = max_activation.get_filter_max_activations_visualization(
-        filter_max_activations, cmap="gray"
+    filter_max_activations = (
+        max_activation.get_filter_max_activations_from_image_dataset(img_dataset)
+    )
+    all_layer_io = (
+        max_activation.get_filter_max_activations_from_image_dataset_visualization(
+            filter_max_activations, cmap="gray"
+        )
     )
     desired_io = all_layer_io[3][0]
     desired_io.seek(0)
