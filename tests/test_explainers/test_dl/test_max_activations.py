@@ -21,6 +21,7 @@ def get_model(nb_channel):
                 activation="relu",
                 kernel_initializer=tf.keras.initializers.GlorotNormal(seed=0),
                 padding="same",
+                name="conv2d",
             ),
             MaxPooling2D(pool_size=(2, 2)),
             Conv2D(
@@ -29,6 +30,7 @@ def get_model(nb_channel):
                 activation="relu",
                 kernel_initializer=tf.keras.initializers.GlorotNormal(seed=0),
                 padding="valid",
+                name="conv2d_1",
             ),
             MaxPooling2D(pool_size=(2, 2)),
             Flatten(),
@@ -98,10 +100,38 @@ def test_get_filter_max_activations_from_image_dataset():
     filter_max_activations = (
         max_activation.get_filter_max_activations_from_image_dataset(img_dataset)
     )
-    assert filter_max_activations["conv2d_2"][0]["input"][0].shape == np.array(
-        [3, 3, 3]
+    assert filter_max_activations["conv2d"][0]["input"][0].shape == np.array([3, 3, 3])
+
+
+def test_create_input_image_maximizing_activations():
+    np.random.seed(0)
+    nb_channel = 1
+    model = get_model(nb_channel)
+    max_activation = MaxActivation(model)
+    (
+        input_value,
+        activation_history,
+        grad_history,
+    ) = max_activation.create_input_image_maximizing_activations(
+        "conv2d",
+        1,
+        True,
+        [0, 255],
+        100,
+        nb_activation_to_max="single",
+        learning_rate=0.01,
+        change_relu=True,
     )
+    expected_output = np.array(
+        [
+            [[254.01408], [1.0255346], [185.34874]],
+            [[253.97502], [253.97734], [191.30005]],
+            [[90.436195], [62.927162], [174.11365]],
+        ]
+    )
+    assert np.testing.assert_array_almost_equal(input_value, expected_output, decimal=5)
 
 
 if __name__ == "__main__":
     test_get_filter_max_activations_from_image_dataset()
+    test_create_input_image_maximizing_activations()
