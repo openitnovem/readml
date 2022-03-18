@@ -441,14 +441,63 @@ class MaxActivation:
         channel_id: int,
         add_input_over_all_reals: bool,
         input_range: List[float],
-        epochs: int,
+        max_it: int,
         change_relu: bool = True,
         nb_activation_to_max: str = "single",
         learning_rate: float = 1.0,
         grad_norm_eps: float = 1e-6,
     ) -> Tuple[tf.Tensor, list, list]:
         """
-        Maximize the output of the provided model by changing the input.
+        Create an input image that maximize the output of the provided layer and channel.
+
+        Parameters
+        ----------
+        layer_name : str
+            layer name containing the filter to consider
+        channel_id : int
+            channel id of the filter to consider
+        add_input_over_all_reals : bool
+            Whether to add a layer before the input that is unconstrainted.
+            It is linked to the first layer by means of a sigmoid activation,
+            so that all reals are mapped to restricted range of value
+            ] input_range[0] , input_range[1] [.
+            It is useful when performing the optimization since an unconstrained
+            optimization algorithm (gradient ascent) is used to get the input image
+            that maximize the activation.
+        input_range : List[float]
+            Range of value of the input image.
+            Generally, it is [0, 1] or [0, 255].
+        max_it : int
+            Number max of iteration.
+        change_relu : bool, optional
+            Whether to change the relu activation to weaky relu activation.
+            Relu may prevent the optimization to progress since the gradient of relu
+            is either 1 or 0. The algorithm may be stuck.
+            By default True
+        nb_activation_to_max : str, optional
+            Two approaches are implemented, by default "single".
+            - "single" optimize a single activation pixel.
+            Consequently, only a part of the input image is retrieved at the end.
+            - "all" optimize the mean of all the activation pixels.
+            Consequently, an entire input image is retrieved at the end.
+        learning_rate : float, optional
+            Learning rate of the gradient ascent, by default 1.0.
+        grad_norm_eps : float, optional
+            Stop condition over the gradient norm, by default 1e-6.
+
+        Returns
+        -------
+        Tuple[tf.Tensor, list, list]
+            - Input image that maximize the activation of the desired layer and channel.
+            It is either a part of the image if nb_activation_to_max == "single" or
+            the entire image if nb_activation_to_max == "all".
+            - History of the mean activations. It should be increasing.
+            - History of the gradient norm.
+
+        Raises
+        ------
+        ValueError
+            _description_
         """
         submodel = self._build_submodel(
             layer_name, add_input_over_all_reals, input_range, change_relu
@@ -492,7 +541,7 @@ class MaxActivation:
         # Iterate gradient ascents
         mean_activation_history = []
         grad_history = []
-        for _ in range(epochs):
+        for _ in range(max_it):
             with tf.GradientTape() as tape:
                 output = submodel(input_data)[0]
                 if nb_activation_to_max == "single":
