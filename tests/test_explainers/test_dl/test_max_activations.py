@@ -67,7 +67,7 @@ def test_get_filter_max_activations():
     assert len(filter_max_activations) == 2
     assert len(filter_max_activations[0]) == NB_CHANNEL_CONV2D[0]
     assert len(filter_max_activations[1]) == NB_CHANNEL_CONV2D[1]
-    assert filter_max_activations[0][1]["activation"][1] == 255 * 5
+    assert filter_max_activations[0][1]["activation"][1] == np.sum(INPUT_IMAGE_3x3)
     assert (
         filter_max_activations[0][1]["input"][1].numpy()[:, :, 0] == INPUT_IMAGE_3x3
     ).all()
