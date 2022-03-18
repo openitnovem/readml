@@ -32,12 +32,22 @@ class MaxActivation:
         Raises
         ------
         TypeError
-            Raise an error is the provided model is not a tensorflow Model instance.
+            Raise an error if the provided model is not a tensorflow Model instance.
+
+        TypeError
+            Raise an error if the provided model input has more than a single input
+            corresponding to a single image.
         """
         if not isinstance(self.model, Model):
             raise TypeError(
                 "The provided model must be a tensorflow Model instance. "
                 "This is the only model which is currently supported."
+            )
+
+        if isinstance(self.model.inputs, list) and len(self.model.inputs) > 1:
+            raise ValueError(
+                "The provided model must have a single input "
+                "corresponding to the input image. "
             )
 
     def _get_conv2d_layers(self) -> List[Tuple[str, tf.Tensor]]:
