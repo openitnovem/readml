@@ -77,9 +77,9 @@ def test_get_filter_max_activations_from_image_dataset():
         == INPUT_IMAGE_3x3
     ).all()
     assert filter_max_activations["conv2d_1"][0]["activation"][2] == 719
-    assert (
-        filter_max_activations["conv2d_1"][0]["input"][2].numpy()[:, :, 0]
-        == np.array(
+    np.testing.assert_array_equal(
+        filter_max_activations["conv2d_1"][0]["input"][2].numpy()[:, :, 0],
+        np.array(
             [
                 [9, 188, 91, 111, 163, 83, 76, 18],
                 [238, 165, 171, 211, 88, 70, 148, 134],
@@ -90,8 +90,8 @@ def test_get_filter_max_activations_from_image_dataset():
                 [42, 202, 37, 106, 40, 111, 27, 132],
                 [242, 178, 86, 181, 10, 43, 187, 158],
             ]
-        )
-    ).all()
+        ),
+    )
 
     nb_channel = 3
     model = get_model(nb_channel)
@@ -129,7 +129,8 @@ def test_create_input_image_maximizing_activations():
             [[90.436195], [253.95912], [253.99373]],
         ]
     )
-    assert np.testing.assert_array_almost_equal(input_value, expected_output, decimal=5)
+    np.testing.assert_array_almost_equal(input_value, expected_output, decimal=5)
+    assert np.all(np.diff(activation_history) > 0)
 
 
 if __name__ == "__main__":
