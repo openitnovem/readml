@@ -380,6 +380,124 @@ class MaxActivation:
             all_layer_io.append(layer_io)
         return all_layer_io
 
+    def _build_submodel(
+        self,
+        conv_layer_name: str,
+        add_input_over_all_reals: bool,
+        input_range: List[float],
+        change_relu: bool,
+    ) -> Model:
+        """
+        Build a submodel of the original model.
+
+        The output of the submodel is the output of the Conv2D layer which name is provided in argument.
+
+        Since the image pixel values are between 0 and 1 (after normalization),
+        an additional layer may be added at the beginning implementing a sigmoid
+        to map all the real to values between 0 and 1.
+
+        The derivative of the ReLU is 0 for negative values. This may prevent the optimization to work.
+        It is possible to change the ReLU activation by a Leaky ReLU one in order to make the optimization works.
+        """
+        # Create a copy because activations may be changed
+        model_copy = tf.keras.models.clone_model(self.model)
+        model_copy.set_weights(self.model.get_weights())
+
+        # Create submodel
+        submodel = Model(
+            model_copy.input,
+            [model_copy.get_layer(conv_layer_name).output, model_copy.input],
+        )
+
+        # Change activation
+        if change_relu:
+            layer_with_activation_list = [
+                layer for layer in submodel.layers if hasattr(layer, "activation")
+            ]
+            for layer in layer_with_activation_list:
+                if layer.activation == tf.keras.activations.relu:
+                    layer.activation = tf.nn.leaky_relu
+
+        # Add new input over all reals in order to restrain the image value over ]0,1[
+        if add_input_over_all_reals:
+            if not len(input_range) == 2:
+                raise ValueError("The provided input_range must be a list of 2 values.")
+            input_layer_over_all_reals = tf.keras.Input(
+                shape=submodel.inputs[0].shape[-3:]
+            )
+            x = tf.keras.layers.Activation(
+                lambda x: (input_range[1] - input_range[0])
+                * tf.keras.activations.sigmoid(x)
+                + input_range[0]
+            )(input_layer_over_all_reals)
+            output = submodel(x)[0]
+            submodel = Model(input_layer_over_all_reals, [output, x])
+
+        return submodel
+
+    def create_input_image_maximizing_activations(
+        self,
+        layer_name: str,
+        channel_id: int,
+        add_input_over_all_reals: bool,
+        input_range: List[float],
+        epochs: int,
+        change_relu: bool = True,
+        nb_activation_to_max: str = "single",
+        learning_rate: float = 1.0,
+        grad_norm_eps: float = 1e-6,
+    ) -> Tuple[tf.Tensor, list, list]:
+        """
+        Maximize the output of the provided model by changing the input.
+        """
+        submodel = self._build_submodel(
+            layer_name, add_input_over_all_reals, input_range, change_relu
+        )
+        # Initialize image value
+        image_size = (1, *submodel.inputs[0].shape[-3:])
+        if add_input_over_all_reals:
+            input_data = np.random.normal(size=image_size)
+        else:
+            input_data = np.random.uniform(
+                low=input_range[0], high=input_range[1], size=image_size
+            )
+        # Cast random noise from np.float64 to tf.float32 Variable because we will compute the derivative
+        input_data = tf.Variable(tf.cast(input_data, tf.float32))
+
+        # get maximum size to look at during optimization
+        if nb_activation_to_max == "single":
+            x_min, x_max, y_min, y_max = self._feature_map_loc_to_input_loc(
+                self.model, layer_name, 0, 0
+            )
+        elif nb_activation_to_max == "all":
+            x_min, y_min = 0, 0
+            x_max, y_max = input_data.shape[1:3]
+        else:
+            raise ValueError(f"Unknown input argument {nb_activation_to_max}.")
+
+        # Iterate gradient ascents
+        mean_activation_history = []
+        grad_history = []
+        for _ in range(epochs):
+            with tf.GradientTape() as tape:
+                output = submodel(input_data)[0]
+                if nb_activation_to_max == "single":
+                    mean_activation = tf.reduce_mean(output[:, 0, 0, channel_id])
+                elif nb_activation_to_max == "all":
+                    mean_activation = tf.reduce_mean(output[:, :, :, channel_id])
+                mean_activation_history.append(mean_activation)
+            grads = tape.gradient(mean_activation, input_data)
+            if tf.norm(grads) < grad_norm_eps:
+                print("Optimization stopped since gradient is almost flat.")
+                break
+            grad_history.append(tf.norm(grads))
+            input_data.assign_add(grads * learning_rate)
+        return (
+            submodel(input_data)[1][0, x_min : x_max + 1, y_min : y_max + 1, :],
+            mean_activation_history,
+            grad_history,
+        )
+
 
 if __name__ == "__main__":
     import os
@@ -407,15 +525,33 @@ if __name__ == "__main__":
 
     # test
     max_activation = MaxActivation(model)
-    filter_max_activations = (
-        max_activation.get_filter_max_activations_from_image_dataset(img_dataset)
-    )
-    all_layer_io = (
-        max_activation.get_filter_max_activations_from_image_dataset_visualization(
-            filter_max_activations, cmap="gray"
+
+    if True:
+        (
+            input_value_on_real,
+            activation_history,
+            grad_history,
+        ) = max_activation.create_input_image_maximizing_activations(
+            "conv2d_3",
+            1,
+            True,
+            [0, 1],
+            1000,
+            nb_activation_to_max="single",
+            learning_rate=0.01,
+            change_relu=True,
         )
-    )
-    desired_io = all_layer_io[3][0]
-    desired_io.seek(0)
-    with open("/home/arnaudcapitaine/Bureau/image.png", "wb") as f:
-        f.write(desired_io.read())
+
+    if False:
+        filter_max_activations = (
+            max_activation.get_filter_max_activations_from_image_dataset(img_dataset)
+        )
+        all_layer_io = (
+            max_activation.get_filter_max_activations_from_image_dataset_visualization(
+                filter_max_activations, cmap="gray"
+            )
+        )
+        desired_io = all_layer_io[3][0]
+        desired_io.seek(0)
+        with open("/home/arnaudcapitaine/Bureau/image.png", "wb") as f:
+            f.write(desired_io.read())
