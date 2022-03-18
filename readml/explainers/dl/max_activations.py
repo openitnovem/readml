@@ -92,9 +92,12 @@ class MaxActivation:
         """
         max_activations = {}
         for layer_id in range(len(activations_model.output)):
-            max_activations[layer_id] = {}
+            max_activations[self.conv2d_layers[layer_id][0]] = {}
             for channel_id in range(activations_model.output[layer_id].shape[-1]):
-                max_activations[layer_id][channel_id] = {"activation": [], "input": []}
+                max_activations[self.conv2d_layers[layer_id][0]][channel_id] = {
+                    "activation": [],
+                    "input": [],
+                }
         return max_activations
 
     def _update_max_activations(
@@ -127,29 +130,29 @@ class MaxActivation:
             # but batch_max_activation is higher than the min of overall_max_activations
             # then remove the min activation of overall_max_activations
             if len(
-                overall_max_activations[layer_id][channel_id]["activation"]
+                overall_max_activations[layer_name][channel_id]["activation"]
             ) == nb_images_per_filter and batch_max_activation.numpy() > min(
-                overall_max_activations[layer_id][channel_id]["activation"]
+                overall_max_activations[layer_name][channel_id]["activation"]
             ):
-                index_to_remove = overall_max_activations[layer_id][channel_id][
+                index_to_remove = overall_max_activations[layer_name][channel_id][
                     "activation"
                 ].index(
-                    min(overall_max_activations[layer_id][channel_id]["activation"])
+                    min(overall_max_activations[layer_name][channel_id]["activation"])
                 )
-                del overall_max_activations[layer_id][channel_id]["activation"][
+                del overall_max_activations[layer_name][channel_id]["activation"][
                     index_to_remove
                 ]
-                del overall_max_activations[layer_id][channel_id]["input"][
+                del overall_max_activations[layer_name][channel_id]["input"][
                     index_to_remove
                 ]
 
             # if there are less than nb_images_per_filter in overall_max_activations
             # then add batch_max_activation
             if (
-                len(overall_max_activations[layer_id][channel_id]["activation"])
+                len(overall_max_activations[layer_name][channel_id]["activation"])
                 < nb_images_per_filter
             ):
-                overall_max_activations[layer_id][channel_id]["activation"].append(
+                overall_max_activations[layer_name][channel_id]["activation"].append(
                     batch_max_activation.numpy()
                 )
                 loc = tf.where(
@@ -164,7 +167,7 @@ class MaxActivation:
                     loc[2].numpy(),
                 )
                 assert x_max - x_min == y_max - y_min
-                overall_max_activations[layer_id][channel_id]["input"].append(
+                overall_max_activations[layer_name][channel_id]["input"].append(
                     image_batch[
                         loc[0].numpy(),
                         x_min : x_max + 1,
@@ -334,7 +337,7 @@ class MaxActivation:
         Parameters
         ----------
         max_activations : dict
-            Results of get_filter_max_activations.
+            Results of get_filter_max_activations_from_image_dataset.
         **kwargs:
             kwargs for imshow, in particular for the color map.
 
@@ -349,7 +352,7 @@ class MaxActivation:
         with open("/path/to/image.png", "wb") as f:
             f.write(desired_io.read())
         """
-        nb_images_per_filter = len(max_activations[0][0]["activation"])
+        nb_images_per_filter = len(next(iter(max_activations.items()))[1])
         fig_subplot_nrows = int(np.ceil(np.sqrt(nb_images_per_filter)))  # type: ignore
         fig_subplot_ncols = fig_subplot_nrows
 

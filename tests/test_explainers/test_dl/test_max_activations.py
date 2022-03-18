@@ -56,7 +56,7 @@ def get_image_dataset(nb_channel):
     return img_dataset
 
 
-def test_get_filter_max_activations():
+def test_get_filter_max_activations_from_image_dataset():
     nb_channel = 1
     model = get_model(nb_channel)
     img_dataset = get_image_dataset(nb_channel)
@@ -65,15 +65,18 @@ def test_get_filter_max_activations():
         max_activation.get_filter_max_activations_from_image_dataset(img_dataset)
     )
     assert len(filter_max_activations) == 2
-    assert len(filter_max_activations[0]) == NB_CHANNEL_CONV2D[0]
-    assert len(filter_max_activations[1]) == NB_CHANNEL_CONV2D[1]
-    assert filter_max_activations[0][1]["activation"][1] == np.sum(INPUT_IMAGE_3x3)
+    assert len(filter_max_activations["conv2d"]) == NB_CHANNEL_CONV2D[0]
+    assert len(filter_max_activations["conv2d_1"]) == NB_CHANNEL_CONV2D[1]
+    assert filter_max_activations["conv2d"][1]["activation"][1] == np.sum(
+        INPUT_IMAGE_3x3
+    )
     assert (
-        filter_max_activations[0][1]["input"][1].numpy()[:, :, 0] == INPUT_IMAGE_3x3
+        filter_max_activations["conv2d"][1]["input"][1].numpy()[:, :, 0]
+        == INPUT_IMAGE_3x3
     ).all()
-    assert filter_max_activations[1][0]["activation"][2] == 719
+    assert filter_max_activations["conv2d_1"][0]["activation"][2] == 719
     assert (
-        filter_max_activations[1][0]["input"][2].numpy()[:, :, 0]
+        filter_max_activations["conv2d_1"][0]["input"][2].numpy()[:, :, 0]
         == np.array(
             [
                 [9, 188, 91, 111, 163, 83, 76, 18],
@@ -95,8 +98,10 @@ def test_get_filter_max_activations():
     filter_max_activations = (
         max_activation.get_filter_max_activations_from_image_dataset(img_dataset)
     )
-    assert filter_max_activations[0][0]["input"][0].shape == np.array([3, 3, 3])
+    assert filter_max_activations["conv2d_2"][0]["input"][0].shape == np.array(
+        [3, 3, 3]
+    )
 
 
 if __name__ == "__main__":
-    test_get_filter_max_activations()
+    test_get_filter_max_activations_from_image_dataset()
