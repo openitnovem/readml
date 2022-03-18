@@ -496,7 +496,9 @@ class MaxActivation:
             with tf.GradientTape() as tape:
                 output = submodel(input_data)[0]
                 if nb_activation_to_max == "single":
-                    mean_activation = tf.reduce_mean(output[:, 0, 0, channel_id])
+                    mean_activation = tf.reduce_mean(
+                        output[:, feature_map_x, feature_map_y, channel_id]
+                    )
                 elif nb_activation_to_max == "all":
                     mean_activation = tf.reduce_mean(output[:, :, :, channel_id])
                 mean_activation_history.append(mean_activation)

@@ -124,9 +124,9 @@ def test_create_input_image_maximizing_activations():
     )
     expected_output = np.array(
         [
-            [[254.01408], [1.0255346], [185.34874]],
-            [[253.97502], [253.97734], [191.30005]],
-            [[90.436195], [62.927162], [174.11365]],
+            [[254.01408], [253.98782], [1.0375116]],
+            [[104.22838], [253.97734], [1.0404677]],
+            [[90.436195], [253.95912], [253.99373]],
         ]
     )
     assert np.testing.assert_array_almost_equal(input_value, expected_output, decimal=5)
