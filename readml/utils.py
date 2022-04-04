@@ -156,48 +156,6 @@ def check_and_load_data(data_path: str, data_format: str, data_type: str):
         data = load_json_resource(data_path)
     return data
 
-
-def read_sections_from_txt(file_path: str) -> Dict:
-    """
-    Read html sections from txt file
-
-    Parameters
-    ----------
-    file_path : str
-        path to txt file containing html sections
-
-    Returns
-    -------
-    dico_sections : Dict
-        Dictionnary of sections with lines as values
-
-    Example
-    -------
-    >>> import os
-    >>> path = os.path.abspath("config/sections_html.txt")
-    >>> "COMMUN" in (list(read_sections_from_txt(path).keys()))
-    True
-    """
-    with open(file_path, mode="r") as resource_file:
-        text = resource_file.readlines()
-    dico_sections = {}
-    current_section = None
-    for line in text:
-        if line.startswith("#"):
-            dico_sections[line.split("#")[1].strip()] = ""
-            current_section = line.split("#")[1].strip()
-        else:
-            dico_sections[current_section] = (
-                dico_sections[current_section] + "||" + line
-            )
-    # Get sentences as list for each section
-    dico_sections = {
-        k: [el for el in v.split("||")[1:] if el != "\n"]
-        for k, v in dico_sections.items()
-    }
-    return dico_sections
-
-
 def optimize(
     data: pd.DataFrame,
     datetime_features: List[str] = [],

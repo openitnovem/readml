@@ -7,12 +7,9 @@ import shap
 from readml.explainers.ml.shap_kernel_explainer import ShapKernelExplainer
 from readml.explainers.ml.shap_tree_explainer import ShapTreeExplainer
 from readml.icecream import icecream
-from readml.logger import ROOT_DIR, logger
+from readml.logger import logger
 from readml.resource.output_builders import initialize_dir
 from readml.visualization.plots import interpretation_plots_to_html_report
-
-# Get html sections path
-html_sections = os.path.join(ROOT_DIR, "config/sections_html.txt")
 
 
 class ExplainML:
@@ -101,7 +98,6 @@ class ExplainML:
             path=os.path.join(self.out_path_global, "partial_dependency_plots.html"),
             title="Partial dependency plots ",
             plot_type="PDP",
-            html_sections=html_sections,
         )
 
         logger.info(f"Saving ICE plots in {self.out_path_global}")
@@ -112,7 +108,6 @@ class ExplainML:
             ),
             title="Individual Conditional Expectation (ICE) plots ",
             plot_type="ICE",
-            html_sections=html_sections,
         )
 
         return None
@@ -151,7 +146,6 @@ class ExplainML:
             ),
             title="Accumulated Local Effects (ALE) plots ",
             plot_type="ALE",
-            html_sections=html_sections,
         )
 
         return None
@@ -208,7 +202,6 @@ class ExplainML:
             ),
             title="SHAP feature importance plots",
             plot_type="SHAP",
-            html_sections=html_sections,
         )
 
         return None
