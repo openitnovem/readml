@@ -1,14 +1,18 @@
 from pprint import pformat
+from typing import Dict
 
 import click
-import sklearn
 
 from readml.explainers.core import interpret_dl, interpret_ml
 from readml.logger import logger
-from readml.utils import _parse_and_check_config
 
 
 @click.command()
+@click.option(
+    "--config-values",
+    metavar="",
+    help="Dictionnary of configuration adapted to the type of problematic you need to interpret",
+)
 @click.option(
     "--interpret-type",
     default="mix",
@@ -38,6 +42,7 @@ from readml.utils import _parse_and_check_config
     help="Computes and plots shapely values for global & local explanation. Not needed for DL",
 )
 def interpret(
+    config_values: Dict,
     interpret_type: str = "mix",
     use_ale: bool = True,
     use_pdp_ice: bool = True,
@@ -51,6 +56,9 @@ def interpret(
 
     Parameters
     ----------
+    config_values: Dict
+        Dictionnary values which needs to contain keys and values corresponding to the type of problematic.
+        You can use the template in ./readml/config/ as example to build your dictionnaries.
     interpret_type : str, optional
         Type of interpretability global, local or mix(both). (the default is "mix", which implies
         global and local interpretability)
@@ -71,7 +79,6 @@ def interpret(
     -------
     None
     """
-    config_values = _parse_and_check_config()
     logger.info(f"Configuration settings :\n{pformat(config_values)}")
 
     learning_type = config_values["learning_type"]
