@@ -42,7 +42,6 @@ You can also use the icecream module classes for custom visualizations.
    image_deep_explainer.VisualExplainer
    grad_cam.GradCAM
 
-
 Functions
 ---------
 
@@ -58,10 +57,8 @@ Functions
 .. autosummary::
    :toctree: generated/
 
-   interpret_dl
    interpret_ml
-
-
+   interpret_dl
 
 .. warning::
 
