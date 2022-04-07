@@ -57,7 +57,7 @@ def interpret(
 
     Parameters
     ----------
-    config_values: Dict
+    config_values: Dict[str, str]
         Dictionnary values which needs to contain keys and values corresponding to the type of problematic.
         You can use the template in ./readml/config/ as examples to build your dictionnaries.
     interpret_type : str, optional
