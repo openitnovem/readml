@@ -1,6 +1,7 @@
+import json
 from pprint import pformat
 from typing import Dict
-import json
+
 import click
 
 from readml.explainers.core import interpret_dl, interpret_ml
