@@ -1,13 +1,12 @@
 from typing import Dict
 
-import tensorflow as tf
-
 from readml.explainers.dl.explain_dl import ExplainDL
 from readml.explainers.ml.explain_ml import ExplainML
 from readml.logger import logger
 from readml.resource.data_loader import load_json_resource, load_pickle_resource
 from readml.utils import check_and_load_data, optimize
 
+import tensorflow as tf
 
 def interpret_ml(
     config_values: Dict[str, str],
