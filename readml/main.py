@@ -1,16 +1,19 @@
 import json
 from pprint import pformat
-from typing import Dict
+from typing import Dict, Optional
 
 import click
 
 from readml.explainers.core import interpret_dl, interpret_ml
 from readml.logger import logger
+from readml.utils import _parse_and_check_config
 
 
 @click.command()
 @click.option(
     "--config-values",
+    default=None,
+    show_default=True,
     metavar="",
     help="Dictionnary of configuration adapted to the type of problematic you need to interpret",
 )
@@ -43,7 +46,7 @@ from readml.logger import logger
     help="Computes and plots shapely values for global & local explanation. Not needed for DL",
 )
 def interpret(
-    config_values: Dict[str, str],
+    config_values: Optional[Dict[str, str]] = None,
     interpret_type: str = "mix",
     use_ale: bool = True,
     use_pdp_ice: bool = True,
@@ -57,7 +60,7 @@ def interpret(
 
     Parameters
     ----------
-    config_values: Dict[str, str]
+    config_values: Dict[str, str], optional
         Dictionnary values which needs to contain keys and values corresponding to the type of problematic.
         You can use the template in ./readml/config/ as examples to build your dictionnaries.
     interpret_type : str, optional
@@ -80,7 +83,10 @@ def interpret(
     -------
     None
     """
-    config_values = json.loads(config_values)
+    if config_values is None:
+        config_values = _parse_and_check_config()
+    else:
+        config_values = json.loads(config_values)
     logger.info(f"Configuration settings :\n{pformat(config_values)}")
     learning_type = config_values["learning_type"]
     logger.info(f"Learning type is {learning_type}")
