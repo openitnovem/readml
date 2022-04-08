@@ -10,6 +10,7 @@ from sklearn.datasets import fetch_california_housing
 
 from readml.config import get_interp_env
 from readml.utils import _parse_and_check_config, check_and_load_data, optimize
+from readml.logger import ROOT_DIR
 
 DICT_DTYPES = {
     "MedInc": "float32",
@@ -91,22 +92,50 @@ def test_check_and_load_data():
 
 
 CONFIG_DL_IMAGE = {
-    "model_path": "",
-    "out_path": "",
+    "model_path": "/not/empty",
+    "out_path": "/not/empty",
     "task_name": "classification",
     "learning_type": "DL",
     "data_type": "image",
-    "images_folder_path": "",
+    "images_folder_path": "/not/empty",
     "img_height": 224,
     "img_width": 224,
     "color_mode": "rgb",
 }
 
+LIST_OF_STR_CONFIG_DL_IMAGE = [
+    "[PARAMS]",
+    "dir = /not/empty",
+    "output_path = /not/empty",
+    "model_path = /not/empty",
+    "task_name = classification",
+    "supported_tasks = classification,regression",
+    "",
+    "learning_type = DL",
+    "data_type = image",
+    "",
+    "images_folder_path = /not/empty",
+    "img_height = 224",
+    "img_width  = 224",
+    "color_mode = rgb",
+]
+
+def create_config_local_file():
+    path_to_use = os.path.join(ROOT_DIR, "./config/config_local.cfg")
+    if os.path.exists(path_to_use):
+        os.remove(path_to_use)
+    with open(path_to_use, "a") as file:
+        for line in LIST_OF_STR_CONFIG_DL_IMAGE:
+            file.write(line)
+            file.write("\n")
+
 
 def test_parse_and_check_config():
+    create_config_local_file()
     extract_config = _parse_and_check_config()
     assert extract_config["task_name"] in ["regression", "classification"]
     assert extract_config["learning_type"] in ["ML", "DL"]
     assert extract_config["data_type"] in ["tabular", "text", "image"]
     if get_interp_env() == "local":
         assert list(extract_config.keys()) == list(CONFIG_DL_IMAGE.keys())
+
