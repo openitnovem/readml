@@ -187,6 +187,10 @@ python readml/main.py --help
 Usage: main.py [OPTIONS]
 
 Options:
+  --config-values    Dictionnary of configuration adapted to the type of 
+                     problematic you need to interpret, you must use 
+                     the template [default: None]
+
   --interpret-type   Interpretability type: Choose global, local or mix. Not
                      needed for DL  [default: mix]
 
@@ -201,6 +205,12 @@ Options:
 
   --help             Show this message and exit.
 
+```
+
+This is possible to use the argument ```--config-values``` to use interpret instead of the template. For example, you could try this template adapted to your use case :
+
+```
+python readml/main.py --config-values='{"model_path": "/workspaces/readml/outputs/tests/core/model/model.sav" ,"out_path": "/workspaces/readml/outputs/tests/core/","task_name": "regression","learning_type": "ML","data_type": "tabular","features_to_interpret": "F1,F2","tree_based_model": "True","features_name": "F1,F2,F3","target_col": "target","train_data_path": "/workspaces/readml/outputs/tests/core/data/train.csv","train_data_format": "csv","test_data_path": "/workspaces/readml/outputs/tests/core/data/train.csv","test_data_format": "csv"}'
 ```
 
 ## Documentation
