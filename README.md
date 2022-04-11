@@ -79,13 +79,33 @@ Update required configuration variables located in `readml/config/config_local.c
 
 One way of using the package is to run the `interpret` function which takes care of explaining model behaviour .
 
-You need to update required configuration variables located in `readml/config/config_local.cfg` before.
+You may update required configuration variables located in `readml/config/config_local.cfg` before.
 
 For instance , using **partial dependency plots** for global interpretability on ML model:
 ```python
 from readml.main import interpret
 interpret(interpret_type="global", use_pdp_ice=True, use_ale=False, use_shap=False)
 ```
+
+In the other way, you can give as an input a dictionnary into `interpret` function with the same config keys located in `readml/config/`, as an example, after the run of pytest :
+
+```python
+from readml.main import interpret
+
+config_values = {
+    "model_path": "/workspaces/readml/outputs/tests/dl/model/",
+    "out_path": "/workspaces/readml/outputs/tests/core/",
+    "task_name": "regression",
+    "learning_type": "DL",
+    "data_type": "image",
+    "images_folder_path": "/workspaces/readml/outputs/tests/dl/data_image/",
+    "img_height": "32",
+    "img_width": "32",
+    "color_mode": "rgb"
+}
+interpret(config_values, interpret_type="global")
+```
+
 ### Usage without filling in the config file (by passing data and model directly)
 
 You can also use the package without filling in the configuration file by using the `ExplainML` class which contains 
