@@ -9,7 +9,7 @@ from version import __version__
 DESCRIPTION = "Interpretability DS Package"
 GIT_URL = "https://github.com/openitnovem/readml.git"
 AUTHOR_EMAIL = "readml-dev@gmail.com"
-REQUIREMENTS_PATH = os.path.join("requirements", "requirements_m1.txt")
+REQUIREMENTS_PATH = os.path.join("requirements", "requirements.txt")
 
 here = os.path.abspath(os.path.dirname(__file__))
 
