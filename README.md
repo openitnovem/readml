@@ -86,11 +86,12 @@ For instance , using **partial dependency plots** for global interpretability on
 from readml.main import interpret
 interpret(interpret_type="global", use_pdp_ice=True, use_ale=False, use_shap=False)
 ```
+
 ### Usage without filling in the config file (by passing data and model directly)
 
 You can also use the package without filling in the configuration file by using the `ExplainML` class which contains 
 many methods to explain globally or locally any ML model, or the `ExplainDL` class to explain locally any DL model 
-when applied to tabular, textual or image data.
+when applied to tabular, textual or image data. The notebooks of examples using "readml" on different usecases can be found in the `notebooks/` folder
 
 For instance , using **accumulated local effect plots** for global interpretability of a tree based classification model (`global_ale` method):
 ```python
