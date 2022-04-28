@@ -1,8 +1,10 @@
 import io
 import os
+import re
+from collections import defaultdict
 
 from pkg_resources import parse_requirements
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 from version import __version__
 
@@ -21,8 +23,6 @@ with io.open(REQUIREMENTS_PATH, encoding="utf-8") as f:
     install_requires = [str(requirement) for requirement in parse_requirements(f)]
 
 def get_extra_requires(path, add_all=True):
-    import re
-    from collections import defaultdict
     with open(path) as fp:
         extra_deps = defaultdict(set)
         for k in fp:
@@ -34,13 +34,10 @@ def get_extra_requires(path, add_all=True):
                 tags.add(re.split('[<=>]', k)[0])
                 for t in tags:
                     extra_deps[t].add(k)
-        # add tag `all` at the end
         if add_all:
             extra_deps['all'] = set(vv for v in extra_deps.values() for vv in v)
         print(extra_deps)
     return extra_deps
-
-
 setup(
     name="readml",
     packages=find_packages(),
