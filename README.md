@@ -87,7 +87,8 @@ from readml.main import interpret
 interpret(interpret_type="global", use_pdp_ice=True, use_ale=False, use_shap=False)
 ```
 
-In the other way, you can give as an input a dictionnary into `interpret` function with the same config keys located in `readml/config/`, as an example, after the run of pytest :
+You can also use the `interpret` function without filling in the configuration file. To do so, you need to pass a config dictionary, as additional parameter to the function, with the same config keys located in `readml/config/` (you will find templates for each usecase).
+Here is an example using the outputs of unit tests :
 
 ```python
 from readml.main import interpret
@@ -208,8 +209,7 @@ Usage: main.py [OPTIONS]
 
 Options:
   --config-values    Dictionnary of configuration adapted to the type of 
-                     problematic you need to interpret, you must use 
-                     the template [default: None]
+                     problematic you need to interpret, the templates are available in `readml/config` folder [default: None]
 
   --interpret-type   Interpretability type: Choose global, local or mix. Not
                      needed for DL  [default: mix]
