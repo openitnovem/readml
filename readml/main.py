@@ -15,7 +15,7 @@ from readml.utils import _parse_and_check_config
     default=None,
     show_default=True,
     metavar="",
-    help="Dictionnary of configuration adapted to the type of problematic you need to interpret",
+    help="Dictionnary of configuration adapted to the type of problematic you need to interpret, the templates are available in `readml/config` folder",
 )
 @click.option(
     "--interpret-type",
