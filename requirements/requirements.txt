@@ -42,6 +42,8 @@ defusedxml==0.6.0
     # via nbconvert
 entrypoints==0.3
     # via nbconvert
+flatbuffers==1.12
+    # via tensorflow
 gast==0.3.3
     # via tensorflow
 google-auth-oauthlib==0.4.2
@@ -52,7 +54,7 @@ google-auth==1.24.0
     #   tensorboard
 google-pasta==0.2.0
     # via tensorflow
-grpcio==1.35.0
+grpcio==1.32.0
     # via
     #   tensorboard
     #   tensorflow
@@ -124,7 +126,7 @@ nbformat==5.0.7
     #   notebook
 notebook==6.1.3
     # via widgetsnbextension
-numpy==1.19.1
+numpy==1.19.5
     # via
     #   -r requirements/requirements.in
     #   h5py
@@ -226,7 +228,6 @@ scipy==1.4.1
     # via
     #   scikit-learn
     #   shap
-    #   tensorflow
 send2trash==1.5.0
     # via notebook
 shap==0.35.0
@@ -250,18 +251,19 @@ six==1.15.0
     #   pyrsistent
     #   python-dateutil
     #   retrying
-    #   tensorboard
     #   tensorflow
     #   traitlets
 soupsieve==2.1
     # via beautifulsoup4
+tensorboard-data-server==0.6.1
+    # via tensorboard
 tensorboard-plugin-wit==1.8.0
     # via tensorboard
-tensorboard==2.2.2
+tensorboard==2.8.0
     # via tensorflow
-tensorflow-estimator==2.2.0
+tensorflow-estimator==2.4.0
     # via tensorflow
-tensorflow==2.2.0
+tensorflow==2.4.0
     # via -r requirements/requirements.in
 termcolor==1.1.0
     # via tensorflow
@@ -289,6 +291,8 @@ traitlets==4.3.3
     #   nbconvert
     #   nbformat
     #   notebook
+typing-extensions==3.7.4.3
+    # via tensorflow
 urllib3==1.26.3
     # via requests
 wcwidth==0.2.5

@@ -10,7 +10,7 @@ scikit-learn
 shap
 colorlog
 beautifulsoup4
-tensorflow
+tensorflow==2.4.0
 matplotlib
 opencv-python
 imutils
