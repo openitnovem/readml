@@ -105,7 +105,7 @@ def interpret(
 
 
 if __name__ == "__main__":
-    # After the use of pytest, you can run :
+    # If you want to run a quick test of the CLI command without needing data or model, you can use unit tests outputs (you need to run pytest):
     # For tabular ML : python3 readml/main.py --config-values='{"model_path": "/workspaces/readml/outputs/tests/core/model/model.sav" ,"out_path": "/workspaces/readml/outputs/tests/core/","task_name": "regression","learning_type": "ML","data_type": "tabular","features_to_interpret": "F1,F2","tree_based_model": "True","features_name": "F1,F2,F3","target_col": "target","train_data_path": "/workspaces/readml/outputs/tests/core/data/train.csv","train_data_format": "csv","test_data_path": "/workspaces/readml/outputs/tests/core/data/train.csv","test_data_format": "csv"}'
     # For tabular DL image : python3 readml/main.py --config-values='{"model_path": "/workspaces/readml/outputs/tests/dl/model/","out_path": "/workspaces/readml/outputs/tests/core/","task_name": "regression","learning_type": "DL","data_type": "image","images_folder_path": "/workspaces/readml/outputs/tests/dl/data_image/","img_height": "32","img_width": "32","color_mode": "rgb"}'
     interpret()
