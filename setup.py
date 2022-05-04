@@ -1,8 +1,10 @@
 import io
 import os
+import re
+from collections import defaultdict
 
 from pkg_resources import parse_requirements
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 from version import __version__
 
@@ -10,6 +12,7 @@ DESCRIPTION = "Interpretability DS Package"
 GIT_URL = "https://github.com/openitnovem/readml.git"
 AUTHOR_EMAIL = "readml-dev@gmail.com"
 REQUIREMENTS_PATH = os.path.join("requirements", "requirements.txt")
+EXTRA_REQUIREMENTS_PATH=os.path.join("requirements", "extra-requirements.txt")
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -21,6 +24,22 @@ with io.open(REQUIREMENTS_PATH, encoding="utf-8") as f:
     install_requires = [str(requirement) for requirement in parse_requirements(f)]
     install_requires = conditional_requires + install_requires
 
+def get_extra_requires(path, add_all=True):
+    with open(path) as fp:
+        extra_deps = defaultdict(set)
+        for k in fp:
+            if k.strip() and not k.startswith('#'):
+                tags = set()
+                if '*:*' in k:
+                    k, v = k.split('*:*')
+                    tags.update(vv.strip() for vv in v.split(','))
+                tags.add(re.split('[<=>]', k)[0])
+                for t in tags:
+                    extra_deps[t].add(k)
+        if add_all:
+            extra_deps['all'] = set(vv for v in extra_deps.values() for vv in v)
+        print(extra_deps)
+    return extra_deps
 setup(
     name="readml",
     packages=find_packages(),
@@ -33,5 +52,10 @@ setup(
     author_email=AUTHOR_EMAIL,
     license="Apache Software License 2.0",
     install_requires=install_requires,
+    extras_require=get_extra_requires(EXTRA_REQUIREMENTS_PATH), # inspired by https://hanxiao.io/2019/11/07/A-Better-Practice-for-Managing-extras-require-Dependencies-in-Python/
     python_requires=">=3.6.0",
 )
+
+
+
+
