@@ -6,9 +6,6 @@ from bs4 import BeautifulSoup
 from readml.logger import ROOT_DIR
 from readml.visualization.plots import interpretation_plots_to_html_report
 
-# Get html sections path
-html_sections = os.path.join(ROOT_DIR, "config/sections_html.txt")
-
 
 def test_interpretation_plots_to_html_report() -> None:
     # Create dummy figure to plot as html with available content of sections
@@ -19,7 +16,6 @@ def test_interpretation_plots_to_html_report() -> None:
     header_pdp = "Dummy figure"
     html = interpretation_plots_to_html_report(
         dict_figures,
-        html_sections=html_sections,
         plot_type="PDP",
         title=header_pdp,
         path=out_path,
