@@ -16,8 +16,10 @@ here = os.path.abspath(os.path.dirname(__file__))
 with io.open(os.path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = "\n" + f.read()
 
+conditional_requires = ["pickle5==0.0.11; python_version < '3.8'"] # Pattern : package_name==0.0.00; python_version >= X.X
 with io.open(REQUIREMENTS_PATH, encoding="utf-8") as f:
     install_requires = [str(requirement) for requirement in parse_requirements(f)]
+    install_requires = conditional_requires + install_requires
 
 setup(
     name="readml",
