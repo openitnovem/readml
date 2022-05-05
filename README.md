@@ -79,13 +79,34 @@ Update required configuration variables located in `readml/config/config_local.c
 
 One way of using the package is to run the `interpret` function which takes care of explaining model behaviour .
 
-You need to update required configuration variables located in `readml/config/config_local.cfg` before.
+You may update required configuration variables located in `readml/config/config_local.cfg` before.
 
 For instance , using **partial dependency plots** for global interpretability on ML model:
 ```python
 from readml.main import interpret
 interpret(interpret_type="global", use_pdp_ice=True, use_ale=False, use_shap=False)
 ```
+
+You can also use the `interpret` function without filling in the configuration file. To do so, you need to pass a config dictionary, as additional parameter to the function, with the same config keys located in `readml/config/` (you will find templates for each usecase).
+Here is an example using the outputs of unit tests :
+
+```python
+from readml.main import interpret
+
+config_values = {
+    "model_path": "/workspaces/readml/outputs/tests/dl/model/",
+    "out_path": "/workspaces/readml/outputs/tests/core/",
+    "task_name": "regression",
+    "learning_type": "DL",
+    "data_type": "image",
+    "images_folder_path": "/workspaces/readml/outputs/tests/dl/data_image/",
+    "img_height": "32",
+    "img_width": "32",
+    "color_mode": "rgb"
+}
+interpret(config_values, interpret_type="global")
+```
+
 ### Usage without filling in the config file (by passing data and model directly)
 
 You can also use the package without filling in the configuration file by using the `ExplainML` class which contains 
@@ -187,6 +208,9 @@ python readml/main.py --help
 Usage: main.py [OPTIONS]
 
 Options:
+  --config-values    Dictionnary of configuration adapted to the type of 
+                     problematic you need to interpret, the templates are available in `readml/config` folder [default: None]
+
   --interpret-type   Interpretability type: Choose global, local or mix. Not
                      needed for DL  [default: mix]
 
@@ -201,6 +225,12 @@ Options:
 
   --help             Show this message and exit.
 
+```
+
+This is possible to use the argument ```--config-values``` to use interpret instead of the template. For example, you could try this template adapted to your use case :
+
+```
+python readml/main.py --config-values='{"model_path": "/workspaces/readml/outputs/tests/core/model/model.sav" ,"out_path": "/workspaces/readml/outputs/tests/core/","task_name": "regression","learning_type": "ML","data_type": "tabular","features_to_interpret": "F1,F2","tree_based_model": "True","features_name": "F1,F2,F3","target_col": "target","train_data_path": "/workspaces/readml/outputs/tests/core/data/train.csv","train_data_format": "csv","test_data_path": "/workspaces/readml/outputs/tests/core/data/train.csv","test_data_format": "csv"}'
 ```
 
 ## Documentation

@@ -3,14 +3,15 @@ import os
 
 import cv2
 import numpy as np
+
+from readml.explainers.dl.explain_dl import ExplainDL
+from readml.logger import ROOT_DIR
 import tensorflow as tf
 from tensorflow.keras.applications.vgg16 import VGG16
 from tensorflow.keras.layers import Conv2D, Dense, Dropout, Flatten, Input, MaxPooling2D
 from tensorflow.keras.models import Model, Sequential
 
-from readml.explainers.dl.explain_dl import ExplainDL
-from readml.logger import ROOT_DIR
-
+model_path = os.path.join(ROOT_DIR, "../outputs/tests/dl/model/")
 
 def initialize_directories_dl(out_path, dir_to_create):
     os.chdir(ROOT_DIR)
@@ -75,6 +76,12 @@ def dl_explain_image_rgb():  # data_image_path, output_path_image_dir
     save_image_data(X_train, "cifar")
 
     model = simple_model_image_rgb(X_train, y_train, width, height, channel)
+
+    # To test interpret in readml/main.py with image case
+    if not os.path.exists(model_path):
+        os.makedirs(model_path)
+    model.save(model_path)
+
     exp = ExplainDL(
         model=model,
         out_path=output_path_image_dir,
