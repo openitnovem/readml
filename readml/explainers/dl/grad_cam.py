@@ -122,7 +122,7 @@ class GradCAM:
         heatmap: np.ndarray,
         image: np.ndarray,
         alpha: Optional[float] = 0.5,
-        colormap: Optional[int] = cv2.COLORMAP_VIRIDIS,
+        colormap: Optional[int] = cv2.COLORMAP_PARULA,
     ) -> Tuple[np.ndarray, np.ndarray]:
         """
         Apply the supplied color map to the heatmap and then overlay the heatmap on the
@@ -139,7 +139,7 @@ class GradCAM:
             Alpha channel, used in transparent overlays
         colormap : int, optional
             Colormap to apply to the Guided GRAD-CAM heatmap
-            Default is OpenCV’s built in VIRIDIS colormap (cv2.COLORMAP_VIRIDIS)
+            Default is OpenCV’s built in PARULA colormap (cv2.COLORMAP_PARULA)
 
         Returns
         -------

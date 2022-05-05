@@ -1,0 +1,7 @@
+# FORMAT
+# Put your extra requirements here in the following format
+#
+# package[version_required]*:* tag1, tag2, ...
+
+tensorflow==2.2.0*:* dl, nlp, cv 
+opencv-python==4.5.4.60*:* cv

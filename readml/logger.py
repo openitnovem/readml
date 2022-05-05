@@ -9,7 +9,10 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 def get_logger():
 
     # Create handlers
-    log_path = os.path.join(ROOT_DIR, "../outputs/logs.log")
+    log_directory = os.path.join(ROOT_DIR, "../outputs")
+    log_path = os.path.join(log_directory, "logs.log")
+    if not os.path.exists(log_directory):
+        os.makedirs(log_directory)
     f_handler = logging.FileHandler(log_path)
 
     log_format = "%(asctime)s --- %(name)s --- %(levelname)s --- %(message)s"
