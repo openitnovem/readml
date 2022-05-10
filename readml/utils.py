@@ -12,10 +12,6 @@ from readml.resource.data_loader import (
     load_parquet_resource,
 )
 
-# Get configuration as dict from config_{type_env}.cfg
-config_ = load_cfg_resource(config, f"config_{env}.cfg")
-configuration: dict = {s: dict(config_.items(s)) for s in config_.sections()}
-
 
 def _parse_and_check_config() -> Dict[str, str]:
     """Parse config from cfg file and return dictionnary with keys as config_params
@@ -31,6 +27,9 @@ def _parse_and_check_config() -> Dict[str, str]:
     >>> len(list(conf.keys())) > 0
     True
     """
+    # Get configuration as dict from config_{type_env}.cfg
+    config_ = load_cfg_resource(config, f"config_{env}.cfg")
+    configuration: dict = {s: dict(config_.items(s)) for s in config_.sections()}
     dico_params = {}
     # Get model path as pickle (if ML) or h5 (if DL)
     dico_params["model_path"] = configuration["PARAMS"]["model_path"]
@@ -45,13 +44,13 @@ def _parse_and_check_config() -> Dict[str, str]:
     learning_type = dico_params["learning_type"]
     data_type = dico_params["data_type"]
     if learning_type == "ML" and data_type == "tabular":
-        dico_params = _parse_conf_ml_tab(dico_params)
+        dico_params = _parse_conf_ml_tab(dico_params, configuration)
     elif learning_type == "DL" and data_type == "tabular":
-        dico_params = _parse_conf_dl_tab(dico_params)
+        dico_params = _parse_conf_dl_tab(dico_params, configuration)
     elif learning_type == "DL" and data_type == "text":
-        dico_params = _parse_conf_dl_text(dico_params)
+        dico_params = _parse_conf_dl_text(dico_params, configuration)
     elif learning_type == "DL" and data_type == "image":
-        dico_params = _parse_conf_dl_image(dico_params)
+        dico_params = _parse_conf_dl_image(dico_params, configuration)
 
     # Sanity check
     mandatory_conf = [
@@ -89,7 +88,7 @@ def _parse_and_check_config() -> Dict[str, str]:
     return dico_params
 
 
-def _parse_conf_ml_tab(dico_params: Dict[str, str]) -> Dict[str, str]:
+def _parse_conf_ml_tab(dico_params: Dict[str, str], configuration) -> Dict[str, str]:
     dico_params = _parse_conf_dl_tab(dico_params)
     # Get features to interpret as list
     dico_params["features_to_interpret"] = configuration["PARAMS"][
@@ -100,21 +99,21 @@ def _parse_conf_ml_tab(dico_params: Dict[str, str]) -> Dict[str, str]:
     return dico_params
 
 
-def _parse_conf_dl_tab(dico_params: Dict[str, str]) -> Dict[str, str]:
+def _parse_conf_dl_tab(dico_params: Dict[str, str], configuration) -> Dict[str, str]:
     dico_params = _parse_tab_and_text(dico_params)
     # Get features name as list
     dico_params["features_name"] = configuration["PARAMS"]["features_name"]
     return dico_params
 
 
-def _parse_conf_dl_text(dico_params: Dict[str, str]) -> Dict[str, str]:
+def _parse_conf_dl_text(dico_params: Dict[str, str], configuration) -> Dict[str, str]:
     dico_params = _parse_tab_and_text(dico_params)
     # Get word2index path name as list
     dico_params["word2index_path"] = configuration["PARAMS"]["word2index_path"]
     return dico_params
 
 
-def _parse_tab_and_text(dico_params: Dict[str, str]) -> Dict[str, str]:
+def _parse_tab_and_text(dico_params: Dict[str, str], configuration) -> Dict[str, str]:
     # Get train data path as csv / parquet
     dico_params["train_data_path"] = configuration["PARAMS"]["train_data_path"]
     # Get train data format to load the data
@@ -128,7 +127,7 @@ def _parse_tab_and_text(dico_params: Dict[str, str]) -> Dict[str, str]:
     return dico_params
 
 
-def _parse_conf_dl_image(dico_params: Dict[str, str]) -> Dict[str, str]:
+def _parse_conf_dl_image(dico_params: Dict[str, str], configuration) -> Dict[str, str]:
     # Get images folder path as str
     dico_params["images_folder_path"] = configuration["PARAMS"]["images_folder_path"]
     # Get image size and color mode
@@ -155,6 +154,7 @@ def check_and_load_data(data_path: str, data_format: str, data_type: str):
     else:
         data = load_json_resource(data_path)
     return data
+
 
 def optimize(
     data: pd.DataFrame,

@@ -57,8 +57,8 @@ Functions
 .. autosummary::
    :toctree: generated/
 
-   interpret_ml
    interpret_dl
+   interpret_ml
 
 .. warning::
 

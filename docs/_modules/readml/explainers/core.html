@@ -68,7 +68,6 @@
   <h1>Source code for readml.explainers.core</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
 
-<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 
 <span class="kn">from</span> <span class="nn">readml.explainers.dl.explain_dl</span> <span class="kn">import</span> <span class="n">ExplainDL</span>
 <span class="kn">from</span> <span class="nn">readml.explainers.ml.explain_ml</span> <span class="kn">import</span> <span class="n">ExplainML</span>
@@ -76,6 +75,7 @@
 <span class="kn">from</span> <span class="nn">readml.resource.data_loader</span> <span class="kn">import</span> <span class="n">load_json_resource</span><span class="p">,</span> <span class="n">load_pickle_resource</span>
 <span class="kn">from</span> <span class="nn">readml.utils</span> <span class="kn">import</span> <span class="n">check_and_load_data</span><span class="p">,</span> <span class="n">optimize</span>
 
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 
 <div class="viewcode-block" id="interpret_ml"><a class="viewcode-back" href="../../../api_reference/generated/readml.explainers.core.interpret_ml.html#readml.explainers.core.interpret_ml">[docs]</a><span class="k">def</span> <span class="nf">interpret_ml</span><span class="p">(</span>
     <span class="n">config_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>

@@ -55,6 +55,8 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/readml.main.interpret.html">readml.main.interpret</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/readml.explainers.core.interpret_dl.html">readml.explainers.core.interpret_dl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/readml.explainers.core.interpret_ml.html">readml.explainers.core.interpret_ml</a></li>
 </ul>
 </li>
 </ul>
@@ -117,7 +119,7 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/readml.icecream.IceCream.html#readml.icecream.IceCream" title="readml.icecream.IceCream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IceCream</span></code></a>(data,&nbsp;feature_names,&nbsp;bins,&nbsp;...)</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/readml.icecream.IceCream.html#readml.icecream.IceCream" title="readml.icecream.IceCream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IceCream</span></code></a>(data,&nbsp;feature_names,&nbsp;bins,&nbsp;...[,&nbsp;...])</td>
 <td>Class that generates and contains predictions and aggregations used to draw PDPlots, ICE plots and ALE plots.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="generated/readml.icecream.IceCream2D.html#readml.icecream.IceCream2D" title="readml.icecream.IceCream2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IceCream2D</span></code></a>(data,&nbsp;feature_x,&nbsp;feature_y,&nbsp;...)</td>
@@ -160,6 +162,20 @@
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="generated/readml.main.interpret.html#readml.main.interpret" title="readml.main.interpret"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interpret</span></code></a></td>
 <td>Interpret any model (ML &amp; DL).</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/readml.explainers.core.interpret_dl.html#readml.explainers.core.interpret_dl" title="readml.explainers.core.interpret_dl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interpret_dl</span></code></a>(config_values,&nbsp;str])</td>
+<td>Interpret locally any DL model based on user configuration from the file located in config/config_{type_env}.cfg Outputs are saved in the given output path from the config file.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/readml.explainers.core.interpret_ml.html#readml.explainers.core.interpret_ml" title="readml.explainers.core.interpret_ml"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interpret_ml</span></code></a>(config_values,&nbsp;str],&nbsp;...)</td>
+<td>Interpret locally, globally or both any ML model using PDP, ICE, ALE &amp; SHAP.</td>
 </tr>
 </tbody>
 </table>
