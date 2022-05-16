@@ -57,19 +57,18 @@ class TextExplainer:
         num2word = {}
         for word in words.keys():
             num2word[words[word]] = word
-        x_test_words = np.stack(
-            [
-                np.array(list(map(lambda x: num2word.get(x, "NONE"), x_test[i])))
-                for i in range(len(x_test))
-            ]
-        )
+        num2word_values = sorted(num2word.values())
+        x_test_words = np.array([
+            num2word_values
+            for i in range(len(x_test))
+        ])
         list_figs = []
         for obs_idx in range(0, len(x_test)):
             logger.info(
                 f"Computing SHAP individual plots for {obs_idx + 1}th observation"
             )
             local_fig = shap.force_plot(
-                explainer.expected_value,
+                explainer.expected_value[0].numpy(),
                 shap_values[0][obs_idx],
                 x_test_words[obs_idx],
                 link="logit",

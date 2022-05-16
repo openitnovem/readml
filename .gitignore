@@ -9,7 +9,7 @@ dist/
 readml.egg-info/
 build/
 .ipynb_checkpoints/
-*.ipynb
+#*.ipynb
 .DS_Store
 meta_build.json
 sonar-project.properties
@@ -33,6 +33,7 @@ outputs/tests/
 outputs/tests/data/
 outputs_ml/
 outputs_dl/
+outputs/notebooks
 
 # test coverage
 htmlcov/
