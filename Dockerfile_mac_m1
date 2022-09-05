@@ -35,8 +35,8 @@ RUN apt-get update \
 
 
 RUN apt-get update \
-    && apt-get -y install --no-install-recommends python3-wheel libssl-dev libhdf5-dev pkg-config protobuf-compiler cython3 \
-    && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+&& apt-get -y install --no-install-recommends python3-wheel libssl-dev libhdf5-dev pkg-config protobuf-compiler cython3 \ 
+&& apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install --upgrade pip 
 RUN pip3 install --no-cache-dir setuptools==54.0.0
