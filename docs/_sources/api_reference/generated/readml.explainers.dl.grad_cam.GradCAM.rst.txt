@@ -1,4 +1,4 @@
-﻿readml.explainers.dl.grad\_cam.GradCAM
+readml.explainers.dl.grad\_cam.GradCAM
 ======================================
 
 .. currentmodule:: readml.explainers.dl.grad_cam

@@ -5,13 +5,12 @@ from typing import Dict
 import plotly.graph_objs as go
 import plotly.offline as pyo
 
-from readml.utils import read_sections_from_txt
+from readml.config.sections_html import SECTIONS_HTML
 
 
 def interpretation_plots_to_html_report(
     dic_figs: Dict[str, go.FigureWidget],
     path: str,
-    html_sections: str,
     plot_type: str,
     title: str = "",
 ):
@@ -23,10 +22,8 @@ def interpretation_plots_to_html_report(
             Dict of plotly figures to be saved
         - path (str):
             Path to write html file
-        - html_sections (str):
-            Path to the text file that contains html reports sections (config/sections_html.txt)
         - plot_type (str):
-            Must be the same as the title of the plot section in html_sections
+            Must be in ["COMMUN", "PDP", "ICE", "ALE", "SHAP]
         - title (str):
             Title of the html report
 
@@ -35,7 +32,7 @@ def interpretation_plots_to_html_report(
     """
     figs = list(dic_figs.values())
     titles = list(dic_figs.keys())
-    dico_sections = read_sections_from_txt(html_sections)
+    dico_sections = SECTIONS_HTML
     add_js = True
 
     html = """<html><head><meta charset="utf-8"/><style>

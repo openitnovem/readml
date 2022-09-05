@@ -42,7 +42,6 @@ You can also use the icecream module classes for custom visualizations.
    image_deep_explainer.VisualExplainer
    grad_cam.GradCAM
 
-
 Functions
 ---------
 
@@ -60,8 +59,6 @@ Functions
 
    interpret_dl
    interpret_ml
-
-
 
 .. warning::
 

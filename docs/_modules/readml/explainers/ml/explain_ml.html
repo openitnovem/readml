@@ -75,12 +75,9 @@
 <span class="kn">from</span> <span class="nn">readml.explainers.ml.shap_kernel_explainer</span> <span class="kn">import</span> <span class="n">ShapKernelExplainer</span>
 <span class="kn">from</span> <span class="nn">readml.explainers.ml.shap_tree_explainer</span> <span class="kn">import</span> <span class="n">ShapTreeExplainer</span>
 <span class="kn">from</span> <span class="nn">readml.icecream</span> <span class="kn">import</span> <span class="n">icecream</span>
-<span class="kn">from</span> <span class="nn">readml.logger</span> <span class="kn">import</span> <span class="n">ROOT_DIR</span><span class="p">,</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">readml.logger</span> <span class="kn">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">readml.resource.output_builders</span> <span class="kn">import</span> <span class="n">initialize_dir</span>
 <span class="kn">from</span> <span class="nn">readml.visualization.plots</span> <span class="kn">import</span> <span class="n">interpretation_plots_to_html_report</span>
-
-<span class="c1"># Get html sections path</span>
-<span class="n">html_sections</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ROOT_DIR</span><span class="p">,</span> <span class="s2">&quot;config/sections_html.txt&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="ExplainML"><a class="viewcode-back" href="../../../../api_reference/generated/readml.explainers.ml.explain_ml.ExplainML.html#readml.explainers.ml.explain_ml.ExplainML">[docs]</a><span class="k">class</span> <span class="nc">ExplainML</span><span class="p">:</span>
@@ -169,7 +166,6 @@
             <span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_path_global</span><span class="p">,</span> <span class="s2">&quot;partial_dependency_plots.html&quot;</span><span class="p">),</span>
             <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Partial dependency plots &quot;</span><span class="p">,</span>
             <span class="n">plot_type</span><span class="o">=</span><span class="s2">&quot;PDP&quot;</span><span class="p">,</span>
-            <span class="n">html_sections</span><span class="o">=</span><span class="n">html_sections</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving ICE plots in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_path_global</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -180,7 +176,6 @@
             <span class="p">),</span>
             <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Individual Conditional Expectation (ICE) plots &quot;</span><span class="p">,</span>
             <span class="n">plot_type</span><span class="o">=</span><span class="s2">&quot;ICE&quot;</span><span class="p">,</span>
-            <span class="n">html_sections</span><span class="o">=</span><span class="n">html_sections</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="kc">None</span>
@@ -219,7 +214,6 @@
             <span class="p">),</span>
             <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Accumulated Local Effects (ALE) plots &quot;</span><span class="p">,</span>
             <span class="n">plot_type</span><span class="o">=</span><span class="s2">&quot;ALE&quot;</span><span class="p">,</span>
-            <span class="n">html_sections</span><span class="o">=</span><span class="n">html_sections</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="kc">None</span>
@@ -276,7 +270,6 @@
             <span class="p">),</span>
             <span class="n">title</span><span class="o">=</span><span class="s2">&quot;SHAP feature importance plots&quot;</span><span class="p">,</span>
             <span class="n">plot_type</span><span class="o">=</span><span class="s2">&quot;SHAP&quot;</span><span class="p">,</span>
-            <span class="n">html_sections</span><span class="o">=</span><span class="n">html_sections</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="kc">None</span>

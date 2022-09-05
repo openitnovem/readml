@@ -1,4 +1,4 @@
-﻿readml.explainers.dl.image\_deep\_explainer.VisualExplainer
+readml.explainers.dl.image\_deep\_explainer.VisualExplainer
 ===========================================================
 
 .. currentmodule:: readml.explainers.dl.image_deep_explainer

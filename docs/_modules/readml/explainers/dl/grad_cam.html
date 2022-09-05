@@ -190,7 +190,7 @@
         <span class="n">heatmap</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">alpha</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
-        <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLORMAP_VIRIDIS</span><span class="p">,</span>
+        <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLORMAP_PARULA</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Apply the supplied color map to the heatmap and then overlay the heatmap on the</span>
@@ -207,7 +207,7 @@
 <span class="sd">            Alpha channel, used in transparent overlays</span>
 <span class="sd">        colormap : int, optional</span>
 <span class="sd">            Colormap to apply to the Guided GRAD-CAM heatmap</span>
-<span class="sd">            Default is OpenCV’s built in VIRIDIS colormap (cv2.COLORMAP_VIRIDIS)</span>
+<span class="sd">            Default is OpenCV’s built in PARULA colormap (cv2.COLORMAP_PARULA)</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
