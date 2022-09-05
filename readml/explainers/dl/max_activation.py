@@ -353,7 +353,7 @@ class MaxActivation:
             f.write(desired_io.read())
         """
         nb_images_per_filter = len(next(iter(max_activations.items()))[1])
-        fig_subplot_nrows = int(np.ceil(np.sqrt(nb_images_per_filter))) # type: ignore
+        fig_subplot_nrows = int(np.ceil(np.sqrt(nb_images_per_filter)))  + 1  # type: ignore
         fig_subplot_ncols = fig_subplot_nrows
 
         all_layer_io = []
@@ -369,10 +369,11 @@ class MaxActivation:
                         fig_subplot_ncols,
                         index + 1,
                     )
-                    ax.imshow(
-                        max_activations[layer_id][channel_id]["input"][index],
-                        **kwargs,
-                    )
+                    if 0 not in max_activations[layer_id][channel_id]["input"][index]:
+                        ax.imshow(
+                            max_activations[layer_id][channel_id]["input"][index],
+                            **kwargs,
+                        )
                     ax.get_xaxis().set_visible(False)
                     ax.get_yaxis().set_visible(False)
                 b = io.BytesIO()
