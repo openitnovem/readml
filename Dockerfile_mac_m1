@@ -35,7 +35,7 @@ RUN apt-get update \
 
 
 RUN apt-get update \
-&& apt-get -y install --no-install-recommends lpython3-wheel libssl-dev ibhdf5-dev pkg-config protobuf-compiler cython3 \ 
+&& apt-get -y install --no-install-recommends python3-wheel libssl-dev libhdf5-dev pkg-config protobuf-compiler cython3 \ 
 && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install --upgrade pip 
