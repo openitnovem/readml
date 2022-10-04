@@ -183,10 +183,9 @@ Since we are dealing with text data, we have to provide the word2index mapping. 
 </div>
 <div class="section" id="grad-cam-for-dl-models-on-image-data">
 <h2>GRAD-CAM for DL models on image data<a class="headerlink" href="#grad-cam-for-dl-models-on-image-data" title="Permalink to this headline">¶</a></h2>
-<img alt="../_images/guided_grad_cam.png" src="../_images/guided_grad_cam.png" />
 <p>GRAD-CAM (Gradient-weighted Class Activation Mapping) is a generalization of the Class Activation Mapping (CAM) to any CNN-based architectures.
-For a particular category, this method generates a map that indicates the discriminative image regions used by the CNN to identify that category.
-For more details on GRAD-CAM, we recommend to read the original <a class="reference external" href="https://arxiv.org/pdf/1610.02391v1.pdf">paper</a> .</p>
+For a particular category, this method generates a map that indicates the discriminative image regions used by the CNN to identify that category.</p>
+<p>For more details on GRAD-CAM, we recommend to read the original <a class="reference external" href="https://arxiv.org/pdf/1610.02391v1.pdf">paper</a> .</p>
 <p>Here is an example of using <code class="docutils literal notranslate"><span class="pre">ExplainDL</span></code> class form <code class="docutils literal notranslate"><span class="pre">readml.explainers.dl.explain_dl</span></code> to interpret locally a CNN applied to image data</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">readml.explainers.dl.explain_dl</span> <span class="kn">import</span> <span class="n">ExplainDL</span>
 <span class="n">exp</span> <span class="o">=</span> <span class="n">ExplainDL</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">cnn_model</span><span class="p">,</span> <span class="n">out_path</span><span class="o">=</span><span class="s2">&quot;outputs_dl_image/&quot;</span><span class="p">)</span>

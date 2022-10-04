@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 GroupeSNCF 
+#
+# SPDX-License-Identifier: Apache-2.0
+
 from typing import Any, Optional, Tuple
 
 import cv2
@@ -8,7 +12,7 @@ from tensorflow.keras.models import Model
 
 class GradCAM:
     """
-    Allows to explain a DL model predictions on image data.
+    Allows to explain a DL model predictions on image data. Inspired by https://keras.io/examples/vision/grad_cam/
 
     Attributes
     ----------

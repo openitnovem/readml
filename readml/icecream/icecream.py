@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 GroupeSNCF 
+#
+# SPDX-License-Identifier: Apache-2.0
+
 """
 FBDTools library - icecream package
 This module contains the main class that prepares data and draws PD/ICE/ALE plots.

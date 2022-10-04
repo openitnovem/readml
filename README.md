@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2022 GroupeSNCF 
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
 # ReadML : Easier Explainability in python
 
 ![Logo](/doc/source/_static/logo_readml.png)

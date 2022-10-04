@@ -1,3 +1,7 @@
+.. SPDX-FileCopyrightText: 2022 GroupeSNCF 
+..
+.. SPDX-License-Identifier: Apache-2.0
+
 .. fbd_tools_doc documentation master file, created by
    sphinx-quickstart on Mon Jan 16 13:01:01 2017.
    You can adapt this file completely to your liking, but it should at least

@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 GroupeSNCF 
+#
+# SPDX-License-Identifier: Apache-2.0
+
 from __future__ import print_function
 
 from typing import Any, Dict, List

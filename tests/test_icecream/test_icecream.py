@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 GroupeSNCF 
+#
+# SPDX-License-Identifier: Apache-2.0
+
 import pandas as pd
 
 from readml.icecream.icecream import IceCream

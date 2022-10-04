@@ -1,3 +1,7 @@
+.. SPDX-FileCopyrightText: 2022 GroupeSNCF 
+..
+.. SPDX-License-Identifier: Apache-2.0
+
 Local interpretability in a nutshell
 ====================================
 
@@ -108,10 +112,10 @@ Since we are dealing with text data, we have to provide the word2index mapping. 
 
 GRAD-CAM for DL models on image data
 ------------------------------------
-.. image:: ../_static/guided_grad_cam.png
 
 GRAD-CAM (Gradient-weighted Class Activation Mapping) is a generalization of the Class Activation Mapping (CAM) to any CNN-based architectures.
 For a particular category, this method generates a map that indicates the discriminative image regions used by the CNN to identify that category.
+
 For more details on GRAD-CAM, we recommend to read the original paper_ .
 
 Here is an example of using ``ExplainDL`` class form ``readml.explainers.dl.explain_dl`` to interpret locally a CNN applied to image data ::

@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 GroupeSNCF 
+#
+# SPDX-License-Identifier: Apache-2.0
+
 """
 FBDTools library - icecream package
 This module helps discretize features for icecream.

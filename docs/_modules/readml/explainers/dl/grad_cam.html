@@ -66,7 +66,11 @@
            <div itemprop="articleBody">
              
   <h1>Source code for readml.explainers.dl.grad_cam</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+<span></span><span class="c1"># SPDX-FileCopyrightText: 2022 GroupeSNCF </span>
+<span class="c1">#</span>
+<span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">cv2</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -76,7 +80,7 @@
 
 <div class="viewcode-block" id="GradCAM"><a class="viewcode-back" href="../../../../api_reference/generated/readml.explainers.dl.grad_cam.GradCAM.html#readml.explainers.dl.grad_cam.GradCAM">[docs]</a><span class="k">class</span> <span class="nc">GradCAM</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Allows to explain a DL model predictions on image data.</span>
+<span class="sd">    Allows to explain a DL model predictions on image data. Inspired by https://keras.io/examples/vision/grad_cam/</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>

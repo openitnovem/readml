@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 GroupeSNCF 
+#
+# SPDX-License-Identifier: Apache-2.0
+
 SECTIONS_HTML = {
     "COMMUN": [
         "Global interpretability consists in understanding and explaining the learning of the model. This step is essential because it allows the model to be debugged, biases to be detected, and the decisions of the model to be trusted once in production...\n",

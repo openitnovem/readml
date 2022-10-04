@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 GroupeSNCF 
+#
+# SPDX-License-Identifier: Apache-2.0
+
 absl-py==0.15.0
 alabaster==0.7.8
 argcomplete==1.12.3
